@@ -43,17 +43,26 @@ public class Deflector
 
     private bool IsAsteroidsDestroyDeflector()
     {
+        const uint class1DeflectorCapacitySmallAsteroids = 2;
+        const uint class1DeflectorCapacityBigAsteroids = 1;
+
+        const uint class2DeflectorCapacitySmallAsteroids = 10;
+        const uint class2DeflectorCapacityBigAsteroids = 3;
+
+        const uint class3DeflectorCapacitySmallAsteroids = 40;
+        const uint class3DeflectorCapacityBigAsteroids = 10;
+
         switch (_deflectorClass)
         {
             case DeflectorClass.Class1:
-                if (_smallAsteroidCounter == 2 || _bigAsteroidCounter == 1)
+                if (_smallAsteroidCounter == class1DeflectorCapacitySmallAsteroids || _bigAsteroidCounter == class1DeflectorCapacityBigAsteroids)
                 {
                     return true;
                 }
 
                 break;
             case DeflectorClass.Class2:
-                if (_smallAsteroidCounter == 10 || _bigAsteroidCounter == 3)
+                if (_smallAsteroidCounter == class2DeflectorCapacitySmallAsteroids || _bigAsteroidCounter == class2DeflectorCapacityBigAsteroids)
                 {
                     return true;
                 }
@@ -62,7 +71,7 @@ public class Deflector
 
             // place for space whale!!!!
             case DeflectorClass.Class3:
-                if (_smallAsteroidCounter == 40 || _bigAsteroidCounter == 10)
+                if (_smallAsteroidCounter == class3DeflectorCapacitySmallAsteroids || _bigAsteroidCounter == class3DeflectorCapacityBigAsteroids)
                 {
                     return true;
                 }
