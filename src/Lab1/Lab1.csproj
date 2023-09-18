@@ -5,4 +5,10 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
+
+
+    <ItemGroup>
+      <Folder Include="Environment\" />
+    </ItemGroup>
+
 </Project>

@@ -1,4 +1,4 @@
-namespace Itmo.ObjectOrientedProgramming.Lab1;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Engine;
 
 public enum EngineClass
 {

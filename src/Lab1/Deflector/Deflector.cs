@@ -1,4 +1,6 @@
-namespace Itmo.ObjectOrientedProgramming.Lab1;
+using Itmo.ObjectOrientedProgramming.Lab1.Asteroid;
+
+namespace Itmo.ObjectOrientedProgramming.Lab1.Deflector;
 
 public class Deflector
 {
@@ -14,6 +16,9 @@ public class Deflector
         _deflectorClass = deflectorClass;
         _isEnable = false;
         _isModified = isModified;
+
+        _smallAsteroidCounter = 0;
+        _bigAsteroidCounter = 0;
     }
 
     public uint SmallAsteroidCounter { get; init; }
@@ -77,6 +82,7 @@ public class Deflector
                 }
 
                 break;
+
             default:
                 return false;
         }
