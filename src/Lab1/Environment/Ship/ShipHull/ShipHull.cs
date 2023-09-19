@@ -1,38 +1,51 @@
 using System;
 using Itmo.ObjectOrientedProgramming.Lab1.Asteroid;
+using Itmo.ObjectOrientedProgramming.Lab1.ShipHull;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.ShipHull;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.ShipHull;
 
 public class ShipHull
 {
     private readonly ShipHullType _shipHullType;
+    private readonly Deflector.Deflector _deflector;
+    private readonly Engine.Engine _engine;
 
     private uint _smallAsteroidCounter;
     private uint _bigAsteroidCounter;
     private bool _isDestroyed;
-    private Engine.Engine _engine;
-
-    public ShipHull(ShipHullType shipHullClass, Engine.Engine engine)
+    public ShipHull(ShipHullType shipHullType, Engine.Engine engine, Deflector.Deflector deflector)
     {
-        if (engine == null)
-        {
-            throw new ArgumentException("Engine is a null!");
-        }
-
-        _engine = engine;
+        _deflector = deflector ?? throw new ArgumentException("Deflector is a null! Cannot initialize ShipHull by empty Deflector!");
+        _engine = engine ?? throw new ArgumentException("Engine is a null! Cannot initialize ShipHull by empty Engine");
 
         _smallAsteroidCounter = 0;
         _bigAsteroidCounter = 0;
 
         _isDestroyed = false;
-        _shipHullType = shipHullClass;
+        _shipHullType = shipHullType;
     }
 
     public void TakeDamage(ObstacleType obstacleType)
     {
-        const uint oneAsteroidNumber = 1;
+        if (DeflectorIsEnable())
+        {
+            RedirectDamageToDeflector(obstacleType: obstacleType);
+        }
+        else
+        {
+            const uint numberOfAsteroids = 1;
+            IncrementAsteroidCounter(incrementNumber: numberOfAsteroids, obstacleType: obstacleType);
+        }
+    }
 
-        IncrementAsteroidCounter(incrementNumber: oneAsteroidNumber, obstacleType: obstacleType);
+    private bool DeflectorIsEnable()
+    {
+        return _deflector.IsEnable;
+    }
+
+    private void RedirectDamageToDeflector(ObstacleType obstacleType)
+    {
+        _deflector.TakeDamage(obstacleType);
     }
 
     private void CheckBigAsteroidDamage()

@@ -1,20 +1,19 @@
 using Itmo.ObjectOrientedProgramming.Lab1.Asteroid;
+using Itmo.ObjectOrientedProgramming.Lab1.Deflector;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Deflector;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Deflector;
 
 public class Deflector
 {
     private readonly DeflectorType _deflectorClass;
     private uint _smallAsteroidCounter;
     private uint _bigAsteroidCounter;
-    private bool _isEnable;
     private bool _isModified;
 
     // field for spaceWhale
     public Deflector(DeflectorType deflectorType, bool isModified)
     {
         _deflectorClass = deflectorType;
-        _isEnable = false;
         _isModified = isModified;
 
         _smallAsteroidCounter = 0;
@@ -23,6 +22,7 @@ public class Deflector
 
     public uint SmallAsteroidCounter { get; init; }
     public uint BigAsteroidCounter { get; init; }
+    public bool IsEnable { get; private set; }
 
     public void TakeDamage(ObstacleType obstacleType)
     {
@@ -42,7 +42,7 @@ public class Deflector
     {
         if (IsAsteroidsDestroyDeflector())
         {
-            _isEnable = false;
+            IsEnable = false;
         }
     }
 
@@ -92,7 +92,7 @@ public class Deflector
 
     private void IncrementSmallAsteroidCounter(uint incrementNumber)
     {
-        if (_isEnable)
+        if (IsEnable)
         {
             _smallAsteroidCounter += incrementNumber;
         }
@@ -102,7 +102,7 @@ public class Deflector
 
     private void IncrementBigAsteroidCounter(uint incrementNumber)
     {
-        if (_isEnable)
+        if (IsEnable)
         {
             _bigAsteroidCounter += incrementNumber;
         }
