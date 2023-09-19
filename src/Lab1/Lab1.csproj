@@ -7,8 +7,5 @@
 
 
 
-    <ItemGroup>
-      <Folder Include="Environment\" />
-    </ItemGroup>
 
 </Project>

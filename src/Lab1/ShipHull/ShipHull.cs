@@ -5,10 +5,11 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.ShipHull;
 
 public class ShipHull
 {
+    private readonly ShipHullClass _shipHullClass;
+
     private uint _smallAsteroidCounter;
     private uint _bigAsteroidCounter;
     private bool _isDestroyed;
-    private ShipHullClass _shipHullClass;
     private Engine.Engine _engine;
 
     public ShipHull(ShipHullClass shipHullClass, Engine.Engine engine)
