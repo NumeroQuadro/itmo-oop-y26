@@ -5,4 +5,5 @@ public enum EnvironmentType
     Space,
     HighDensityNebula,
     NeutrinoParticleNebula,
+    Spawn,
 }
