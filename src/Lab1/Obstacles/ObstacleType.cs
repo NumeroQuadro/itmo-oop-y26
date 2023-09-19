@@ -1,7 +1,9 @@
 namespace Itmo.ObjectOrientedProgramming.Lab1.Asteroid;
 
-public enum MeteoroidType
+public enum ObstacleType
 {
     Meteor,
     SmallAsteroid,
+    DustingOfAntiMatter,
+    SpaceWhale,
 }

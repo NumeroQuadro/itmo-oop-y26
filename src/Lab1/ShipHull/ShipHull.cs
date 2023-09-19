@@ -28,11 +28,11 @@ public class ShipHull
         _shipHullType = shipHullClass;
     }
 
-    public void TakeDamage(MeteoroidType meteoroidType)
+    public void TakeDamage(ObstacleType obstacleType)
     {
         const uint oneAsteroidNumber = 1;
 
-        IncrementAsteroidCounter(incrementNumber: oneAsteroidNumber, meteoroidType: meteoroidType);
+        IncrementAsteroidCounter(incrementNumber: oneAsteroidNumber, obstacleType: obstacleType);
     }
 
     private void CheckBigAsteroidDamage()
@@ -98,11 +98,11 @@ public class ShipHull
         }
     }
 
-    private void IncrementAsteroidCounter(uint incrementNumber, MeteoroidType meteoroidType)
+    private void IncrementAsteroidCounter(uint incrementNumber, ObstacleType obstacleType)
     {
         if (!_isDestroyed)
         {
-            if (meteoroidType == MeteoroidType.Meteor)
+            if (obstacleType == ObstacleType.Meteor)
             {
                 _bigAsteroidCounter += incrementNumber;
                 CheckBigAsteroidDamage();

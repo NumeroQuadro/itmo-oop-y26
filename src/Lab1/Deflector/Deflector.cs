@@ -24,11 +24,11 @@ public class Deflector
     public uint SmallAsteroidCounter { get; init; }
     public uint BigAsteroidCounter { get; init; }
 
-    public void TakeDamage(MeteoroidType meteoroidType)
+    public void TakeDamage(ObstacleType obstacleType)
     {
         const uint oneAsteroidNumber = 1;
 
-        if (meteoroidType == MeteoroidType.SmallAsteroid)
+        if (obstacleType == ObstacleType.SmallAsteroid)
         {
             IncrementSmallAsteroidCounter(oneAsteroidNumber);
         }
