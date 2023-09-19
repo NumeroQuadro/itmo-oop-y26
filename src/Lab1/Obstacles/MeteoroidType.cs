@@ -1,7 +1,7 @@
 namespace Itmo.ObjectOrientedProgramming.Lab1.Asteroid;
 
-public enum AsteroidClass
+public enum MeteoroidType
 {
-    Big,
-    Small,
+    Meteor,
+    SmallAsteroid,
 }

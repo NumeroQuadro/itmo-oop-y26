@@ -6,7 +6,7 @@ public class Engine
     public uint CurrentFuelLevel { get; private set; }
     public uint FuelWasteStart { get; init; }
     public uint MaximalSpeed { get; init; }
-    public EngineClass EngineClass { get; init; }
+    public EngineType EngineType { get; init; }
 
     public void WasteFuelForTransportation(uint astronomicalUnits)
     {

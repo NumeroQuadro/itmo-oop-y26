@@ -1,6 +1,6 @@
 namespace Itmo.ObjectOrientedProgramming.Lab1.Engine;
 
-public enum EngineClass
+public enum EngineType
 {
     ImpulseClassC,
     ImpulseClassE,

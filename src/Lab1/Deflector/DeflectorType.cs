@@ -1,6 +1,6 @@
 namespace Itmo.ObjectOrientedProgramming.Lab1.Deflector;
 
-public enum DeflectorClass
+public enum DeflectorType
 {
     Class1,
     Class2,

@@ -4,16 +4,16 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Deflector;
 
 public class Deflector
 {
-    private readonly DeflectorClass _deflectorClass;
+    private readonly DeflectorType _deflectorClass;
     private uint _smallAsteroidCounter;
     private uint _bigAsteroidCounter;
     private bool _isEnable;
     private bool _isModified;
 
     // field for spaceWhale
-    public Deflector(DeflectorClass deflectorClass, bool isModified)
+    public Deflector(DeflectorType deflectorType, bool isModified)
     {
-        _deflectorClass = deflectorClass;
+        _deflectorClass = deflectorType;
         _isEnable = false;
         _isModified = isModified;
 
@@ -24,11 +24,11 @@ public class Deflector
     public uint SmallAsteroidCounter { get; init; }
     public uint BigAsteroidCounter { get; init; }
 
-    public void TakeDamage(AsteroidClass asteroidClass)
+    public void TakeDamage(MeteoroidType meteoroidType)
     {
         const uint oneAsteroidNumber = 1;
 
-        if (asteroidClass == AsteroidClass.Small)
+        if (meteoroidType == MeteoroidType.SmallAsteroid)
         {
             IncrementSmallAsteroidCounter(oneAsteroidNumber);
         }
@@ -59,14 +59,14 @@ public class Deflector
 
         switch (_deflectorClass)
         {
-            case DeflectorClass.Class1:
+            case DeflectorType.Class1:
                 if (_smallAsteroidCounter == class1DeflectorCapacitySmallAsteroids || _bigAsteroidCounter == class1DeflectorCapacityBigAsteroids)
                 {
                     return true;
                 }
 
                 break;
-            case DeflectorClass.Class2:
+            case DeflectorType.Class2:
                 if (_smallAsteroidCounter == class2DeflectorCapacitySmallAsteroids || _bigAsteroidCounter == class2DeflectorCapacityBigAsteroids)
                 {
                     return true;
@@ -75,7 +75,7 @@ public class Deflector
                 break;
 
             // place for space whale!!!!
-            case DeflectorClass.Class3:
+            case DeflectorType.Class3:
                 if (_smallAsteroidCounter == class3DeflectorCapacitySmallAsteroids || _bigAsteroidCounter == class3DeflectorCapacityBigAsteroids)
                 {
                     return true;

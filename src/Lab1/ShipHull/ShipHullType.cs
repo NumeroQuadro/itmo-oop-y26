@@ -1,6 +1,6 @@
 namespace Itmo.ObjectOrientedProgramming.Lab1.ShipHull;
 
-public enum ShipHullClass
+public enum ShipHullType
 {
     Class1,
     Class2,
