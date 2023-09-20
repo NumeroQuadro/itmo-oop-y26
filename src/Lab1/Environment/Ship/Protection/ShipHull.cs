@@ -1,130 +1,74 @@
 using System;
 using Itmo.ObjectOrientedProgramming.Lab1.Asteroid;
-using Itmo.ObjectOrientedProgramming.Lab1.ShipHull;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.ShipHull;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection;
 
-public class ShipHull
+public class ShipHull : Protection
 {
-    private readonly ShipHullType _shipHullType;
-    private readonly Deflector.Deflector _deflector;
+    private readonly Deflector _deflector;
     private readonly Engine.Engine _engine;
 
-    private uint _smallAsteroidCounter;
-    private uint _bigAsteroidCounter;
-    private bool _isDestroyed;
-    public ShipHull(ShipHullType shipHullType, Engine.Engine engine, Deflector.Deflector deflector)
+    public ShipHull(ProtectionType protectionType, Engine.Engine engine, Deflector deflector, bool hasAntiNitrinoEmitter, uint asteroidCounter, uint meteorCounter, uint spaceWhaleCounter)
+        : base(protectionType, asteroidCounter, meteorCounter, spaceWhaleCounter)
     {
         _deflector = deflector ?? throw new ArgumentException("Deflector is a null! Cannot initialize ShipHull by empty Deflector!");
         _engine = engine ?? throw new ArgumentException("Engine is a null! Cannot initialize ShipHull by empty Engine");
 
-        _smallAsteroidCounter = 0;
-        _bigAsteroidCounter = 0;
-
-        _isDestroyed = false;
-        _shipHullType = shipHullType;
+        HasAntiNitrinoEmitter = hasAntiNitrinoEmitter;
     }
+
+    public bool HasAntiNitrinoEmitter { get; private set; }
+
+    private uint SpaceWhaleCounter { get; set; }
 
     public void TakeDamage(ObstacleType obstacleType)
     {
-        if (DeflectorIsEnable())
+        if (_deflector.HasPossibleToBeDamage(obstacleType))
         {
-            RedirectDamageToDeflector(obstacleType: obstacleType);
+            _deflector.TakeDamage(obstacleType);
         }
         else
         {
-            const uint numberOfAsteroids = 1;
-            IncrementAsteroidCounter(incrementNumber: numberOfAsteroids, obstacleType: obstacleType);
+            DecreaseDamageCounters(obstacleType);
         }
     }
 
-    private bool DeflectorIsEnable()
+    public bool HasPossibleToBeDamage(ObstacleType obstacleType)
     {
-        return _deflector.IsEnable;
-    }
-
-    private void RedirectDamageToDeflector(ObstacleType obstacleType)
-    {
-        _deflector.TakeDamage(obstacleType);
-    }
-
-    private void CheckBigAsteroidDamage()
-    {
-        switch (_shipHullType)
+        if (obstacleType == ObstacleType.SpaceWhale)
         {
-            case ShipHullType.Class2:
-                const uint class2HullCapacityBigAsteroids = 2;
+            return IsProtectionActive() & IsSpecialProtectionActive();
+        }
 
-                if (_bigAsteroidCounter == class2HullCapacityBigAsteroids)
-                {
-                    _isDestroyed = true;
-                }
+        return IsProtectionActive();
+    }
 
+    private bool IsSpecialProtectionActive()
+    {
+        return SpaceWhaleCounter != 0;
+    }
+
+    private void DecrementSpaceWhaleCounter()
+    {
+        if (IsProtectionActive())
+        {
+            --SpaceWhaleCounter;
+        }
+    }
+
+    private void DecreaseDamageCounters(ObstacleType obstacleType)
+    {
+        switch (obstacleType)
+        {
+            case ObstacleType.SmallAsteroid:
+                DecrementAsteroidCounter();
                 break;
-            case ShipHullType.Class3:
-                const uint class3HullCapacityBigAsteroids = 5;
-
-                if (_bigAsteroidCounter == class3HullCapacityBigAsteroids)
-                {
-                    _isDestroyed = true;
-                }
-
+            case ObstacleType.Meteor:
+                DecrementMeteorCounter();
                 break;
-
             default:
-                _isDestroyed = false;
+                DecrementSpaceWhaleCounter();
                 break;
-        }
-    }
-
-    private void CheckSmallAsteroidDamage()
-    {
-        switch (_shipHullType)
-        {
-            case ShipHullType.Class1:
-                const uint class1HullCapacitySmallAsteroids = 1;
-
-                if (_smallAsteroidCounter == class1HullCapacitySmallAsteroids)
-                {
-                    _isDestroyed = true;
-                }
-
-                break;
-            case ShipHullType.Class2:
-                const uint class2HullCapacitySmallAsteroids = 5;
-
-                if (_smallAsteroidCounter == class2HullCapacitySmallAsteroids)
-                {
-                    _isDestroyed = true;
-                }
-
-                break;
-            case ShipHullType.Class3:
-                const uint class3HullCapacitySmallAsteroids = 20;
-
-                if (_smallAsteroidCounter == class3HullCapacitySmallAsteroids)
-                {
-                    _isDestroyed = true;
-                }
-
-                break;
-        }
-    }
-
-    private void IncrementAsteroidCounter(uint incrementNumber, ObstacleType obstacleType)
-    {
-        if (!_isDestroyed)
-        {
-            if (obstacleType == ObstacleType.Meteor)
-            {
-                _bigAsteroidCounter += incrementNumber;
-                CheckBigAsteroidDamage();
-            }
-            else
-            {
-                _smallAsteroidCounter += incrementNumber;
-                CheckSmallAsteroidDamage();
-            }
         }
     }
 }

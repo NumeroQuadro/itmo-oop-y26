@@ -1,112 +1,64 @@
 using Itmo.ObjectOrientedProgramming.Lab1.Asteroid;
-using Itmo.ObjectOrientedProgramming.Lab1.Deflector;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Deflector;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection;
 
-public class Deflector
+public class Deflector : Protection
 {
-    private readonly DeflectorType _deflectorClass;
-    private uint _smallAsteroidCounter;
-    private uint _bigAsteroidCounter;
-    private bool _isModified;
-
     // field for spaceWhale
-    public Deflector(DeflectorType deflectorType, bool isModified)
+    public Deflector(ProtectionType protectionType, bool hasPhotonModification, uint asteroidCounter, uint meteorCounter, uint spaceWhaleCounter)
+        : base(protectionType, asteroidCounter, meteorCounter, spaceWhaleCounter)
     {
-        _deflectorClass = deflectorType;
-        _isModified = isModified;
-
-        _smallAsteroidCounter = 0;
-        _bigAsteroidCounter = 0;
+        HasPhotonModification = hasPhotonModification;
     }
 
-    public uint SmallAsteroidCounter { get; init; }
-    public uint BigAsteroidCounter { get; init; }
-    public bool IsEnable { get; private set; }
+    public bool HasPhotonModification { get; private set; }
+
+    private uint AntiMatterCounter { get; set; }
 
     public void TakeDamage(ObstacleType obstacleType)
     {
-        const uint oneAsteroidNumber = 1;
-
-        if (obstacleType == ObstacleType.SmallAsteroid)
+        if (HasPossibleToBeDamage(obstacleType))
         {
-            IncrementSmallAsteroidCounter(oneAsteroidNumber);
-        }
-        else
-        {
-            IncrementBigAsteroidCounter(oneAsteroidNumber);
+            DecreaseDamageCounters(obstacleType);
         }
     }
 
-    private void CheckDeflectorState()
+    public bool HasPossibleToBeDamage(ObstacleType obstacleType)
     {
-        if (IsAsteroidsDestroyDeflector())
+        if (obstacleType == ObstacleType.DustingOfAntiMatter)
         {
-            IsEnable = false;
+            return IsSpecialProtectionActive() & IsProtectionActive();
+        }
+
+        return IsProtectionActive();
+    }
+
+    private bool IsSpecialProtectionActive()
+    {
+        return AntiMatterCounter != 0;
+    }
+
+    private void DecrementAntiMatterCounter()
+    {
+        if (HasPhotonModification)
+        {
+            --AntiMatterCounter;
         }
     }
 
-    private bool IsAsteroidsDestroyDeflector()
+    private void DecreaseDamageCounters(ObstacleType obstacleType)
     {
-        const uint class1DeflectorCapacitySmallAsteroids = 2;
-        const uint class1DeflectorCapacityBigAsteroids = 1;
-
-        const uint class2DeflectorCapacitySmallAsteroids = 10;
-        const uint class2DeflectorCapacityBigAsteroids = 3;
-
-        const uint class3DeflectorCapacitySmallAsteroids = 40;
-        const uint class3DeflectorCapacityBigAsteroids = 10;
-
-        switch (_deflectorClass)
+        switch (obstacleType)
         {
-            case DeflectorType.Class1:
-                if (_smallAsteroidCounter == class1DeflectorCapacitySmallAsteroids || _bigAsteroidCounter == class1DeflectorCapacityBigAsteroids)
-                {
-                    return true;
-                }
-
+            case ObstacleType.SmallAsteroid:
+                DecrementAsteroidCounter();
                 break;
-            case DeflectorType.Class2:
-                if (_smallAsteroidCounter == class2DeflectorCapacitySmallAsteroids || _bigAsteroidCounter == class2DeflectorCapacityBigAsteroids)
-                {
-                    return true;
-                }
-
+            case ObstacleType.Meteor:
+                DecrementMeteorCounter();
                 break;
-
-            // place for space whale!!!!
-            case DeflectorType.Class3:
-                if (_smallAsteroidCounter == class3DeflectorCapacitySmallAsteroids || _bigAsteroidCounter == class3DeflectorCapacityBigAsteroids)
-                {
-                    return true;
-                }
-
-                break;
-
             default:
-                return false;
+                DecrementAntiMatterCounter();
+                break;
         }
-
-        return false;
-    }
-
-    private void IncrementSmallAsteroidCounter(uint incrementNumber)
-    {
-        if (IsEnable)
-        {
-            _smallAsteroidCounter += incrementNumber;
-        }
-
-        CheckDeflectorState();
-    }
-
-    private void IncrementBigAsteroidCounter(uint incrementNumber)
-    {
-        if (IsEnable)
-        {
-            _bigAsteroidCounter += incrementNumber;
-        }
-
-        CheckDeflectorState();
     }
 }

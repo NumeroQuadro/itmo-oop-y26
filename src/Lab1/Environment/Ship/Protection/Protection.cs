@@ -3,21 +3,35 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection;
 public abstract class Protection
 {
     private readonly ProtectionType _protectionType;
-    private uint _asteroidCounter;
-    private uint _meteorCounter;
-    private uint _spaceWhaleCounter;
-    private bool _hasModification;
 
-    protected Protection(ProtectionType protectionType, bool hasModification)
+    protected Protection(ProtectionType protectionType, uint asteroidCounter, uint meteorCounter, uint spaceWhaleCounter)
     {
         _protectionType = protectionType;
 
-        _meteorCounter = 0;
-        _asteroidCounter = 0;
-        _spaceWhaleCounter = 0;
-
-        _hasModification = hasModification;
+        AsteroidCounter = asteroidCounter;
+        MeteorCounter = meteorCounter;
     }
 
-    public abstract void CheckProtectionCondition();
+    private uint AsteroidCounter { get; set; }
+    private uint MeteorCounter { get; set; }
+    protected void DecrementAsteroidCounter()
+    {
+        if (IsProtectionActive())
+        {
+            --AsteroidCounter;
+        }
+    }
+
+    protected void DecrementMeteorCounter()
+    {
+        if (IsProtectionActive())
+        {
+            --MeteorCounter;
+        }
+    }
+
+    protected bool IsProtectionActive()
+    {
+        return MeteorCounter != 0 & AsteroidCounter != 0;
+    }
 }
