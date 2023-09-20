@@ -9,17 +9,17 @@ public class Environment
 {
     private readonly EnvironmentType _environmentType;
     private readonly List<Obstacle> _obstacles;
-    private List<SpaceShip> _spaceShips;
+    private List<SpaceShuttle> _spaceShuttles;
 
     public Environment(EnvironmentType environmentType, IEnumerable<Obstacle> obstacles)
     {
         _environmentType = environmentType;
         _obstacles = obstacles.ToList();
-        _spaceShips = new List<SpaceShip>();
+        _spaceShuttles = new List<SpaceShuttle>();
     }
 
-    public void AddShip(SpaceShip ship)
+    public void AddShip(SpaceShuttle shuttle)
     {
-        _spaceShips.Add(ship);
+        _spaceShuttles.Add(shuttle);
     }
 }

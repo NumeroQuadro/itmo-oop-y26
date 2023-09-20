@@ -3,17 +3,17 @@ using Itmo.ObjectOrientedProgramming.Lab1.Asteroid;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship;
 
-public class SpaceShip
+public abstract class SpaceShuttle
 {
     private readonly ShipHull.ShipHull _shipHull;
 
-    public SpaceShip(ShipHull.ShipHull shipHull, EnvironmentType environmentType)
+    protected SpaceShuttle(ShipHull.ShipHull shipHull, EnvironmentType environmentType)
     {
         _shipHull = shipHull ?? throw new ArgumentException("shipHull is null! Cannot initialize Ship!");
         CurrentEnvironment = environmentType;
     }
 
-    public SpaceShip(ShipHull.ShipHull shipHull)
+    protected SpaceShuttle(ShipHull.ShipHull shipHull)
     {
         _shipHull = shipHull ?? throw new ArgumentException("shipHull is null! Cannot initialize Ship!");
         CurrentEnvironment = EnvironmentType.Spawn;

@@ -17,21 +17,21 @@ public class Obstacle
 
     public EnvironmentType CurrentEnvironment { get; private set; }
 
-    public void DamageShip(SpaceShip ship)
+    public void DamageShip(SpaceShuttle shuttle)
     {
-        if (ship == null)
+        if (shuttle == null)
         {
             throw new ArgumentException("Ship is a null! Cannot to Damage ship");
         }
 
-        if (IsPossibleToDamage(ship))
+        if (IsPossibleToDamage(shuttle))
         {
-            ship.TakeDamage(obstacleType: _obstacleType);
+            shuttle.TakeDamage(obstacleType: _obstacleType);
         }
     }
 
-    private bool IsPossibleToDamage(SpaceShip ship)
+    private bool IsPossibleToDamage(SpaceShuttle shuttle)
     {
-        return ship.CurrentEnvironment == CurrentEnvironment;
+        return shuttle.CurrentEnvironment == CurrentEnvironment;
     }
 }
