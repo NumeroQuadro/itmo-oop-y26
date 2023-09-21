@@ -20,6 +20,11 @@ public abstract class SpaceShuttle
         CurrentEnvironment = EnvironmentType.Spawn;
     }
 
+    protected SpaceShuttle(EnvironmentType environmentType)
+    {
+        CurrentEnvironment = environmentType;
+    }
+
     public EnvironmentType CurrentEnvironment { get; private set; }
 
     public void TakeDamage(ObstacleType obstacleType)

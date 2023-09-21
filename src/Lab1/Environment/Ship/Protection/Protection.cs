@@ -4,16 +4,15 @@ public abstract class Protection
 {
     private readonly ProtectionType _protectionType;
 
-    protected Protection(ProtectionType protectionType, uint asteroidCounter, uint meteorCounter, uint spaceWhaleCounter)
+    protected Protection(ProtectionType protectionType)
     {
         _protectionType = protectionType;
-
-        AsteroidCounter = asteroidCounter;
-        MeteorCounter = meteorCounter;
     }
 
-    private uint AsteroidCounter { get; set; }
-    private uint MeteorCounter { get; set; }
+    protected uint AsteroidCounter { get; set; }
+    protected uint MeteorCounter { get; set; }
+
+    protected abstract void AssignNumericalConstantCharacteristics(ProtectionType protectionType);
     protected void DecrementAsteroidCounter()
     {
         if (IsProtectionActive())

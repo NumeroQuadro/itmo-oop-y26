@@ -8,8 +8,8 @@ public class ShipHull : Protection
     private readonly Deflector _deflector;
     private readonly Engine.Engine _engine;
 
-    public ShipHull(ProtectionType protectionType, Engine.Engine engine, Deflector deflector, bool hasAntiNitrinoEmitter, uint asteroidCounter, uint meteorCounter, uint spaceWhaleCounter)
-        : base(protectionType, asteroidCounter, meteorCounter, spaceWhaleCounter)
+    public ShipHull(ProtectionType protectionType, Engine.Engine engine, Deflector deflector, bool hasAntiNitrinoEmitter)
+        : base(protectionType)
     {
         _deflector = deflector ?? throw new ArgumentException("Deflector is a null! Cannot initialize ShipHull by empty Deflector!");
         _engine = engine ?? throw new ArgumentException("Engine is a null! Cannot initialize ShipHull by empty Engine");
@@ -20,6 +20,27 @@ public class ShipHull : Protection
     public bool HasAntiNitrinoEmitter { get; private set; }
 
     private uint SpaceWhaleCounter { get; set; }
+
+    protected override void AssignNumericalConstantCharacteristics(ProtectionType protectionType)
+    {
+        if (protectionType == ProtectionType.NoProtection)
+        {
+            SpaceWhaleCounter = 1;
+            AsteroidCounter = 1;
+            MeteorCounter = 1;
+        }
+        else if (protectionType == ProtectionType.Class1)
+        {
+            SpaceWhaleCounter = 0;
+            AsteroidCounter = 1;
+            MeteorCounter = 1;
+        }
+
+        if (HasAntiNitrinoEmitter)
+        {
+            SpaceWhaleCounter =
+        }
+    }
 
     public void TakeDamage(ObstacleType obstacleType)
     {

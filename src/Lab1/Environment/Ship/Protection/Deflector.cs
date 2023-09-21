@@ -4,16 +4,24 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection;
 
 public class Deflector : Protection
 {
-    // field for spaceWhale
-    public Deflector(ProtectionType protectionType, bool hasPhotonModification, uint asteroidCounter, uint meteorCounter, uint spaceWhaleCounter)
-        : base(protectionType, asteroidCounter, meteorCounter, spaceWhaleCounter)
+    public Deflector(ProtectionType protectionType, bool hasPhotonModification)
+        : base(protectionType)
     {
         HasPhotonModification = hasPhotonModification;
     }
 
     public bool HasPhotonModification { get; private set; }
-
     private uint AntiMatterCounter { get; set; }
+
+    protected override void AssignNumericalConstantCharacteristics(ProtectionType protectionType)
+    {
+        if (protectionType == ProtectionType.NoProtection)
+        {
+            AntiMatterCounter = 1;
+            AsteroidCounter = 1;
+            MeteorCounter = 1;
+        }
+    }
 
     public void TakeDamage(ObstacleType obstacleType)
     {
