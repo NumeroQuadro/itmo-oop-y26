@@ -26,9 +26,21 @@ public abstract class SpaceShuttle
     }
 
     public EnvironmentType CurrentEnvironment { get; private set; }
+    public bool IsDestroyed { get; private set; }
 
-    public void TakeDamage(ObstacleType obstacleType)
+    public ProtectionCondition TakeDamageAndGetSpaceShuttleCondition(ObstacleType obstacleType)
     {
-        _shipHull.TakeDamage(obstacleType: obstacleType);
+        if (IsDestroyed)
+        {
+            return new IsDestroyed();
+        }
+
+        if (_shipHull.TakeDamageAndGetShipHullCondition(obstacleType) is IsDestroyed)
+        {
+            IsDestroyed = true;
+            return new IsDestroyed();
+        }
+
+        return new IsWorking();
     }
 }

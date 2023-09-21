@@ -30,22 +30,30 @@ public class Deflector
 
     public ProtectionCondition TakeDamageAndGetDeflectorCondition(ObstacleType obstacleType)
     {
+        if (IsDestroyed)
+        {
+            return new IsDestroyed();
+        }
+
         if (obstacleType == ObstacleType.DustingOfAntiMatter & _antiMatterProtection.ProtectionCondition() is IsWorking)
         {
             _antiMatterProtection.TakeDamage();
             return _antiMatterProtection.ProtectionCondition();
         }
-        else if (obstacleType == ObstacleType.Meteor & _heavyProtection.ProtectionCondition() is IsWorking)
+
+        if (obstacleType == ObstacleType.Meteor & _heavyProtection.ProtectionCondition() is IsWorking)
         {
             _heavyProtection.TakeDamage();
             return _heavyProtection.ProtectionCondition();
         }
-        else if (obstacleType == ObstacleType.SmallAsteroid & _lightProtection.ProtectionCondition() is IsWorking)
+
+        if (obstacleType == ObstacleType.SmallAsteroid & _lightProtection.ProtectionCondition() is IsWorking)
         {
             _lightProtection.TakeDamage();
             return _lightProtection.ProtectionCondition();
         }
-        else if (obstacleType == ObstacleType.SpaceWhale & _spaceWhaleProtection.ProtectionCondition() is IsWorking)
+
+        if (obstacleType == ObstacleType.SpaceWhale & _spaceWhaleProtection.ProtectionCondition() is IsWorking)
         {
             _spaceWhaleProtection.TakeDamage();
             return _spaceWhaleProtection.ProtectionCondition();

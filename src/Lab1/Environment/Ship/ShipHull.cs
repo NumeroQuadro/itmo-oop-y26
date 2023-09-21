@@ -25,9 +25,15 @@ public class ShipHull
     }
 
     public bool HasAntiNitrinoEmitter { get; private set; }
+    public bool IsDestroyed { get; private set; }
 
     public ProtectionCondition TakeDamageAndGetShipHullCondition(ObstacleType obstacleType)
     {
+        if (IsDestroyed)
+        {
+            return new IsDestroyed();
+        }
+
         if (_deflector.TakeDamageAndGetDeflectorCondition(obstacleType) is IsDestroyed)
         {
             if (obstacleType == ObstacleType.Meteor & _heavyProtection.ProtectionCondition() is IsWorking)
@@ -42,12 +48,17 @@ public class ShipHull
                 return _lightProtection.ProtectionCondition();
             }
 
-            if (obstacleType == ObstacleType.SpaceWhale & HasAntiNitrinoEmitter)
+            if (obstacleType == ObstacleType.SpaceWhale)
             {
-                return new IsWorking();
+                if (HasAntiNitrinoEmitter)
+                {
+                    return new IsWorking();
+                }
+
+                return new IsDestroyed();
             }
         }
 
-        return new IsDestroyed();
+        return new IsWorking();
     }
 }
