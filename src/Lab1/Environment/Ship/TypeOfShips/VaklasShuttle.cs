@@ -4,7 +4,7 @@ using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.TypeOfShips;
 
-public class VaklasShuttle : Fly
+public class VaklasShuttle
 {
     private readonly ShipHull _shipHull;
 

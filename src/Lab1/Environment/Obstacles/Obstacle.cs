@@ -1,6 +1,4 @@
-using System;
 using Itmo.ObjectOrientedProgramming.Lab1.Asteroid;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
 
@@ -17,21 +15,21 @@ public class Obstacle
 
     public EnvironmentType CurrentEnvironment { get; private set; }
 
-    public void DamageShip(SpaceShuttle shuttle)
-    {
-        if (shuttle == null)
-        {
-            throw new ArgumentException("Ship is a null! Cannot to Damage ship");
-        }
+    // public void DamageShip(SpaceShuttle shuttle)
+    // {
+    //     if (shuttle == null)
+    //     {
+    //         throw new ArgumentException("Ship is a null! Cannot to Damage ship");
+    //     }
+    //
+    //     if (IsPossibleToDamage(shuttle))
+    //     {
+    //         shuttle.TakeDamageAndGetSpaceShuttleCondition(obstacleType: _obstacleType);
+    //     }
+    // }
 
-        if (IsPossibleToDamage(shuttle))
-        {
-            shuttle.TakeDamageAndGetSpaceShuttleCondition(obstacleType: _obstacleType);
-        }
-    }
-
-    private bool IsPossibleToDamage(SpaceShuttle shuttle)
-    {
-        return shuttle.CurrentEnvironment == CurrentEnvironment;
-    }
+    // private bool IsPossibleToDamage(SpaceShuttle shuttle)
+    // {
+    //     return shuttle.CurrentEnvironment == CurrentEnvironment;
+    // }
 }

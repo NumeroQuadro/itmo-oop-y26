@@ -4,7 +4,7 @@ using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.TypeOfShips;
 
-public class MeredianShuttle : Fly
+public class MeredianShuttle
 {
     private readonly ShipHull _shipHull;
 
