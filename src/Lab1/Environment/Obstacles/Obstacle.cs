@@ -26,7 +26,7 @@ public class Obstacle
 
         if (IsPossibleToDamage(shuttle))
         {
-            shuttle.TakeDamage(obstacleType: _obstacleType);
+            shuttle.TakeDamageAndGetSpaceShuttleCondition(obstacleType: _obstacleType);
         }
     }
 

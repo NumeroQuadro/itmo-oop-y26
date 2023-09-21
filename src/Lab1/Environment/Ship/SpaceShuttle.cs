@@ -20,9 +20,10 @@ public abstract class SpaceShuttle
         CurrentEnvironment = EnvironmentType.Spawn;
     }
 
-    protected SpaceShuttle(EnvironmentType environmentType)
+    protected SpaceShuttle(EnvironmentType environmentType, ProtectionType protectionType, Engine.Engine engine, Deflector deflector, bool hasAntiNitrinoEmitter)
     {
         CurrentEnvironment = environmentType;
+        _shipHull = new ShipHull(protectionType, engine, deflector, hasAntiNitrinoEmitter);
     }
 
     public EnvironmentType CurrentEnvironment { get; private set; }
