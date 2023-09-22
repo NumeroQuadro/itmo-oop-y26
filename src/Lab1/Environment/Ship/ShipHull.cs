@@ -1,6 +1,8 @@
 using System;
-using Itmo.ObjectOrientedProgramming.Lab1.Asteroid;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.ProtectionConditions;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.ProtectionTypes;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship;
 
@@ -36,19 +38,19 @@ public class ShipHull
 
         if (_deflector.TakeDamageAndGetDeflectorCondition(obstacleType) is IsDestroyed)
         {
-            if (obstacleType == ObstacleType.Meteor & _heavyProtection.ProtectionCondition() is IsWorking)
+            if (obstacleType is Meteor & _heavyProtection.ProtectionCondition() is IsWorking)
             {
                 _heavyProtection.TakeDamage();
                 return _heavyProtection.ProtectionCondition();
             }
 
-            if (obstacleType == ObstacleType.SmallAsteroid & _lightProtection.ProtectionCondition() is IsWorking)
+            if (obstacleType is Asteroid & _lightProtection.ProtectionCondition() is IsWorking)
             {
                 _lightProtection.TakeDamage();
                 return _lightProtection.ProtectionCondition();
             }
 
-            if (obstacleType == ObstacleType.SpaceWhale)
+            if (obstacleType is SpaceWhale)
             {
                 if (HasAntiNitrinoEmitter)
                 {

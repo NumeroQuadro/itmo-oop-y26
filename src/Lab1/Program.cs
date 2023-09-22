@@ -1,4 +1,4 @@
-using Itmo.ObjectOrientedProgramming.Lab1.Asteroid;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.TypeOfShips;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1;
@@ -9,6 +9,6 @@ public static class Program
     {
         var shuttle = new VaklasShuttle();
 
-        shuttle.TakeDamageAndGetSpaceShuttleCondition(ObstacleType.Meteor);
+        shuttle.TakeDamageAndGetSpaceShuttleCondition(new Meteor());
     }
 }

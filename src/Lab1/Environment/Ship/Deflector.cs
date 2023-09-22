@@ -1,5 +1,7 @@
-using Itmo.ObjectOrientedProgramming.Lab1.Asteroid;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.ProtectionConditions;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.ProtectionTypes;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship;
 
@@ -35,25 +37,25 @@ public class Deflector
             return new IsDestroyed();
         }
 
-        if (obstacleType == ObstacleType.DustingOfAntiMatter & _antiMatterProtection.ProtectionCondition() is IsWorking)
+        if (obstacleType is DustingOfAntiMatter & _antiMatterProtection.ProtectionCondition() is IsWorking)
         {
             _antiMatterProtection.TakeDamage();
             return _antiMatterProtection.ProtectionCondition();
         }
 
-        if (obstacleType == ObstacleType.Meteor & _heavyProtection.ProtectionCondition() is IsWorking)
+        if (obstacleType is Meteor & _heavyProtection.ProtectionCondition() is IsWorking)
         {
             _heavyProtection.TakeDamage();
             return _heavyProtection.ProtectionCondition();
         }
 
-        if (obstacleType == ObstacleType.SmallAsteroid & _lightProtection.ProtectionCondition() is IsWorking)
+        if (obstacleType is Asteroid & _lightProtection.ProtectionCondition() is IsWorking)
         {
             _lightProtection.TakeDamage();
             return _lightProtection.ProtectionCondition();
         }
 
-        if (obstacleType == ObstacleType.SpaceWhale & _spaceWhaleProtection.ProtectionCondition() is IsWorking)
+        if (obstacleType is SpaceWhale & _spaceWhaleProtection.ProtectionCondition() is IsWorking)
         {
             _spaceWhaleProtection.TakeDamage();
             return _spaceWhaleProtection.ProtectionCondition();

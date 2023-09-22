@@ -1,6 +1,6 @@
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.ProtectionConditions;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.ProtectionTypes;
 
 public class HeavyProtection : Protection
 {
