@@ -4,10 +4,11 @@ using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.JumpEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.ProtectionConditions;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.ProtectionTypes;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.TypeOfShips;
 
-public class MeredianShuttle
+public class MeredianShuttle : IFly
 {
     private readonly ShipHull _shipHull;
 
@@ -37,5 +38,45 @@ public class MeredianShuttle
         }
 
         return new IsWorking();
+    }
+
+    public bool IsPossibleToStayInHighDensitySpace()
+    {
+        return _shipHull.Engine.EngineJumpType is not NoJump;
+    }
+
+    public bool IsPossibleToStayInSpace()
+    {
+        return _shipHull.Engine.EngineImpulseType is ImpulseClassC or ImpulseClassE;
+    }
+
+    public bool IsPossibleToStayInNitrinoParticleNebula()
+    {
+        return _shipHull.Engine.EngineImpulseType is ImpulseClassE;
+    }
+
+    public SpaceTravelResult ValidateShipCondition(IEnvironment environment)
+    {
+        if (environment is NebulaInHighDensitySpace & IsPossibleToStayInHighDensitySpace())
+        {
+            return new Success();
+        }
+
+        if (environment is NitrinoParticleNebula & IsPossibleToStayInNitrinoParticleNebula())
+        {
+            return new Success();
+        }
+
+        if (environment is Space & IsPossibleToStayInSpace())
+        {
+            return new Success();
+        }
+
+        return
+    }
+
+    public SpaceTravelResult FlyToEnvironmentAndGetResult(IEnvironment environment)
+    {
+
     }
 }

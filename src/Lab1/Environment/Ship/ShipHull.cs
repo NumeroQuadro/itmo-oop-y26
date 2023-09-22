@@ -9,7 +9,6 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship;
 public class ShipHull
 {
     private readonly Deflector _deflector;
-    private readonly Engine.Engine _engine;
 
     private readonly LightProtection _lightProtection;
     private readonly HeavyProtection _heavyProtection;
@@ -17,7 +16,7 @@ public class ShipHull
     public ShipHull(HeavyProtection heavyProtection, LightProtection lightProtection, Engine.Engine engine, Deflector deflector, bool hasAntiNitrinoEmitter)
     {
         _deflector = deflector ?? throw new ArgumentException("Deflector is a null! Cannot initialize ShipHull by empty Deflector!");
-        _engine = engine ?? throw new ArgumentException("Engine is a null! Cannot initialize ShipHull by empty Engine");
+        Engine = engine ?? throw new ArgumentException("Engine is a null! Cannot initialize ShipHull by empty Engine");
         HasAntiNitrinoEmitter = hasAntiNitrinoEmitter;
 
         _lightProtection = lightProtection;
@@ -26,6 +25,8 @@ public class ShipHull
 
     public bool HasAntiNitrinoEmitter { get; private set; }
     public bool IsDestroyed { get; private set; }
+
+    public Engine.Engine Engine { get; private set; }
 
     public ProtectionCondition TakeDamageAndGetShipHullCondition(ObstacleType obstacleType)
     {
