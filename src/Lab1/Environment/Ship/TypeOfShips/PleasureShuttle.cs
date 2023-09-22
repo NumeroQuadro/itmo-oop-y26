@@ -16,9 +16,11 @@ public class PleasureShuttle
         var deflector = new Deflector(new NoProtection(), false);
         var engine = new Engine.Engine(new ImpulseClassC(), new NoJump());
         _shipHull = new ShipHull(new HeavyProtection(true), new LightProtection(), engine, deflector, false);
+
+        CurrentEnvironment = new Space();
     }
 
-    // public EnvironmentType CurrentEnvironment { get; private set; }
+    public IEnvironment CurrentEnvironment { get; private set; }
     public bool IsDestroyed { get; private set; }
 
     public ProtectionCondition TakeDamageAndGetSpaceShuttleCondition(ObstacleType obstacleType)

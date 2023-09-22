@@ -8,6 +8,11 @@ public class Space : IEnvironment
 {
     private List<ObstacleType> _obstacles;
 
+    public Space()
+    {
+        _obstacles = new List<ObstacleType>();
+    }
+
     public Space(IEnumerable<ObstacleType> obstacles)
     {
         _obstacles = obstacles.ToList();
