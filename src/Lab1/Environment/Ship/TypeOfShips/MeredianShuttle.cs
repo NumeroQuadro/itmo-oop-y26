@@ -1,5 +1,6 @@
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.JumpEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.ProtectionConditions;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.ProtectionTypes;
@@ -12,9 +13,9 @@ public class MeredianShuttle
 
     public MeredianShuttle()
     {
-        var deflector = new Deflector(ProtectionType.NoProtection, false);
-        var engine = new Engine.Engine(EngineImpulseType.ImpulseClassC, EngineJumpType.NoJump);
-        _shipHull = new ShipHull(ProtectionType.Class1, engine, deflector, false);
+        var deflector = new Deflector(new NoProtection(), false);
+        var engine = new Engine.Engine(new ImpulseClassC(), new NoJump());
+        _shipHull = new ShipHull(new HeavyProtection(false), new LightProtection(), engine, deflector, false);
     }
 
     // public EnvironmentType CurrentEnvironment { get; private set; }

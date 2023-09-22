@@ -2,7 +2,7 @@ using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.Protection
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.ProtectionTypes;
 
-public class LightProtection : Protection
+public sealed class LightProtection : Protection
 {
     private uint AsteroidCounter { get; set; } = 2;
 

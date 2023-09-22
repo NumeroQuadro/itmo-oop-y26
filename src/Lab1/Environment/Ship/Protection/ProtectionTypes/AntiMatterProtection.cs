@@ -2,7 +2,7 @@ using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.Protection
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.ProtectionTypes;
 
-public class AntiMatterProtection : Protection
+public sealed class AntiMatterProtection : Protection
 {
     private uint AntiMatterCounter { get; set; } = 2;
 

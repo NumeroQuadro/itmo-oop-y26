@@ -2,7 +2,7 @@ using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.Protection
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.ProtectionTypes;
 
-public class SpaceWhaleProtection : Protection
+public sealed class SpaceWhaleProtection : Protection
 {
     private uint SpaceWhaleCounter { get; set; } = 2;
 

@@ -11,19 +11,17 @@ public class ShipHull
     private readonly Deflector _deflector;
     private readonly Engine.Engine _engine;
 
-    private readonly ProtectionType _protectionType;
     private readonly LightProtection _lightProtection;
     private readonly HeavyProtection _heavyProtection;
 
-    public ShipHull(ProtectionType protectionType, Engine.Engine engine, Deflector deflector, bool hasAntiNitrinoEmitter)
+    public ShipHull(HeavyProtection heavyProtection, LightProtection lightProtection, Engine.Engine engine, Deflector deflector, bool hasAntiNitrinoEmitter)
     {
         _deflector = deflector ?? throw new ArgumentException("Deflector is a null! Cannot initialize ShipHull by empty Deflector!");
         _engine = engine ?? throw new ArgumentException("Engine is a null! Cannot initialize ShipHull by empty Engine");
-        _protectionType = protectionType;
         HasAntiNitrinoEmitter = hasAntiNitrinoEmitter;
 
-        _lightProtection = new LightProtection();
-        _heavyProtection = protectionType == ProtectionType.Class1 ? new HeavyProtection(false) : new HeavyProtection(true);
+        _lightProtection = lightProtection;
+        _heavyProtection = heavyProtection;
     }
 
     public bool HasAntiNitrinoEmitter { get; private set; }

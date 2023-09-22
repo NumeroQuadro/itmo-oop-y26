@@ -2,7 +2,7 @@ using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.Protection
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.ProtectionTypes;
 
-public class HeavyProtection : Protection
+public sealed class HeavyProtection : Protection
 {
     private bool _isDisabled;
     public HeavyProtection(bool isDisabled)
