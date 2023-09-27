@@ -4,28 +4,18 @@ using Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment;
 
-public class NebulaInHighDensitySpace : IEnvironment
+public class NebulaInHighDensitySpace
 {
-    private List<ObstacleType> _obstacles;
+    private List<INebulaInHighDensitySpaceObstacle> _obstacles;
 
     public NebulaInHighDensitySpace()
     {
-        _obstacles = new List<ObstacleType>();
+        _obstacles = new List<INebulaInHighDensitySpaceObstacle>();
     }
 
-    public NebulaInHighDensitySpace(IEnumerable<ObstacleType> obstacles)
+    public NebulaInHighDensitySpace(IEnumerable<INebulaInHighDensitySpaceObstacle> obstacles)
     {
         _obstacles = obstacles.ToList();
-    }
-
-    public void AddAsteroid(Asteroid asteroid)
-    {
-        _obstacles.Add(asteroid);
-    }
-
-    public void AddMeteor(Meteor meteor)
-    {
-        _obstacles.Add(meteor);
     }
 
     public void AddDustingOfAntiMatter(DustingOfAntiMatter dustingOfAntiMatter)
@@ -33,7 +23,7 @@ public class NebulaInHighDensitySpace : IEnvironment
         _obstacles.Add(dustingOfAntiMatter);
     }
 
-    public IEnumerable<ObstacleType> GetObstacles()
+    public IEnumerable<INebulaInHighDensitySpaceObstacle> GetObstacles()
     {
         return _obstacles.AsEnumerable();
     }

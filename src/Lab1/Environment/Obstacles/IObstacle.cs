@@ -1,3 +1,6 @@
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
 
-public abstract record ObstacleType();
+public interface IObstacle
+{
+    public void DealDamage();
+}

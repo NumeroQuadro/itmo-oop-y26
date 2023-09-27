@@ -1,6 +1,6 @@
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
 
-public interface IFly
+public interface ISpaceShuttle
 {
     public SpaceTravelResult ValidateShipCondition(IEnvironment environment);
     public SpaceTravelResult FlyToEnvironmentAndGetResult(IEnvironment environment);

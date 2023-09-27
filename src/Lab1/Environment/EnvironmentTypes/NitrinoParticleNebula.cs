@@ -2,38 +2,28 @@ using System.Collections.Generic;
 using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Environment;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
 
-public class NitrinoParticleNebula : IEnvironment
+public class NitrinoParticleNebula
 {
-    private List<ObstacleType> _obstacles;
+    private List<INitrinoParticleNebulaObstacle> _obstacles;
 
     public NitrinoParticleNebula()
     {
-        _obstacles = new List<ObstacleType>();
+        _obstacles = new List<INitrinoParticleNebulaObstacle>();
     }
 
-    public NitrinoParticleNebula(IEnumerable<ObstacleType> obstacles)
+    public NitrinoParticleNebula(IEnumerable<INitrinoParticleNebulaObstacle> obstacles)
     {
         _obstacles = obstacles.ToList();
     }
 
-    public void AddAsteroid(Asteroid asteroid)
-    {
-        _obstacles.Add(asteroid);
-    }
-
-    public void AddMeteor(Meteor meteor)
-    {
-        _obstacles.Add(meteor);
-    }
-
-    public void AddSpaceWhale(SpaceWhale spaceWhale)
+    public void AddSpaceWhale(INitrinoParticleNebulaObstacle spaceWhale)
     {
         _obstacles.Add(spaceWhale);
     }
 
-    public IEnumerable<ObstacleType> GetObstacles()
+    public IEnumerable<INitrinoParticleNebulaObstacle> GetObstacles()
     {
         return _obstacles.AsEnumerable();
     }
