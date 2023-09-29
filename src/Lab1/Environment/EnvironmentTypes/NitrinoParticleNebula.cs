@@ -4,16 +4,16 @@ using Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
 
-public class NitrinoParticleNebula
+public class NitrinoParticleNebula : IEnvironment
 {
-    private List<INitrinoParticleNebulaObstacle> _obstacles;
+    private List<IObstacle> _obstacles;
 
     public NitrinoParticleNebula()
     {
-        _obstacles = new List<INitrinoParticleNebulaObstacle>();
+        _obstacles = new List<IObstacle>();
     }
 
-    public NitrinoParticleNebula(IEnumerable<INitrinoParticleNebulaObstacle> obstacles)
+    public NitrinoParticleNebula(IEnumerable<IObstacle> obstacles)
     {
         _obstacles = obstacles.ToList();
     }
@@ -23,7 +23,7 @@ public class NitrinoParticleNebula
         _obstacles.Add(spaceWhale);
     }
 
-    public IEnumerable<INitrinoParticleNebulaObstacle> GetObstacles()
+    public IEnumerable<IObstacle> GetObstacles()
     {
         return _obstacles.AsEnumerable();
     }

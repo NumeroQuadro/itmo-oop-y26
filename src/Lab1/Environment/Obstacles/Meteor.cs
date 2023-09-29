@@ -1,9 +1,19 @@
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
+
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
 
-public class Meteor : IObstacle
+public class Meteor : ISpaceObstacle
 {
-    public Meteor()
+    public Meteor(IEnvironment environment)
     {
-
+        CurrentEnvironment = environment;
     }
+    
+    public IEnvironment CurrentEnvironment { get; init; }
+    
+    public void DealDamage()
+    {
+        
+    }
+    
 }

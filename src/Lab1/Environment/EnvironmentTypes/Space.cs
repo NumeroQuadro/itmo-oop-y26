@@ -2,25 +2,20 @@ using System.Collections.Generic;
 using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Environment;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
 
-public class Space
+public class Space : ISpace
 {
-    private List<ISpaceObstacle> _obstacles;
+    private List<IObstacle> _obstacles;
 
     public Space()
     {
-        _obstacles = new List<ISpaceObstacle>();
+        _obstacles = new List<IObstacle>();
     }
 
-    public Space(IEnumerable<ISpaceObstacle> obstacles)
+    public Space(IEnumerable<IObstacle> obstacles)
     {
         _obstacles = obstacles.ToList();
-    }
-
-    public void AddAsteroid(Asteroid asteroid)
-    {
-        _obstacles.Add(asteroid);
     }
 
     public void AddMeteor(ISpaceObstacle meteor)
@@ -28,7 +23,12 @@ public class Space
         _obstacles.Add(meteor);
     }
 
-    public IEnumerable<ISpaceObstacle> GetObstacles()
+    public void AddAsteroid(ISpaceObstacle asteroid)
+    {
+        _obstacles.Add(asteroid);
+    }
+
+    public IEnumerable<IObstacle> GetObstacles()
     {
         return _obstacles.AsEnumerable();
     }

@@ -1,3 +1,3 @@
-namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.ImpulseEngines;
 
-public sealed record ImpulseClassE() : EngineImpulseType;
+public sealed record ImpulseClassE : EngineImpulseType;

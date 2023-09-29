@@ -1,11 +1,18 @@
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
+
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
 
 public class DustingOfAntiMatter : INebulaInHighDensitySpaceObstacle
 {
-    private readonly uint _maxDustingAntiMatterCounter;
-    private uint _hitPoints;
-    public DustingOfAntiMatter(uint maxDustingAntiMatterCounter)
+    public DustingOfAntiMatter(IEnvironment environment)
     {
-        _maxDustingAntiMatterCounter = maxDustingAntiMatterCounter;
+        CurrentEnvironment = environment;
+    }
+    
+    public IEnvironment CurrentEnvironment { get; init; }
+    
+    public void DealDamage()
+    {
+        
     }
 }

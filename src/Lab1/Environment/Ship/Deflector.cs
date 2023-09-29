@@ -30,7 +30,7 @@ public class Deflector
     public bool HasPhotonModification { get; private set; }
     public bool IsDestroyed { get; private set; }
 
-    public ProtectionCondition TakeDamageAndGetDeflectorCondition(ObstacleType obstacleType)
+    public ProtectionCondition TakeDamageAndGetDeflectorCondition(IObstacle obstacleType)
     {
         if (IsDestroyed)
         {

@@ -1,6 +1,7 @@
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.ImpulseEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.JumpEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.ProtectionConditions;
@@ -21,8 +22,7 @@ public class MeredianShuttle : ISpaceShuttle
 
         CurrentEnvironment = new Space();
     }
-
-    public IEnvironment CurrentEnvironment { get; private set; }
+    
     public bool IsDestroyed { get; private set; }
 
     public ProtectionCondition TakeDamageAndGetSpaceShuttleCondition(IObstacle obstacleType)

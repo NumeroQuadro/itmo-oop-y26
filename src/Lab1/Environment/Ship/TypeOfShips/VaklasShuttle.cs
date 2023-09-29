@@ -1,13 +1,15 @@
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.JumpEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.ProtectionConditions;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.ProtectionTypes;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.TypeOfShips;
 
-public class VaklasShuttle
+public class VaklasShuttle : ISpaceShuttle
 {
     private readonly ShipHull _shipHull;
 

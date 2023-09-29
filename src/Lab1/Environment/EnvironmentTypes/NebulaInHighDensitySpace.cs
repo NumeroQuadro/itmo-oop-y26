@@ -1,29 +1,25 @@
 using System.Collections.Generic;
 using System.Linq;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment;
 
-public class NebulaInHighDensitySpace
+public class NebulaInHighDensitySpace : IEnvironment
 {
-    private List<INebulaInHighDensitySpaceObstacle> _obstacles;
+    private List<IObstacle> _obstacles;
 
     public NebulaInHighDensitySpace()
     {
-        _obstacles = new List<INebulaInHighDensitySpaceObstacle>();
+        _obstacles = new List<IObstacle>();
     }
 
-    public NebulaInHighDensitySpace(IEnumerable<INebulaInHighDensitySpaceObstacle> obstacles)
+    public void AddDustringOfAntiMatter(INebulaInHighDensitySpaceObstacle obstacle)
     {
-        _obstacles = obstacles.ToList();
+        _obstacles.Add(obstacle);
     }
 
-    public void AddDustingOfAntiMatter(DustingOfAntiMatter dustingOfAntiMatter)
-    {
-        _obstacles.Add(dustingOfAntiMatter);
-    }
-
-    public IEnumerable<INebulaInHighDensitySpaceObstacle> GetObstacles()
+    public IEnumerable<IObstacle> GetObstacles()
     {
         return _obstacles.AsEnumerable();
     }
