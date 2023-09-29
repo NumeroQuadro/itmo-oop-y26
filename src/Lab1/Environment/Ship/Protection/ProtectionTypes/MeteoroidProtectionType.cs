@@ -1,3 +1,3 @@
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.ProtectionTypes;
 
-public sealed record NoProtection : MeteoroidProtectionType;
+public abstract record MeteoroidProtectionType;

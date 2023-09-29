@@ -8,58 +8,27 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship;
 
 public class ShipHull
 {
-    private readonly Deflector _deflector;
+    private readonly MeteoroidProtectionType _meteoroidProtectionType;
 
-    private readonly LightProtection _lightProtection;
-    private readonly HeavyProtection _heavyProtection;
-
-    public ShipHull(HeavyProtection heavyProtection, LightProtection lightProtection, Engine.Engine engine, Deflector deflector, bool hasAntiNitrinoEmitter)
+    public ShipHull(MeteoroidProtectionType protectionType, Engine.Engine engine, bool hasAntiNitrinoEmitter)
     {
-        _deflector = deflector ?? throw new ArgumentException("Deflector is a null! Cannot initialize ShipHull by empty Deflector!");
         Engine = engine ?? throw new ArgumentException("Engine is a null! Cannot initialize ShipHull by empty Engine");
         HasAntiNitrinoEmitter = hasAntiNitrinoEmitter;
+        _meteoroidProtectionType = protectionType;
 
-        _lightProtection = lightProtection;
-        _heavyProtection = heavyProtection;
+        AssignCounters();
     }
 
     public bool HasAntiNitrinoEmitter { get; private set; }
-    public bool IsDestroyed { get; private set; }
+    public uint HitPoints { get; private set; }
 
     public Engine.Engine Engine { get; private set; }
+    public uint MaxAsteroidCounter { get; private set; }
+    public uint MaxMeteorCounter { get; private set; }
 
-    public ProtectionCondition TakeDamageAndGetShipHullCondition(ObstacleType obstacleType)
+    private void AssignCounters()
     {
-        if (IsDestroyed)
-        {
-            return new IsDestroyed();
-        }
-
-        if (_deflector.TakeDamageAndGetDeflectorCondition(obstacleType) is IsDestroyed)
-        {
-            if (obstacleType is Meteor & _heavyProtection.ProtectionCondition() is IsWorking)
-            {
-                _heavyProtection.TakeDamage();
-                return _heavyProtection.ProtectionCondition();
-            }
-
-            if (obstacleType is Asteroid & _lightProtection.ProtectionCondition() is IsWorking)
-            {
-                _lightProtection.TakeDamage();
-                return _lightProtection.ProtectionCondition();
-            }
-
-            if (obstacleType is SpaceWhale)
-            {
-                if (HasAntiNitrinoEmitter)
-                {
-                    return new IsWorking();
-                }
-
-                return new IsDestroyed();
-            }
-        }
-
-        return new IsWorking();
+        MaxAsteroidCounter = 3;
+        MaxMeteorCounter = 4;
     }
 }

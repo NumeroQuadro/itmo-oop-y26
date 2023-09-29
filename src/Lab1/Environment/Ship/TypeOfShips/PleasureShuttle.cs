@@ -22,10 +22,10 @@ public class PleasureShuttle : ISpaceShuttle
         CurrentEnvironment = new Space();
     }
 
-    public IEnvironment CurrentEnvironment { get; private set; }
+    public IEnvironment CurrentEnvironment { get; init; }
     public bool IsDestroyed { get; private set; }
 
-    public ProtectionCondition TakeDamageAndGetSpaceShuttleCondition(ObstacleType obstacleType)
+    public ProtectionCondition TakeDamageAndGetSpaceShuttleCondition(IObstacle obstacle)
     {
         if (IsDestroyed)
         {

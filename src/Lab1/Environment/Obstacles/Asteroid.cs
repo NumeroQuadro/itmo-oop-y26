@@ -12,8 +12,16 @@ public class Asteroid : ISpaceObstacle
     
     public IEnvironment CurrentEnvironment { get; init; }
 
-    public void DealDamage()
+    public void DealDamage(ISpaceShuttle shuttle)
     {
-        
+        if (shuttle.IsDestroyed)
+        {
+            return;
+        }
+
+        if (shuttle.IsDeflectorDestroyed())
+        {
+            shuttle.
+        }
     }
 }

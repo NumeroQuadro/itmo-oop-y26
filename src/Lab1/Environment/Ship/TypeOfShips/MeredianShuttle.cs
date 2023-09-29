@@ -22,6 +22,7 @@ public class MeredianShuttle : ISpaceShuttle
 
         CurrentEnvironment = new Space();
     }
+    public IEnvironment CurrentEnvironment { get; init; }
     
     public bool IsDestroyed { get; private set; }
 

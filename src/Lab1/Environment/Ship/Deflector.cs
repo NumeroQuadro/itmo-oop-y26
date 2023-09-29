@@ -7,62 +7,40 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship;
 
 public class Deflector
 {
-    private readonly ProtectionType _protectionType;
-    private readonly AntiMatterProtection _antiMatterProtection;
-    private readonly LightProtection _lightProtection;
-    private readonly HeavyProtection _heavyProtection;
-    private readonly SpaceWhaleProtection _spaceWhaleProtection;
+    private readonly MeteoroidProtectionType _protectionType;
 
-    public Deflector(ProtectionType protectionType, bool hasPhotonModification)
+    public Deflector(MeteoroidProtectionType protectionType, bool hasPhotonModification)
     {
-        const bool heavyProtectionIsNotDisabled = true;
-
         _protectionType = protectionType;
         HasPhotonModification = hasPhotonModification;
-        _antiMatterProtection = new AntiMatterProtection();
-        _lightProtection = new LightProtection();
-        _heavyProtection = new HeavyProtection(heavyProtectionIsNotDisabled);
-        _spaceWhaleProtection = new SpaceWhaleProtection();
+        
+        AssignCounters();
 
         IsDestroyed = false;
+        CalculateHitPoints();
     }
 
     public bool HasPhotonModification { get; private set; }
     public bool IsDestroyed { get; private set; }
+    public uint HitPoints { get; private set; }
+    public uint MaxAsteroidCounter { get; private set; }
+    public uint MaxMeteorCounter { get; private set; }
 
-    public ProtectionCondition TakeDamageAndGetDeflectorCondition(IObstacle obstacleType)
+    public void TakeDamage(uint hitPoints)
     {
-        if (IsDestroyed)
+        if (hitPoints >= HitPoints)
         {
-            return new IsDestroyed();
+            IsDestroyed = true;
         }
+    }
+    private void CalculateHitPoints()
+    {
+        HitPoints = MaxAsteroidCounter * MaxMeteorCounter;
+    }
 
-        if (obstacleType is DustingOfAntiMatter & _antiMatterProtection.ProtectionCondition() is IsWorking)
-        {
-            _antiMatterProtection.TakeDamage();
-            return _antiMatterProtection.ProtectionCondition();
-        }
-
-        if (obstacleType is Meteor & _heavyProtection.ProtectionCondition() is IsWorking)
-        {
-            _heavyProtection.TakeDamage();
-            return _heavyProtection.ProtectionCondition();
-        }
-
-        if (obstacleType is Asteroid & _lightProtection.ProtectionCondition() is IsWorking)
-        {
-            _lightProtection.TakeDamage();
-            return _lightProtection.ProtectionCondition();
-        }
-
-        if (obstacleType is SpaceWhale & _spaceWhaleProtection.ProtectionCondition() is IsWorking)
-        {
-            _spaceWhaleProtection.TakeDamage();
-            return _spaceWhaleProtection.ProtectionCondition();
-        }
-
-        IsDestroyed = true;
-
-        return new IsDestroyed();
+    private void AssignCounters()
+    {
+        MaxAsteroidCounter = 4;
+        MaxMeteorCounter = 5;
     }
 }
