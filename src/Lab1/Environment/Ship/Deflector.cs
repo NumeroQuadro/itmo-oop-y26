@@ -1,6 +1,3 @@
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.ProtectionConditions;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.ProtectionTypes;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship;
@@ -13,7 +10,7 @@ public class Deflector
     {
         _protectionType = protectionType;
         HasPhotonModification = hasPhotonModification;
-        
+
         AssignCounters();
 
         IsDestroyed = false;
@@ -33,6 +30,7 @@ public class Deflector
             IsDestroyed = true;
         }
     }
+
     private void CalculateHitPoints()
     {
         HitPoints = MaxAsteroidCounter * MaxMeteorCounter;

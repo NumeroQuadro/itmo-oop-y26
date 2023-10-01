@@ -1,7 +1,4 @@
 using System;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.ProtectionConditions;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.ProtectionTypes;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship;

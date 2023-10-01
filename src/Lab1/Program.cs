@@ -10,6 +10,6 @@ public static class Program
 {
     public static void Main()
     {
-        var defl = new Deflector(new Class1(2, 3), true);
+
     }
 }
