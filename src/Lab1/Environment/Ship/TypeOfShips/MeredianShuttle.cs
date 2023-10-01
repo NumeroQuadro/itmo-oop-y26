@@ -1,9 +1,10 @@
+using System;
+using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.DamageHandler;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.ImpulseEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.JumpEngines;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.ProtectionConditions;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.ProtectionTypes;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
 
@@ -27,47 +28,28 @@ public class MeredianShuttle : ISpaceShuttle
     }
 
     public IEnvironment CurrentEnvironment { get; init; }
+    public bool HasPhotonModificator => _deflector.HasPhotonModification;
+    public bool HasAntiNitrinoEmitter => _shipHull.HasAntiNitrinoEmitter;
 
-    public ProtectionCondition? TakeDamageAndGetResult(double hitPoints)
+    public SpaceTravelResult? TakeDamageAndGetResult(double hitPoints)
     {
+        Console.WriteLine("ну я корабл, получаю дамаг");
         return _damageHandler.DealDamage(hitPoints);
     }
 
-    // add checks to destruction from ALL space obstacles and amount of fuel
-    public bool IsPossibleToStayInHighDensitySpace()
+    public SpaceTravelResult? FlyToEnvironmentAndGetResult(IEnvironment environment)
     {
-        return _shipHull.Engine.EngineJumpType is not NoJump;
-    }
+        IEnumerable<IObstacle> obstacles = environment.GetObstacles();
 
-    // add checks to destruction from ALL space obstacles and amount of fuel
-    public bool IsPossibleToStayInSpace()
-    {
-        return _shipHull.Engine.EngineImpulseType is ImpulseClassC or ImpulseClassE;
-    }
-
-    // add checks to destruction from ALL space obstacles and amount of fuel
-    public bool IsPossibleToStayInNitrinoParticleNebula()
-    {
-        return _shipHull.Engine.EngineImpulseType is ImpulseClassE;
-    }
-
-    public SpaceTravelResult ValidateShipCondition(IEnvironment environment)
-    {
-        if (environment is NebulaInHighDensitySpace & IsPossibleToStayInHighDensitySpace())
+        foreach (IObstacle obstacle in obstacles)
         {
-            return new Success();
+            SpaceTravelResult? result = obstacle.DealDamageAndGetShipCondition(this);
+            if (result != null)
+            {
+                return result;
+            }
         }
 
-        if (environment is NitrinoParticleNebula & IsPossibleToStayInNitrinoParticleNebula())
-        {
-            return new Success();
-        }
-
-        if (environment is Space & IsPossibleToStayInSpace())
-        {
-            return new Success();
-        }
-
-        return
+        return null;
     }
 }

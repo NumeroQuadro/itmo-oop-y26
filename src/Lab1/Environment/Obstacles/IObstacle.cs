@@ -1,8 +1,8 @@
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
 
 public interface IObstacle
 {
-    public IEnvironment CurrentEnvironment { get; init; }
+    public SpaceTravelResult? DealDamageAndGetShipCondition(ISpaceShuttle shuttle);
 }

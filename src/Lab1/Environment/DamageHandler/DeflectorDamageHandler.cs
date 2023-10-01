@@ -1,4 +1,5 @@
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.ProtectionConditions;
+using System;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.DamageHandler;
 
@@ -12,14 +13,15 @@ public class DeflectorDamageHandler : ShipHullDamageHandler
         _deflectorHitPoints = deflectorHitPoints;
     }
 
-    public override ProtectionCondition? DealDamage(double hitPoints)
+    public override SpaceTravelResult? DealDamage(double hitPoints)
     {
+        Console.WriteLine($"ну я дефлектор получаю дамаг, у меня {_deflectorHitPoints}");
         if (hitPoints >= _deflectorHitPoints || _deflectorHitPoints <= 0)
         {
             return base.DealDamage(hitPoints);
         }
 
         _deflectorHitPoints -= hitPoints;
-        return new IsWorking();
+        return null;
     }
 }

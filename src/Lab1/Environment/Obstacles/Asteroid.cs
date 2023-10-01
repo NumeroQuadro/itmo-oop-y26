@@ -1,30 +1,17 @@
-using System;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.ProtectionConditions;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
 
 public class Asteroid : ISpaceObstacle
 {
-    public Asteroid(IEnvironment environment)
+    public SpaceTravelResult? DealDamageAndGetShipCondition(ISpaceShuttle shuttle)
     {
-        CurrentEnvironment = environment;
-    }
-
-    public IEnvironment CurrentEnvironment { get; init; }
-
-    public void DealDamage(ISpaceShuttle shuttle)
-    {
-        if (CurrentEnvironment == shuttle.CurrentEnvironment)
+        SpaceTravelResult? shuttleConditionAfterDamaged = shuttle.TakeDamageAndGetResult(Constants.AsteroidDamage);
+        if (shuttleConditionAfterDamaged != null)
         {
-            ProtectionCondition? shuttleConditionAfterDamaged = shuttle.TakeDamageAndGetResult(4);
-            if (shuttleConditionAfterDamaged == null)
-            {
-                throw new ArgumentException("Ship was damaged, but returned null ProtectionCondition variable!");
-            }
+            return shuttleConditionAfterDamaged;
         }
 
-        throw new ArgumentException("Cannot deal damage! Asteroid is in another Environment rather than shuttle!");
+        return null;
     }
 }

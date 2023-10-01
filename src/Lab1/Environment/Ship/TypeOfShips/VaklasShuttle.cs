@@ -1,8 +1,9 @@
+using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.DamageHandler;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.JumpEngines;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.ProtectionConditions;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.ProtectionTypes;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
 
@@ -25,9 +26,28 @@ public class VaklasShuttle : ISpaceShuttle
         CurrentEnvironment = new Space();
     }
 
+    public bool HasPhotonModificator => _deflector.HasPhotonModification;
+    public bool HasAntiNitrinoEmitter => _shipHull.HasAntiNitrinoEmitter;
+
     public IEnvironment CurrentEnvironment { get; init; }
 
-    public ProtectionCondition? TakeDamageAndGetResult(double hitPoints)
+    public SpaceTravelResult? FlyToEnvironmentAndGetResult(IEnvironment environment)
+    {
+        IEnumerable<IObstacle> obstacles = environment.GetObstacles();
+
+        foreach (IObstacle obstacle in obstacles)
+        {
+            SpaceTravelResult? result = obstacle.DealDamageAndGetShipCondition(this);
+            if (result != null)
+            {
+                return result;
+            }
+        }
+
+        return null;
+    }
+
+    public SpaceTravelResult? TakeDamageAndGetResult(double hitPoints)
     {
         return _damageHandler.DealDamage(hitPoints);
     }

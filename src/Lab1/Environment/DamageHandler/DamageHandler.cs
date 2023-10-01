@@ -1,4 +1,4 @@
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.ProtectionConditions;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.DamageHandler;
 
@@ -12,7 +12,7 @@ public class DamageHandler
         return damageHandler;
     }
 
-    public virtual ProtectionCondition? DealDamage(double hitPoints)
+    public virtual SpaceTravelResult? DealDamage(double hitPoints)
     {
         return _nextDamageHandler?.DealDamage(hitPoints);
     }
