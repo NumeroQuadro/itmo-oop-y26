@@ -1,40 +1,31 @@
-using System;
 using System.Collections.Generic;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.DamageHandler;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.JumpEngines;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.ProtectionTypes;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.DeflectorType;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.ShipHullType;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.TypeOfShips;
 
 public class MeredianShuttle : ISpaceShuttle
 {
-    private readonly ShipHull _shipHull;
-    private readonly Deflector _deflector;
-    private readonly DamageHandler.DamageHandler _damageHandler;
+    private readonly IShipHull _shipHull = new BClassShipHull(false);
 
-    public MeredianShuttle()
-    {
-        var engine = new Engine.Engine(new ImpulseClassC(), new NoJump());
-        _deflector = new Deflector(new Class1(), false);
-        _shipHull = new ShipHull(new Class2(), engine, false);
-        _damageHandler = new DamageHandler.DamageHandler();
-        _damageHandler.SetNextDamageHandler(new DeflectorDamageHandler(Constants.BClassDeflectorWithoutPhotonModificationHitPoints, Constants.BClassShipHullHitPoints));
+    // private readonly Engine.Engine _engine = new(new ImpulseClassC(), new NoJump());
+    private readonly IDeflector _deflector = new BClassDeflector(false);
 
-        CurrentEnvironment = new Space();
-    }
-
-    public IEnvironment CurrentEnvironment { get; init; }
+    public IEnvironment CurrentEnvironment { get; init; } = new Space();
     public bool HasPhotonModificator => _deflector.HasPhotonModification;
     public bool HasAntiNitrinoEmitter => _shipHull.HasAntiNitrinoEmitter;
 
     public SpaceTravelResult? TakeDamageAndGetResult(double hitPoints)
     {
-        Console.WriteLine("ну я корабл, получаю дамаг");
-        return _damageHandler.DealDamage(hitPoints);
+        if (_deflector.TakeDamage(hitPoints) != null)
+        {
+            return _shipHull.TakeDamage(hitPoints);
+        }
+
+        return null;
     }
 
     public SpaceTravelResult? FlyToEnvironmentAndGetResult(IEnvironment environment)

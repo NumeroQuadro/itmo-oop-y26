@@ -2,24 +2,26 @@ using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.DamageHandler;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.DeflectorType;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.JumpEngines;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Protection.ProtectionTypes;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.ShipHullType;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.TypeOfShips;
 
 public class PleasureShuttle : ISpaceShuttle
 {
-    private readonly ShipHull _shipHull;
-    private readonly Deflector _deflector;
+    private readonly Engine.Engine _engine;
+    private readonly IShipHull _shipHull;
+    private readonly IDeflector _deflector;
     private readonly DamageHandler.DamageHandler _damageHandler;
 
     public PleasureShuttle()
     {
-        var engine = new Engine.Engine(new ImpulseClassC(), new NoJump());
-        _deflector = new Deflector(new Class1(), false);
-        _shipHull = new ShipHull(new Class2(), engine, false);
+        _engine = new Engine.Engine(new ImpulseClassC(), new NoJump());
+        _deflector = new AClassDeflector(false);
+        _shipHull = new BClassShipHull(false);
         _damageHandler = new DamageHandler.DamageHandler();
         _damageHandler.SetNextDamageHandler(new DeflectorDamageHandler(0, Constants.AClassShipHullHitPoints));
 

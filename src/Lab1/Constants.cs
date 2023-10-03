@@ -41,5 +41,10 @@ public static class Constants
     public static double CClassDeflectorWithoutPhotonModificationHitPoints { get; } = 300;
     public static double CClassDeflectorWithoutPhotonModificationAsteroidDamageCoefficient { get; } = 1.5;
     public static double CClassDeflectorWithoutPhotonModificationMeteorDamageCoefficient { get; } = 3.0;
-    public static double CClassDeflectorWithoutPhotonModificationDustingOfAntiMatterDamageCoefficient { get; } = 7.66;
+    public static double CClassDeflectorWithoutPhotonModificationDustingOfAntiMatterDamageCoefficient { get; } = 7.66; // ???????????????????????????????/
+
+    public static double CClassDeflectorWithPhotonModificationHitPoints { get; } = 345;
+    public static double CClassDeflectorWithPhotonModificationAsteroidDamageCoefficient { get; } = 1.725;
+    public static double CClassDeflectorWithPhotonModificationMeteorDamageCoefficient { get; } = 3.45;
+    public static double CClassDeflectorWithPhotonModificationDustingOfAntiMatterDamageCoefficient { get; } = 7.66;
 }
