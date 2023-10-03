@@ -1,7 +1,6 @@
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.ShipHullType;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.ProtectionState;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.ShipHullType;
 
 public class AClassShipHull : IShipHull
 {
@@ -14,14 +13,14 @@ public class AClassShipHull : IShipHull
     public bool HasAntiNitrinoEmitter { get; private set; }
     public double HitPoints { get; private set; }
 
-    public SpaceTravelResult? TakeDamage(double hitPoints)
+    public ProtectionState.ProtectionState TakeDamage(double hitPoints)
     {
         if (HitPoints >= 0)
         {
             HitPoints -= hitPoints;
-            return null;
+            return new ProtectionIsEnabled();
         }
 
-        return new ShuttleIsDestroyed();
+        return new ProtectionDisabled();
     }
 }

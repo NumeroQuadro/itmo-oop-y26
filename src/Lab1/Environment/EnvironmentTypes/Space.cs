@@ -18,14 +18,20 @@ public class Space : ISpace
         _obstacles = obstacles.ToList();
     }
 
-    public void AddMeteor(ISpaceObstacle meteor)
+    public void AddMeteors(uint numberOfMeteors)
     {
-        _obstacles.Add(meteor);
+        for (uint i = 0; i < numberOfMeteors; ++i)
+        {
+            _obstacles.Add(new Meteor());
+        }
     }
 
-    public void AddAsteroid(ISpaceObstacle asteroid)
+    public void AddAsteroids(uint numberOfAsteroids)
     {
-        _obstacles.Add(asteroid);
+        for (uint i = 0; i < numberOfAsteroids; ++i)
+        {
+            _obstacles.Add(new Asteroid());
+        }
     }
 
     public IEnumerable<IObstacle> GetObstacles()

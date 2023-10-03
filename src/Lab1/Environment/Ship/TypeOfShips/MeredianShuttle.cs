@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.DeflectorType;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.ProtectionState;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.ShipHullType;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
 
@@ -20,9 +21,12 @@ public class MeredianShuttle : ISpaceShuttle
 
     public SpaceTravelResult? TakeDamageAndGetResult(double hitPoints)
     {
-        if (_deflector.TakeDamage(hitPoints) != null)
+        if (_deflector.TakeDamage(hitPoints) is ProtectionDisabled)
         {
-            return _shipHull.TakeDamage(hitPoints);
+            if (_shipHull.TakeDamage(hitPoints) is ProtectionDisabled)
+            {
+                return new ShuttleIsDestroyed();
+            }
         }
 
         return null;

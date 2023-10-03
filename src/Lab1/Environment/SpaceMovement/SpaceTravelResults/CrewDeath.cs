@@ -1,3 +1,3 @@
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
 
-public sealed record CrewDeath() : SpaceTravelResult;
+public sealed record CrewDeath : SpaceTravelResult;

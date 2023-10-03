@@ -1,4 +1,4 @@
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.ProtectionState;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.DeflectorType;
 
@@ -7,21 +7,20 @@ public class AClassDeflector : IDeflector
     public AClassDeflector(bool hasPhotonModification)
     {
         HasPhotonModification = hasPhotonModification;
-
-        HitPoints = HasPhotonModification ? Constants.AClassDeflectorWithPhotonModificationHitPoints : Constants.AClassDeflectorWithoutPhotonModificationHitPoints;
+        HitPoints = Constants.AClassDeflectorHitPoints;
     }
 
     public bool HasPhotonModification { get; }
     public double HitPoints { get; private set; }
 
-    public SpaceTravelResult? TakeDamage(double hitPoints)
+    public ProtectionState.ProtectionState TakeDamage(double hitPoints)
     {
-        if (HitPoints >= 0)
+        if (HitPoints > 0)
         {
             HitPoints -= hitPoints;
-            return null;
+            return new ProtectionIsEnabled();
         }
 
-        return new ShuttleIsDestroyed();
+        return new ProtectionDisabled();
     }
 }
