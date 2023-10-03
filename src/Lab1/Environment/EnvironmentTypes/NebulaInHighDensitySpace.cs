@@ -9,14 +9,18 @@ public class NebulaInHighDensitySpace : IEnvironment
 {
     private List<IObstacle> _obstacles;
 
-    public NebulaInHighDensitySpace()
+    public NebulaInHighDensitySpace(uint numberOfDustingOfAntiMatters)
     {
         _obstacles = new List<IObstacle>();
+        AddDustingOfAntiMatters(numberOfDustingOfAntiMatters);
     }
 
-    public void AddDustringOfAntiMatter(INebulaInHighDensitySpaceObstacle obstacle)
+    public void AddDustingOfAntiMatters(uint numberOfDustingOfAntiMatters)
     {
-        _obstacles.Add(obstacle);
+        for (uint i = 0; i < numberOfDustingOfAntiMatters; ++i)
+        {
+            _obstacles.Add(new DustingOfAntiMatter());
+        }
     }
 
     public IEnumerable<IObstacle> GetObstacles()

@@ -8,9 +8,10 @@ public class NitrinoParticleNebula : IEnvironment
 {
     private List<IObstacle> _obstacles;
 
-    public NitrinoParticleNebula()
+    public NitrinoParticleNebula(uint numberOfSpaceWhales)
     {
         _obstacles = new List<IObstacle>();
+        AddSpaceWhales(numberOfSpaceWhales);
     }
 
     public NitrinoParticleNebula(IEnumerable<IObstacle> obstacles)
@@ -18,9 +19,12 @@ public class NitrinoParticleNebula : IEnvironment
         _obstacles = obstacles.ToList();
     }
 
-    public void AddSpaceWhale(INitrinoParticleNebulaObstacle spaceWhale)
+    public void AddSpaceWhales(uint numberOfSpaceWhales)
     {
-        _obstacles.Add(spaceWhale);
+        for (uint i = 0; i < numberOfSpaceWhales; ++i)
+        {
+            _obstacles.Add(new SpaceWhale());
+        }
     }
 
     public IEnumerable<IObstacle> GetObstacles()

@@ -13,9 +13,11 @@ public class Space : ISpace
         _obstacles = new List<IObstacle>();
     }
 
-    public Space(IEnumerable<IObstacle> obstacles)
+    public Space(uint numberOfAsteroids, uint numberOfMeteors)
     {
-        _obstacles = obstacles.ToList();
+        _obstacles = new List<IObstacle>();
+        AddAsteroids(numberOfAsteroids);
+        AddMeteors(numberOfMeteors);
     }
 
     public void AddMeteors(uint numberOfMeteors)
