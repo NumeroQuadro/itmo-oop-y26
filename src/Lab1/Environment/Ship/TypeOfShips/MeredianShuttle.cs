@@ -28,9 +28,9 @@ public class MeredianShuttle : ISpaceShuttle
 
     public SpaceTravelResult? TakeDamageAndGetResult(double hitPoints)
     {
-        if (_deflector.TakeDamage(hitPoints) is ProtectionDisabled)
+        if (_deflector.TakeDamage(hitPoints) is ImpossibleToBeDamaged)
         {
-            if (_shipHull.TakeDamage(hitPoints) is ProtectionDisabled)
+            if (_shipHull.TakeDamage(hitPoints) is ImpossibleToBeDamaged)
             {
                 return new ShuttleIsDestroyed();
             }

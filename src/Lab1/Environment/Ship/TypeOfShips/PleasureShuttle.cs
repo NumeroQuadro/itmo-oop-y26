@@ -18,7 +18,7 @@ public class PleasureShuttle : ISpaceShuttle
 
     public SpaceTravelResult? TakeDamageAndGetResult(double hitPoints)
     {
-        if (_shipHull.TakeDamage(hitPoints) is ProtectionDisabled)
+        if (_shipHull.TakeDamage(hitPoints) is ImpossibleToBeDamaged)
         {
             return new ShuttleIsDestroyed();
         }

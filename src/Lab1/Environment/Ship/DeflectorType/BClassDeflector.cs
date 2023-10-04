@@ -21,6 +21,6 @@ public class BClassDeflector : IDeflector
             return new ProtectionIsEnabled();
         }
 
-        return new ProtectionDisabled();
+        return new ImpossibleToBeDamaged();
     }
 }

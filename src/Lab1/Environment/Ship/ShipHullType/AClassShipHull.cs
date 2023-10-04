@@ -12,15 +12,13 @@ public class AClassShipHull : IShipHull
 
     public bool HasAntiNitrinoEmitter { get; private set; }
     public double HitPoints { get; private set; }
-
     public ProtectionState.ProtectionState TakeDamage(double hitPoints)
     {
-        if (HitPoints >= 0)
+        if (HitPoints < 0 || hitPoints > HitPoints)
         {
-            HitPoints -= hitPoints;
-            return new ProtectionIsEnabled();
+            return new ImpossibleToBeDamaged();
         }
 
-        return new ProtectionDisabled();
+        return new ProtectionIsEnabled();
     }
 }

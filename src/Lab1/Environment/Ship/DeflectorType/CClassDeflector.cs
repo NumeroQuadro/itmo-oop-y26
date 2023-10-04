@@ -18,9 +18,10 @@ public class CClassDeflector : IDeflector
         if (HitPoints > 0)
         {
             HitPoints -= hitPoints;
+
             return new ProtectionIsEnabled();
         }
 
-        return new ProtectionDisabled();
+        return new ImpossibleToBeDamaged();
     }
 }
