@@ -1,3 +1,3 @@
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine;
 
-public abstract record EngineImpulseType;
+public sealed record EngineIsWorking : EngineState;

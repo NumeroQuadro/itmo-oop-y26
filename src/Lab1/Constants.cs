@@ -6,6 +6,16 @@ public static class Constants
     public static double MeteorDamage { get; } = 10.0;
     public static double DustingOfAntimatterDamage { get; } = 1000;
 
+    // Engine specs
+    public static double CClassImpulseEngineStartFuelConsumption { get; } = 10.0;
+    public static double EClassImpulseEngineStartFuelConsumption { get; } = 15.0;
+    public static double CClassImpulseEngineVelocity { get; } = 45.0;
+    public static double EClassImpulseEngineVelocity { get; } = 65.0;
+    public static double JumpEngineStartFuelConsumption { get; } = 20.0;
+    public static double AlphaJumpEngineVelocity { get; } = 100;
+    public static double OmegaJumpEngineVelocity { get; } = 200;
+    public static double GammaJumpEngineVelocity { get; } = 300;
+
     // ShipHull specs
     public static double AClassShipHullHitPoints { get; } = 10.0;
     public static double BClassShipHullHitPoints { get; } = 30.0;
