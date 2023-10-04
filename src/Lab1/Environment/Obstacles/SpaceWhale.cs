@@ -11,6 +11,11 @@ public class SpaceWhale : INitrinoParticleNebulaObstacle
             return shuttle.TakeDamageAndGetResult(Constants.SpaceWhaleDamage);
         }
 
+        if (shuttle.HasAntiNitrinoEmitter)
+        {
+            return null;
+        }
+
         return new ShuttleIsDestroyed();
     }
 }
