@@ -15,7 +15,12 @@ public class MeredianShuttle : ISpaceShuttle
     private readonly IShipHull _shipHull = new BClassShipHull(true);
     private readonly EClassImpulseEngine _impulseEngine = new EClassImpulseEngine();
     private readonly GammaJumpEngine _jumpEngine = new GammaJumpEngine();
-    private readonly IDeflector _deflector = new BClassDeflector(false);
+    private readonly IDeflector _deflector;
+
+    public MeredianShuttle(bool hasPhotonDeflectors)
+    {
+        _deflector = new BClassDeflector(hasPhotonDeflectors);
+    }
 
     public IEnvironment CurrentEnvironment { get; init; } = new Space();
     public bool HasPhotonModificator => _deflector.HasPhotonModification;
@@ -34,13 +39,23 @@ public class MeredianShuttle : ISpaceShuttle
         return null;
     }
 
+    public bool IsShuttleIsSuitableToHighDensitySpace() => false;
+    public bool IsShuttleIsSuitableToSpace() => true;
+    public bool IsShuttleIsSuitableToNitrinoParticleNebula() => true;
+
     public SpaceTravelResult? FlyToEnvironmentAndGetResult(IEnvironment environment)
     {
+        if (!IsShuttlePossibleToLocateInEnvironment(environment))
+        {
+            return new ImpossibleToGoToEnvironment();
+        }
+
+        IMovement.StartEngines(_impulseEngine, _jumpEngine, environment);
+
         IEnumerable<IObstacle> obstacles = environment.GetObstacles();
 
         foreach (IObstacle obstacle in obstacles)
         {
-            if ()
             SpaceTravelResult? result = obstacle.DealDamageAndGetShipCondition(this);
             if (result != null)
             {
@@ -49,5 +64,32 @@ public class MeredianShuttle : ISpaceShuttle
         }
 
         return null;
+    }
+
+    private bool IsShuttlePossibleToLocateInEnvironment(IEnvironment environment)
+    {
+        if (environment is Space)
+        {
+            if (!IsShuttleIsSuitableToSpace())
+            {
+                return false;
+            }
+        }
+        else if (environment is NebulaInHighDensitySpace)
+        {
+            if (!IsShuttleIsSuitableToHighDensitySpace())
+            {
+                return false;
+            }
+        }
+        else if (environment is NitrinoParticleNebula)
+        {
+            if (!IsShuttleIsSuitableToNitrinoParticleNebula())
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
