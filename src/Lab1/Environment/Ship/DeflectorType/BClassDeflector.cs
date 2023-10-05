@@ -8,16 +8,30 @@ public class BClassDeflector : IDeflector
     {
         HasPhotonModification = hasPhotonModification;
         HitPoints = Constants.BClassDeflectorHitPoints;
+        SpecialHitPoints = Constants.BClassDeflectorHitPoints;
     }
 
     public bool HasPhotonModification { get; }
     public double HitPoints { get; private set; }
+    public double SpecialHitPoints { get; private set; }
 
     public ProtectionState.ProtectionState TakeDamage(double hitPoints)
     {
         if (HitPoints > 0)
         {
             HitPoints -= hitPoints;
+            return new ProtectionIsEnabled();
+        }
+
+        return new ImpossibleToBeDamaged();
+    }
+
+    public ProtectionState.ProtectionState TakeSpecialDamage(double hitPoints)
+    {
+        if (SpecialHitPoints > 0)
+        {
+            SpecialHitPoints -= Constants.BClassDeflectorDustingAntiMatterDamageReduceCoefficient * hitPoints;
+
             return new ProtectionIsEnabled();
         }
 

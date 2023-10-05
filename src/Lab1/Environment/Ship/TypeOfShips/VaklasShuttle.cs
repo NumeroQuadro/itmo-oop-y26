@@ -42,6 +42,21 @@ public class VaklasShuttle : ISpaceShuttle
         return null;
     }
 
+    public SpaceTravelResult? TakeSpecialDamageAndGetResult(double hitPoints)
+    {
+        if (_deflector.HasPhotonModification)
+        {
+            if (_deflector.TakeSpecialDamage(hitPoints) is ImpossibleToBeDamaged)
+            {
+                return new CrewDeath();
+            }
+
+            return null;
+        }
+
+        return new CrewDeath();
+    }
+
     public bool IsShuttleIsSuitableToHighDensitySpace() => true;
     public bool IsShuttleIsSuitableToSpace() => true;
     public bool IsShuttleIsSuitableToNitrinoParticleNebula() => true;

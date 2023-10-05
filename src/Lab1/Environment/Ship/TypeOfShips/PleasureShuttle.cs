@@ -26,6 +26,11 @@ public class PleasureShuttle : ISpaceShuttle
         return null;
     }
 
+    public SpaceTravelResult? TakeSpecialDamageAndGetResult(double hitPoints)
+    {
+        return new CrewDeath();
+    }
+
     public bool IsShuttleIsSuitableToHighDensitySpace() => false;
     public bool IsShuttleIsSuitableToSpace() => true;
     public bool IsShuttleIsSuitableToNitrinoParticleNebula() => false;
