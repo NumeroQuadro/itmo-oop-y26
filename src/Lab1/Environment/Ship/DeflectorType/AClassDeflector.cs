@@ -17,9 +17,15 @@ public class AClassDeflector : IDeflector
 
     public ProtectionState.ProtectionState TakeDamage(double hitPoints)
     {
+        if (hitPoints > HitPoints)
+        {
+            return new ProtectionIsNotAbsorbAllDamage(hitPoints - HitPoints);
+        }
+
         if (HitPoints > 0)
         {
             HitPoints -= hitPoints;
+
             return new ProtectionIsEnabled();
         }
 

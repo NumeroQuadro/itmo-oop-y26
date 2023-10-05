@@ -1,4 +1,4 @@
-using System;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.TypeOfShips;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
@@ -22,14 +22,11 @@ public static class Program
         // var shuttle = new MeredianShuttle(false);
         // SpaceTravelResult? result = route.GoThroughAllSegmentsAndGetResultOfTrip(shuttle);
         // EventHandler.HandleEvent(result);
-        var environment = new NitrinoParticleNebula(2, 45);
-        var shuttle = new AvgurShuttle(true);
+        var environment = new NitrinoParticleNebula(1, 45);
+        var shuttle = new VaklasShuttle(false);
 
         SpaceTravelResult? result = shuttle.FlyToEnvironmentAndGetResult(environment);
 
-        if (result == null)
-        {
-            Console.WriteLine("dimon limon");
-        }
+        EventHandler.HandleEvent(result);
     }
 }

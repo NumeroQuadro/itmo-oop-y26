@@ -28,12 +28,17 @@ public class AvgurShuttle : ISpaceShuttle
 
     public SpaceTravelResult? TakeDamageAndGetResult(double hitPoints)
     {
-        if (_deflector.TakeDamage(hitPoints) is ImpossibleToBeDamaged)
+        ProtectionState.ProtectionState resultAfterDeflectorDamaged = _deflector.TakeDamage(hitPoints);
+        if (resultAfterDeflectorDamaged is ImpossibleToBeDamaged)
         {
             if (_shipHull.TakeDamage(hitPoints) is ImpossibleToBeDamaged)
             {
                 return new ShuttleIsDestroyed();
             }
+        }
+        else if (resultAfterDeflectorDamaged is ProtectionIsNotAbsorbAllDamage result)
+        {
+            _shipHull.TakeDamage(result.RemainingUnAbsorbedDamage * Constants.NotAllDamageAbsorbedPenalty);
         }
 
         return null;
