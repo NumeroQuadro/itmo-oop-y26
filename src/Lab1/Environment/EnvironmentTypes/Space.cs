@@ -8,17 +8,15 @@ public class Space : ISpace
 {
     private List<IObstacle> _obstacles;
 
-    public Space()
-    {
-        _obstacles = new List<IObstacle>();
-    }
-
-    public Space(uint numberOfAsteroids, uint numberOfMeteors)
+    public Space(uint numberOfAsteroids, uint numberOfMeteors, uint length)
     {
         _obstacles = new List<IObstacle>();
         AddAsteroids(numberOfAsteroids);
         AddMeteors(numberOfMeteors);
+        Length = length;
     }
+
+    public uint Length { get; init; }
 
     public void AddMeteors(uint numberOfMeteors)
     {

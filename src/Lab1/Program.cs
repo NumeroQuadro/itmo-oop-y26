@@ -22,7 +22,7 @@ public static class Program
         // var shuttle = new MeredianShuttle(false);
         // SpaceTravelResult? result = route.GoThroughAllSegmentsAndGetResultOfTrip(shuttle);
         // EventHandler.HandleEvent(result);
-        var environment = new NitrinoParticleNebula(2);
+        var environment = new NitrinoParticleNebula(2, 45);
         var shuttle = new AvgurShuttle(true);
 
         SpaceTravelResult? result = shuttle.FlyToEnvironmentAndGetResult(environment);

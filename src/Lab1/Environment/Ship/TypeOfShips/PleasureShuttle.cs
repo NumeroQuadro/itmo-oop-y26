@@ -1,18 +1,19 @@
 using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.ImpulseEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.ProtectionState;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.ShipHullType;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement.SpaceTravelResults;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.TypeOfShips;
 
 public class PleasureShuttle : ISpaceShuttle
 {
-   // private readonly Engine.Engine _engine = new(new ImpulseClassC(), new NoJump());
+    private readonly CClassImpulseEngine _impulseEngine = new CClassImpulseEngine();
     private readonly IShipHull _shipHull = new BClassShipHull(false);
 
-    public IEnvironment CurrentEnvironment { get; init; } = new Space();
     public bool HasPhotonModificator => false;
     public bool HasAntiNitrinoEmitter => _shipHull.HasAntiNitrinoEmitter;
 
@@ -42,7 +43,16 @@ public class PleasureShuttle : ISpaceShuttle
             return new ImpossibleToGoToEnvironment();
         }
 
+        IMovement.StartEngines(_impulseEngine, null, environment);
+        double traveledTime = 0;
+
         IEnumerable<IObstacle> obstacles = environment.GetObstacles();
+        if (environment is NebulaInHighDensitySpace)
+        {
+            return new ShuttleLost();
+        }
+
+        traveledTime += _impulseEngine.GetTravelTime(environment.Length);
 
         foreach (IObstacle obstacle in obstacles)
         {
@@ -53,7 +63,7 @@ public class PleasureShuttle : ISpaceShuttle
             }
         }
 
-        return null;
+        return new Success(_impulseEngine.WastedFuel, 0, traveledTime);
     }
 
     private bool IsShuttlePossibleToLocateInEnvironment(IEnvironment environment)

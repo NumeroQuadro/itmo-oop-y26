@@ -7,6 +7,7 @@ using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.JumpEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.ProtectionState;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.ShipHullType;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement.SpaceTravelResults;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.TypeOfShips;
 
@@ -24,9 +25,6 @@ public class VaklasShuttle : ISpaceShuttle
 
     public bool HasPhotonModificator => _deflector.HasPhotonModification;
     public bool HasAntiNitrinoEmitter => _shipHull.HasAntiNitrinoEmitter;
-
-    public IEnvironment CurrentEnvironment { get; init; } = new Space();
-
     public SpaceTravelResult? TakeDamageAndGetResult(double hitPoints)
     {
         if (_deflector.TakeDamage(hitPoints) is ImpossibleToBeDamaged)
@@ -69,8 +67,17 @@ public class VaklasShuttle : ISpaceShuttle
         }
 
         IMovement.StartEngines(_impulseEngine, _jumpEngine, environment);
+        double traveledTime = 0;
 
         IEnumerable<IObstacle> obstacles = environment.GetObstacles();
+        if (environment is not NebulaInHighDensitySpace)
+        {
+            traveledTime += _impulseEngine.GetTravelTime(environment.Length);
+        }
+        else
+        {
+            traveledTime += _jumpEngine.GetTravelTime(environment.Length);
+        }
 
         foreach (IObstacle obstacle in obstacles)
         {
@@ -81,7 +88,7 @@ public class VaklasShuttle : ISpaceShuttle
             }
         }
 
-        return null;
+        return new Success(_impulseEngine.WastedFuel, _jumpEngine.WastedGravitonFuel, traveledTime);
     }
 
     private bool IsShuttlePossibleToLocateInEnvironment(IEnvironment environment)

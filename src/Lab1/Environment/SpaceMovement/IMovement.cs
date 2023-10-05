@@ -8,15 +8,15 @@ public interface IMovement
     public bool IsShuttleIsSuitableToHighDensitySpace();
     public bool IsShuttleIsSuitableToSpace();
     public bool IsShuttleIsSuitableToNitrinoParticleNebula();
-    protected static void StartEngines(IEngine impulseEngine, IEngine jumpEngine, IEnvironment environment)
+    protected static void StartEngines(IEngine? impulseEngine, IEngine? jumpEngine, IEnvironment environment)
     {
         if (environment is Space)
         {
-            impulseEngine.StartEngine();
+            impulseEngine?.StartEngine();
         }
         else if (environment is NebulaInHighDensitySpace)
         {
-            jumpEngine.StartEngine();
+            jumpEngine?.StartEngine();
         }
     }
 

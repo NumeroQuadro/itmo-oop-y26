@@ -22,7 +22,6 @@ public class MeredianShuttle : ISpaceShuttle
         _deflector = new BClassDeflector(hasPhotonDeflectors);
     }
 
-    public IEnvironment CurrentEnvironment { get; init; } = new Space();
     public bool HasPhotonModificator => _deflector.HasPhotonModification;
     public bool HasAntiNitrinoEmitter => _shipHull.HasAntiNitrinoEmitter;
 
