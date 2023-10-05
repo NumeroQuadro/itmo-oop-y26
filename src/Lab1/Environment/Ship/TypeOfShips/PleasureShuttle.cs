@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.DeflectorType;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.ImpulseEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.ProtectionState;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.ShipHullType;
@@ -16,6 +17,7 @@ public class PleasureShuttle : ISpaceShuttle
 
     public CClassImpulseEngine ImpulseEngine { get; } = new CClassImpulseEngine();
     public IShipHull ShipHull { get; } = new BClassShipHull(false);
+    public IDeflector? Deflector => null;
 
     public SpaceTravelResult? TakeDamageAndGetResult(double hitPoints)
     {

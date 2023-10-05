@@ -11,6 +11,16 @@ public class SpaceWhale : INitrinoParticleNebulaObstacle
             return null;
         }
 
+        if (shuttle.Deflector is null)
+        {
+            return new ShuttleIsDestroyed();
+        }
+
+        if (shuttle.Deflector.HitPoints <= 0)
+        {
+            return new ShuttleIsDestroyed();
+        }
+
         return shuttle.TakeDamageAndGetResult(Constants.SpaceWhaleDamage);
     }
 }

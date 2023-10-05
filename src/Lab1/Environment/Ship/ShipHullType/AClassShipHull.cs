@@ -14,10 +14,12 @@ public class AClassShipHull : IShipHull
     public double HitPoints { get; private set; }
     public ProtectionState.ProtectionState TakeDamage(double hitPoints)
     {
-        if (HitPoints < 0 || hitPoints > HitPoints)
+        if (HitPoints <= 0 || hitPoints > HitPoints)
         {
             return new ImpossibleToBeDamaged();
         }
+
+        HitPoints -= hitPoints;
 
         return new ProtectionIsEnabled();
     }

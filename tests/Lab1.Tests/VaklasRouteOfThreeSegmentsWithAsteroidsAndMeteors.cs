@@ -27,7 +27,7 @@ public class VaklasRouteOfThreeSegmentsWithAsteroidsAndMeteors
         bool shuttleExists = _starshipsByName.TryGetValue(shipName, out ISpaceShuttle? shuttle);
         var oneMeteoroidSpace = new Space(1, 1, 45);
         var zeroMeteoroidSpace = new Space(0, 0, 30);
-        var killerSpace = new Space(8, 4, 45);
+        var killerSpace = new Space(10, 4, 45);
 
         var first_environments = new List<IEnvironment>();
         first_environments.Add(oneMeteoroidSpace);

@@ -15,7 +15,7 @@ public class PathSegment : IPathSegment
         _environments = environments.ToList();
     }
 
-    public SpaceTravelResult? GoThroughAllEnvironmentsAndGetResultOfTrip(ISpaceShuttle shuttle)
+    public SpaceTravelResult GoThroughAllEnvironmentsAndGetResultOfTrip(ISpaceShuttle shuttle)
     {
         double traveledTime = 0;
         double wastedActivePlasmaFuel = 0;
@@ -23,7 +23,7 @@ public class PathSegment : IPathSegment
 
         foreach (IEnvironment environment in _environments)
         {
-            SpaceTravelResult? result = shuttle.FlyToEnvironmentAndGetResult(environment);
+            SpaceTravelResult result = shuttle.FlyToEnvironmentAndGetResult(environment);
             if (result is Success successResult)
             {
                 traveledTime += successResult.TraveledTime;
@@ -31,7 +31,7 @@ public class PathSegment : IPathSegment
                 wastedGravitonFuel += successResult.BurnedGravitonFuel;
             }
 
-            if (result != null)
+            if (result is not Success)
             {
                 return result;
             }

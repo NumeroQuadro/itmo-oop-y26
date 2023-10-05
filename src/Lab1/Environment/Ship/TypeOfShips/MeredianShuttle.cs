@@ -33,13 +33,6 @@ public class MeredianShuttle : ISpaceShuttle
                 return new ShuttleIsDestroyed();
             }
         }
-        else if (resultAfterDeflectorDamaged is ProtectionIsNotAbsorbAllDamage result)
-        {
-            if (ShipHull.TakeDamage(result.RemainingUnAbsorbedDamage * Constants.NotAllDamageAbsorbedPenalty) is ImpossibleToBeDamaged)
-            {
-                return new ShuttleIsDestroyed();
-            }
-        }
 
         return null;
     }

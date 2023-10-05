@@ -4,5 +4,5 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Pathway;
 
 public interface IPathSegment
 {
-    public SpaceTravelResult? GoThroughAllEnvironmentsAndGetResultOfTrip(ISpaceShuttle shuttle);
+    public SpaceTravelResult GoThroughAllEnvironmentsAndGetResultOfTrip(ISpaceShuttle shuttle);
 }
