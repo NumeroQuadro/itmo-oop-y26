@@ -36,7 +36,7 @@ public class PleasureShuttle : ISpaceShuttle
     public bool IsShuttleIsSuitableToSpace() => true;
     public bool IsShuttleIsSuitableToNitrinoParticleNebula() => false;
 
-    public SpaceTravelResult? FlyToEnvironmentAndGetResult(IEnvironment environment)
+    public SpaceTravelResult FlyToEnvironmentAndGetResult(IEnvironment environment)
     {
         if (!IsShuttlePossibleToLocateInEnvironment(environment))
         {

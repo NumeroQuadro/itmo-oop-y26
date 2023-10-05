@@ -1,7 +1,7 @@
-using Itmo.ObjectOrientedProgramming.Lab1.Environment;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.TypeOfShips;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement.SpaceTravelResults;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1;
 
@@ -26,7 +26,9 @@ public static class Program
         var shuttle = new VaklasShuttle(false);
 
         SpaceTravelResult? result = shuttle.FlyToEnvironmentAndGetResult(environment);
-
-        EventHandler.HandleEvent(result);
+        if (result is Success)
+        {
+            return;
+        }
     }
 }

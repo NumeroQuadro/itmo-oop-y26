@@ -6,6 +6,6 @@ public class DustingOfAntiMatter : INebulaInHighDensitySpaceObstacle
 {
     public SpaceTravelResult? DealDamageAndGetShipCondition(ISpaceShuttle shuttle)
     {
-        return shuttle.TakeDamageAndGetResult(Constants.DustingOfAntimatterDamage);
+        return shuttle.TakeSpecialDamageAndGetResult(Constants.DustingOfAntimatterDamage);
     }
 }

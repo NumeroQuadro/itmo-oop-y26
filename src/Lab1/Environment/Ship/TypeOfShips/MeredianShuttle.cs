@@ -7,6 +7,7 @@ using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.JumpEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.ProtectionState;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.ShipHullType;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement.SpaceTravelResults;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.TypeOfShips;
 
@@ -37,7 +38,10 @@ public class MeredianShuttle : ISpaceShuttle
         }
         else if (resultAfterDeflectorDamaged is ProtectionIsNotAbsorbAllDamage result)
         {
-            _shipHull.TakeDamage(result.RemainingUnAbsorbedDamage * Constants.NotAllDamageAbsorbedPenalty);
+            if (_shipHull.TakeDamage(result.RemainingUnAbsorbedDamage * Constants.NotAllDamageAbsorbedPenalty) is ImpossibleToBeDamaged)
+            {
+                return new ShuttleIsDestroyed();
+            }
         }
 
         return null;
@@ -62,7 +66,7 @@ public class MeredianShuttle : ISpaceShuttle
     public bool IsShuttleIsSuitableToSpace() => true;
     public bool IsShuttleIsSuitableToNitrinoParticleNebula() => true;
 
-    public SpaceTravelResult? FlyToEnvironmentAndGetResult(IEnvironment environment)
+    public SpaceTravelResult FlyToEnvironmentAndGetResult(IEnvironment environment)
     {
         if (!IsShuttlePossibleToLocateInEnvironment(environment))
         {
@@ -70,8 +74,17 @@ public class MeredianShuttle : ISpaceShuttle
         }
 
         IMovement.StartEngines(_impulseEngine, _jumpEngine, environment);
+        double traveledTime = 0;
 
         IEnumerable<IObstacle> obstacles = environment.GetObstacles();
+        if (environment is not NebulaInHighDensitySpace)
+        {
+            traveledTime += _impulseEngine.GetTravelTime(environment.Length);
+        }
+        else
+        {
+            traveledTime += _jumpEngine.GetTravelTime(environment.Length);
+        }
 
         foreach (IObstacle obstacle in obstacles)
         {
@@ -82,7 +95,7 @@ public class MeredianShuttle : ISpaceShuttle
             }
         }
 
-        return null;
+        return new Success(_impulseEngine.WastedFuel, _jumpEngine.WastedGravitonFuel, traveledTime);
     }
 
     private bool IsShuttlePossibleToLocateInEnvironment(IEnvironment environment)

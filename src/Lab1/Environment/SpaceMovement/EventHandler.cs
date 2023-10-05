@@ -1,5 +1,6 @@
 using System;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement.SpaceTravelResults;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment;
 
@@ -7,7 +8,7 @@ internal static class EventHandler
 {
     public static void HandleEvent(SpaceTravelResult? spaceTravelResult)
     {
-        if (spaceTravelResult == null)
+        if (spaceTravelResult is Success)
         {
             Console.WriteLine("Все прошло успешно");
         }

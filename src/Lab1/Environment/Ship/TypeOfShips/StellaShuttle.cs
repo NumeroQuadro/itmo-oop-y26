@@ -38,7 +38,10 @@ public class StellaShuttle : ISpaceShuttle
         }
         else if (resultAfterDeflectorDamaged is ProtectionIsNotAbsorbAllDamage result)
         {
-            _shipHull.TakeDamage(result.RemainingUnAbsorbedDamage * Constants.NotAllDamageAbsorbedPenalty);
+            if (_shipHull.TakeDamage(result.RemainingUnAbsorbedDamage * Constants.NotAllDamageAbsorbedPenalty) is ImpossibleToBeDamaged)
+            {
+                return new ShuttleIsDestroyed();
+            }
         }
 
         return null;
@@ -63,7 +66,7 @@ public class StellaShuttle : ISpaceShuttle
     public bool IsShuttleIsSuitableToSpace() => true;
     public bool IsShuttleIsSuitableToNitrinoParticleNebula() => false;
 
-    public SpaceTravelResult? FlyToEnvironmentAndGetResult(IEnvironment environment)
+    public SpaceTravelResult FlyToEnvironmentAndGetResult(IEnvironment environment)
     {
         if (!IsShuttlePossibleToLocateInEnvironment(environment))
         {

@@ -20,5 +20,5 @@ public interface IMovement
         }
     }
 
-    public SpaceTravelResult? FlyToEnvironmentAndGetResult(IEnvironment environment);
+    public SpaceTravelResult FlyToEnvironmentAndGetResult(IEnvironment environment);
 }
