@@ -16,6 +16,8 @@ public static class Constants
     public static double AlphaJumpEngineVelocity { get; } = 100;
     public static double OmegaJumpEngineVelocity { get; } = 200;
     public static double GammaJumpEngineVelocity { get; } = 300;
+    public static double PriceForActivePlasmaFuel { get; } = 23;
+    public static double PriceForGravitonFuel { get; } = 56;
 
     // ShipHull specs
     public static double AClassShipHullHitPoints { get; } = 10.0;

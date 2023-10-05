@@ -2,25 +2,25 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.JumpEngine
 
 public class GammaJumpEngine : IEngine
 {
-    public double WasteFuel { get; private set; }
+    public double WastedGravitonFuel { get; private set; }
 
-    public EngineState BurnFuel(double kilometersTraveled)
+    public EngineState BurnFuel(double astronomicalUnitsTraveled)
     {
-        double amountOfBurnedFuel = kilometersTraveled * kilometersTraveled;
+        double amountOfBurnedFuel = astronomicalUnitsTraveled * astronomicalUnitsTraveled;
 
-        WasteFuel += amountOfBurnedFuel;
+        WastedGravitonFuel += amountOfBurnedFuel;
 
         return new EngineIsWorking();
     }
 
-    public double GetTravelTime(double kilometersTraveled)
+    public double GetTravelTime(double astronomicalUnitsTraveled)
     {
-        return kilometersTraveled / Constants.GammaJumpEngineVelocity;
+        return astronomicalUnitsTraveled / Constants.GammaJumpEngineVelocity;
     }
 
     public EngineState StartEngine()
     {
-        WasteFuel += Constants.JumpEngineStartFuelConsumption;
+        WastedGravitonFuel += Constants.JumpEngineStartFuelConsumption;
 
         return new EngineIsWorking();
     }

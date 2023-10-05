@@ -4,25 +4,25 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.ImpulseEng
 
 public class EClassImpulseEngine : IEngine
 {
-    public double WasteFuel { get; private set; }
+    public double WastedFuel { get; private set; }
 
-    public EngineState BurnFuel(double kilometersTraveled)
+    public EngineState BurnFuel(double astronomicalUnitsTraveled)
     {
-        double amountOfBurnedFuel = Math.Exp(kilometersTraveled);
+        double amountOfBurnedFuel = Math.Exp(astronomicalUnitsTraveled);
 
-        WasteFuel += amountOfBurnedFuel;
+        WastedFuel += amountOfBurnedFuel;
 
         return new EngineIsWorking();
     }
 
-    public double GetTravelTime(double kilometersTraveled)
+    public double GetTravelTime(double astronomicalUnitsTraveled)
     {
-        return kilometersTraveled / Constants.EClassImpulseEngineVelocity;
+        return Math.Log(astronomicalUnitsTraveled + 1);
     }
 
     public EngineState StartEngine()
     {
-        WasteFuel += Constants.EClassImpulseEngineStartFuelConsumption;
+        WastedFuel += Constants.EClassImpulseEngineStartFuelConsumption;
 
         return new EngineIsWorking();
     }

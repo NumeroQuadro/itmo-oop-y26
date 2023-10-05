@@ -2,23 +2,23 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.ImpulseEng
 
 public class CClassImpulseEngine : IEngine
 {
-    public double WasteFuel { get; private set; }
+    public double WastedFuel { get; private set; }
 
-    public EngineState BurnFuel(double kilometersTraveled)
+    public EngineState BurnFuel(double astronomicalUnitsTraveled)
     {
-        WasteFuel += kilometersTraveled;
+        WastedFuel += astronomicalUnitsTraveled;
 
         return new EngineIsWorking();
     }
 
-    public double GetTravelTime(double kilometersTraveled)
+    public double GetTravelTime(double astronomicalUnitsTraveled)
     {
-        return kilometersTraveled / Constants.CClassImpulseEngineVelocity;
+        return astronomicalUnitsTraveled / Constants.CClassImpulseEngineVelocity;
     }
 
     public EngineState StartEngine()
     {
-        WasteFuel += Constants.CClassImpulseEngineStartFuelConsumption;
+        WastedFuel += Constants.CClassImpulseEngineStartFuelConsumption;
 
         return new EngineIsWorking();
     }
