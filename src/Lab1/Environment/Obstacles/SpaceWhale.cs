@@ -6,7 +6,7 @@ public class SpaceWhale : INitrinoParticleNebulaObstacle
 {
     public SpaceTravelResult? DealDamageAndGetShipCondition(ISpaceShuttle shuttle)
     {
-        if (shuttle.HasAntiNitrinoEmitter)
+        if (shuttle.ShipHull.HasAntiNitrinoEmitter)
         {
             return null;
         }

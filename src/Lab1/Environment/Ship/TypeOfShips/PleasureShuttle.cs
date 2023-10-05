@@ -14,8 +14,8 @@ public class PleasureShuttle : ISpaceShuttle
     private readonly CClassImpulseEngine _impulseEngine = new CClassImpulseEngine();
     private readonly IShipHull _shipHull = new BClassShipHull(false);
 
-    public bool HasPhotonModificator => false;
-    public bool HasAntiNitrinoEmitter => _shipHull.HasAntiNitrinoEmitter;
+    public CClassImpulseEngine ImpulseEngine { get; } = new CClassImpulseEngine();
+    public IShipHull ShipHull { get; } = new BClassShipHull(false);
 
     public SpaceTravelResult? TakeDamageAndGetResult(double hitPoints)
     {

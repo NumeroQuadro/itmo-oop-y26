@@ -13,32 +13,29 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.TypeOfShips;
 
 public class StellaShuttle : ISpaceShuttle
 {
-    private readonly IShipHull _shipHull = new AClassShipHull(false);
-    private readonly CClassImpulseEngine _impulseEngine = new CClassImpulseEngine();
-    private readonly OmegaJumpEngine _jumpEngine = new OmegaJumpEngine();
-    private readonly IDeflector _deflector;
-
     public StellaShuttle(bool hasPhotonDeflectors)
     {
-        _deflector = new CClassDeflector(hasPhotonDeflectors);
+        Deflector = new CClassDeflector(hasPhotonDeflectors);
     }
 
-    public bool HasPhotonModificator => _deflector.HasPhotonModification;
-    public bool HasAntiNitrinoEmitter => _shipHull.HasAntiNitrinoEmitter;
+    public IShipHull ShipHull { get; } = new AClassShipHull(false);
+    public CClassImpulseEngine ImpulseEngine { get; } = new CClassImpulseEngine();
+    public OmegaJumpEngine JumpEngine { get; } = new OmegaJumpEngine();
+    public IDeflector Deflector { get; init; }
 
     public SpaceTravelResult? TakeDamageAndGetResult(double hitPoints)
     {
-        ProtectionState.ProtectionState resultAfterDeflectorDamaged = _deflector.TakeDamage(hitPoints);
+        ProtectionState.ProtectionState resultAfterDeflectorDamaged = Deflector.TakeDamage(hitPoints);
         if (resultAfterDeflectorDamaged is ImpossibleToBeDamaged)
         {
-            if (_shipHull.TakeDamage(hitPoints) is ImpossibleToBeDamaged)
+            if (ShipHull.TakeDamage(hitPoints) is ImpossibleToBeDamaged)
             {
                 return new ShuttleIsDestroyed();
             }
         }
         else if (resultAfterDeflectorDamaged is ProtectionIsNotAbsorbAllDamage result)
         {
-            if (_shipHull.TakeDamage(result.RemainingUnAbsorbedDamage * Constants.NotAllDamageAbsorbedPenalty) is ImpossibleToBeDamaged)
+            if (ShipHull.TakeDamage(result.RemainingUnAbsorbedDamage * Constants.NotAllDamageAbsorbedPenalty) is ImpossibleToBeDamaged)
             {
                 return new ShuttleIsDestroyed();
             }
@@ -49,9 +46,9 @@ public class StellaShuttle : ISpaceShuttle
 
     public SpaceTravelResult? TakeSpecialDamageAndGetResult(double hitPoints)
     {
-        if (_deflector.HasPhotonModification)
+        if (Deflector.HasPhotonModification)
         {
-            if (_deflector.TakeSpecialDamage(hitPoints) is ImpossibleToBeDamaged)
+            if (Deflector.TakeSpecialDamage(hitPoints) is ImpossibleToBeDamaged)
             {
                 return new CrewDeath();
             }
@@ -73,17 +70,17 @@ public class StellaShuttle : ISpaceShuttle
             return new ImpossibleToGoToEnvironment();
         }
 
-        IMovement.StartEngines(_impulseEngine, _jumpEngine, environment);
+        IMovement.StartEngines(ImpulseEngine, JumpEngine, environment);
         double traveledTime = 0;
 
         IEnumerable<IObstacle> obstacles = environment.GetObstacles();
         if (environment is not NebulaInHighDensitySpace)
         {
-            traveledTime += _impulseEngine.GetTravelTime(environment.Length);
+            traveledTime += ImpulseEngine.GetTravelTime(environment.Length);
         }
         else
         {
-            traveledTime += _jumpEngine.GetTravelTime(environment.Length);
+            traveledTime += JumpEngine.GetTravelTime(environment.Length);
         }
 
         foreach (IObstacle obstacle in obstacles)
@@ -95,7 +92,7 @@ public class StellaShuttle : ISpaceShuttle
             }
         }
 
-        return new Success(_impulseEngine.WastedFuel, _jumpEngine.WastedGravitonFuel, traveledTime);
+        return new Success(ImpulseEngine.WastedFuel, JumpEngine.WastedGravitonFuel, traveledTime);
     }
 
     private bool IsShuttlePossibleToLocateInEnvironment(IEnvironment environment)

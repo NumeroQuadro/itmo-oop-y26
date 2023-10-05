@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement.SpaceTravelResults;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Pathway;
 
@@ -16,15 +17,26 @@ public class PathSegment : IPathSegment
 
     public SpaceTravelResult? GoThroughAllEnvironmentsAndGetResultOfTrip(ISpaceShuttle shuttle)
     {
+        double traveledTime = 0;
+        double wastedActivePlasmaFuel = 0;
+        double wastedGravitonFuel = 0;
+
         foreach (IEnvironment environment in _environments)
         {
             SpaceTravelResult? result = shuttle.FlyToEnvironmentAndGetResult(environment);
+            if (result is Success successResult)
+            {
+                traveledTime += successResult.TraveledTime;
+                wastedActivePlasmaFuel += successResult.BurnedActivePlasmaFuel;
+                wastedGravitonFuel += successResult.BurnedGravitonFuel;
+            }
+
             if (result != null)
             {
                 return result;
             }
         }
 
-        return null;
+        return new Success(wastedActivePlasmaFuel, wastedGravitonFuel, traveledTime);
     }
 }

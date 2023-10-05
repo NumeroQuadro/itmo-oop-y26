@@ -6,7 +6,6 @@ using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement.SpaceTravelR
 using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
-
 public class VaklasWithPhotonDeflectorsAndVaklasWithoutPhotonDeflectorsDustingOfAntiMatterInNitrinoParticleSpace
 {
     private readonly IDictionary<string, ISpaceShuttle> _starshipsByName = new Dictionary<string, ISpaceShuttle>();
