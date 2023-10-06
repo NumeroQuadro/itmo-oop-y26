@@ -13,8 +13,6 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.TypeOfShips;
 
 public class PleasureShuttle : ISpaceShuttle
 {
-    private readonly CClassImpulseImpulseEngine _impulseImpulseEngine = new CClassImpulseImpulseEngine();
-
     public IImpulseEngine ImpulseEngine { get; } = new CClassImpulseImpulseEngine();
     public IJumpEngine? JumpEngine => null;
     public IShipHull ShipHull { get; } = new BClassShipHull(false);
@@ -24,7 +22,7 @@ public class PleasureShuttle : ISpaceShuttle
     {
         if (ShipHull.TakeDamage(hitPoints) is ImpossibleToBeDamaged)
         {
-            return new ShuttleIsDestroyed();
+            return new ShuttleIsDestroyed(Constants.ZeroBurnedFuel, Constants.ZeroBurnedFuel, Constants.ZeroTraveledTime);
         }
 
         return null;
@@ -32,7 +30,7 @@ public class PleasureShuttle : ISpaceShuttle
 
     public SpaceTravelResult? TakeSpecialDamageAndGetResult(double hitPoints)
     {
-        return new CrewDeath();
+        return new CrewDeath(Constants.ZeroBurnedFuel, Constants.ZeroBurnedFuel, Constants.ZeroTraveledTime);
     }
 
     public bool IsShuttleIsSuitableToHighDensitySpace() => false;
@@ -43,19 +41,20 @@ public class PleasureShuttle : ISpaceShuttle
     {
         if (!IsShuttlePossibleToLocateInEnvironment(environment))
         {
-            return new ImpossibleToGoToEnvironment();
+            return new ImpossibleToGoToEnvironment(Constants.ZeroBurnedFuel, Constants.ZeroBurnedFuel, Constants.ZeroTraveledTime);
         }
 
-        IMovement.StartEngines(_impulseImpulseEngine, null, environment);
+        IMovement.StartEngines(ImpulseEngine, null, environment);
         double traveledTime = 0;
 
         IEnumerable<IObstacle> obstacles = environment.GetObstacles();
+
         if (environment is NebulaInHighDensitySpace)
         {
-            return new ShuttleLost();
+            return new ShuttleLost(Constants.ZeroBurnedFuel, Constants.ZeroBurnedFuel, Constants.ZeroTraveledTime);
         }
 
-        traveledTime += _impulseImpulseEngine.GetTravelTime(environment.Length);
+        traveledTime += ImpulseEngine.GetTravelTime(environment.Length);
 
         foreach (IObstacle obstacle in obstacles)
         {
@@ -66,7 +65,7 @@ public class PleasureShuttle : ISpaceShuttle
             }
         }
 
-        return new Success(_impulseImpulseEngine.WastedFuel, 0, traveledTime);
+        return new Success(ImpulseEngine.WastedFuel, 0, traveledTime);
     }
 
     private bool IsShuttlePossibleToLocateInEnvironment(IEnvironment environment)

@@ -30,7 +30,7 @@ public class StellaShuttle : ISpaceShuttle
         {
             if (ShipHull.TakeDamage(hitPoints) is ImpossibleToBeDamaged)
             {
-                return new ShuttleIsDestroyed();
+                return new ShuttleIsDestroyed(Constants.ZeroBurnedFuel, Constants.ZeroBurnedFuel, Constants.ZeroTraveledTime);
             }
         }
 
@@ -43,13 +43,13 @@ public class StellaShuttle : ISpaceShuttle
         {
             if (Deflector.TakeSpecialDamage(hitPoints) is ImpossibleToBeDamaged)
             {
-                return new CrewDeath();
+                return new CrewDeath(Constants.ZeroBurnedFuel, Constants.ZeroBurnedFuel, Constants.ZeroTraveledTime);
             }
 
             return null;
         }
 
-        return new CrewDeath();
+        return new CrewDeath(Constants.ZeroBurnedFuel, Constants.ZeroBurnedFuel, Constants.ZeroTraveledTime);
     }
 
     public bool IsShuttleIsSuitableToHighDensitySpace() => true;
@@ -60,7 +60,7 @@ public class StellaShuttle : ISpaceShuttle
     {
         if (!IsShuttlePossibleToLocateInEnvironment(environment))
         {
-            return new ImpossibleToGoToEnvironment();
+            return new ImpossibleToGoToEnvironment(Constants.ZeroBurnedFuel, Constants.ZeroBurnedFuel, Constants.ZeroTraveledTime);
         }
 
         IMovement.StartEngines(ImpulseEngine, JumpEngine, environment);

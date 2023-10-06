@@ -30,7 +30,7 @@ public class AvgurShuttle : ISpaceShuttle
         {
             if (ShipHull.TakeDamage(hitPoints) is ImpossibleToBeDamaged)
             {
-                return new ShuttleIsDestroyed();
+                return new ShuttleIsDestroyed(Constants.ZeroBurnedFuel, Constants.ZeroBurnedFuel, Constants.ZeroTraveledTime);
             }
         }
 
@@ -43,13 +43,13 @@ public class AvgurShuttle : ISpaceShuttle
         {
             if (Deflector.TakeSpecialDamage(hitPoints) is ImpossibleToBeDamaged)
             {
-                return new CrewDeath();
+                return new CrewDeath(0, 0, 0);
             }
 
             return null;
         }
 
-        return new CrewDeath();
+        return new CrewDeath(0, 0, 0);
     }
 
     public bool IsShuttleIsSuitableToHighDensitySpace() => true;
@@ -58,13 +58,16 @@ public class AvgurShuttle : ISpaceShuttle
 
     public SpaceTravelResult FlyToEnvironmentAndGetResult(IEnvironment environment)
     {
+        double traveledTime = 0;
+        double burnedActivePlasmaFuel = 0;
+        double burnedGravitonFuel = 0;
+
         if (!IsShuttlePossibleToLocateInEnvironment(environment))
         {
-            return new ImpossibleToGoToEnvironment();
+            return new ImpossibleToGoToEnvironment(burnedActivePlasmaFuel, burnedGravitonFuel, traveledTime);
         }
 
         IMovement.StartEngines(ImpulseEngine, JumpEngine, environment);
-        double traveledTime = 0;
 
         IEnumerable<IObstacle> obstacles = environment.GetObstacles();
         if (environment is not NebulaInHighDensitySpace)
