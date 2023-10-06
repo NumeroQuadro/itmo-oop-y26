@@ -1,8 +1,3 @@
-using Itmo.ObjectOrientedProgramming.Lab1.Environment;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.TypeOfShips;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
-
 namespace Itmo.ObjectOrientedProgramming.Lab1;
 
 public static class Program
@@ -22,10 +17,5 @@ public static class Program
         // var shuttle = new MeredianShuttle(false);
         // SpaceTravelResult? result = route.GoThroughAllSegmentsAndGetResultOfTrip(shuttle);
         // EventHandler.HandleEvent(result);
-        var environment = new Space(11, 0, 34);
-        var shuttle = new VaklasShuttle(false);
-
-        SpaceTravelResult? result = shuttle.FlyToEnvironmentAndGetResult(environment);
-        EventHandler.HandleEvent(result);
     }
 }

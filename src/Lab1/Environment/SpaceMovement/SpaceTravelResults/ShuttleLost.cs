@@ -1,3 +1,3 @@
-namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement.SpaceTravelResults;
 
-public sealed record ShuttleLost(double BurnedActivePlasmaFuel, double BurnedGravitonFuel, double TraveledTime) : SpaceTravelResult(BurnedActivePlasmaFuel, BurnedGravitonFuel, TraveledTime);
+public sealed record ShuttleLost : SpaceTravelResult;

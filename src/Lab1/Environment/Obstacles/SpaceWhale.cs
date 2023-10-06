@@ -13,17 +13,17 @@ public class SpaceWhale : INitrinoParticleNebulaObstacle
 
         if (shuttle.Deflector is null)
         {
-            return new ShuttleIsDestroyed(Constants.ZeroBurnedFuel, Constants.ZeroBurnedFuel, Constants.ZeroTraveledTime);
+            return new ShuttleIsDestroyed();
         }
 
         if (shuttle.Deflector.HitPoints < Constants.SpaceWhaleDamage)
         {
-            return new ShuttleIsDestroyed(Constants.ZeroBurnedFuel, Constants.ZeroBurnedFuel, Constants.ZeroTraveledTime);
+            return new ShuttleIsDestroyed();
         }
 
         if (shuttle.Deflector.HitPoints <= 0)
         {
-            return new ShuttleIsDestroyed(Constants.ZeroBurnedFuel, Constants.ZeroBurnedFuel, Constants.ZeroTraveledTime);
+            return new ShuttleIsDestroyed();
         }
 
         return shuttle.TakeDamageAndGetResult(Constants.SpaceWhaleDamage);

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.ResultsHandler;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.DeflectorType;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.ImpulseEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.JumpEngines;
@@ -22,7 +23,7 @@ public class PleasureShuttle : ISpaceShuttle
     {
         if (ShipHull.TakeDamage(hitPoints) is ImpossibleToBeDamaged)
         {
-            return new ShuttleIsDestroyed(Constants.ZeroBurnedFuel, Constants.ZeroBurnedFuel, Constants.ZeroTraveledTime);
+            return new ShuttleIsDestroyed();
         }
 
         return null;
@@ -30,28 +31,29 @@ public class PleasureShuttle : ISpaceShuttle
 
     public SpaceTravelResult? TakeSpecialDamageAndGetResult(double hitPoints)
     {
-        return new CrewDeath(Constants.ZeroBurnedFuel, Constants.ZeroBurnedFuel, Constants.ZeroTraveledTime);
+        return new CrewDeath();
     }
 
     public bool IsShuttleIsSuitableToHighDensitySpace() => false;
     public bool IsShuttleIsSuitableToSpace() => true;
     public bool IsShuttleIsSuitableToNitrinoParticleNebula() => false;
 
-    public SpaceTravelResult FlyToEnvironmentAndGetResult(IEnvironment environment)
+    public TripResultInformation FlyToEnvironmentAndGetResult(IEnvironment environment)
     {
+        double traveledTime = 0;
+
         if (!IsShuttlePossibleToLocateInEnvironment(environment))
         {
-            return new ImpossibleToGoToEnvironment(Constants.ZeroBurnedFuel, Constants.ZeroBurnedFuel, Constants.ZeroTraveledTime);
+            return new TripResultInformation(new ImpossibleToGoToEnvironment(), ImpulseEngine.WastedFuel, 0, traveledTime);
         }
 
         IMovement.StartEngines(ImpulseEngine, null, environment);
-        double traveledTime = 0;
 
         IEnumerable<IObstacle> obstacles = environment.GetObstacles();
 
         if (environment is NebulaInHighDensitySpace)
         {
-            return new ShuttleLost(Constants.ZeroBurnedFuel, Constants.ZeroBurnedFuel, Constants.ZeroTraveledTime);
+            return new TripResultInformation(new ShuttleLost(), ImpulseEngine.WastedFuel, 0, traveledTime);
         }
 
         traveledTime += ImpulseEngine.GetTravelTime(environment.Length);
@@ -61,11 +63,11 @@ public class PleasureShuttle : ISpaceShuttle
             SpaceTravelResult? result = obstacle.DealDamageAndGetShipCondition(this);
             if (result != null)
             {
-                return result;
+                return new TripResultInformation(result, ImpulseEngine.WastedFuel, 0, traveledTime);
             }
         }
 
-        return new Success(ImpulseEngine.WastedFuel, 0, traveledTime);
+        return new TripResultInformation(new Success(), ImpulseEngine.WastedFuel, 0, traveledTime);
     }
 
     private bool IsShuttlePossibleToLocateInEnvironment(IEnvironment environment)

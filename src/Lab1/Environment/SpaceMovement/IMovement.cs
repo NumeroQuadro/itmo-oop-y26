@@ -1,4 +1,5 @@
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.ResultsHandler;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.ImpulseEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.JumpEngines;
 
@@ -21,5 +22,5 @@ public interface IMovement
         }
     }
 
-    public SpaceTravelResult FlyToEnvironmentAndGetResult(IEnvironment environment);
+    public TripResultInformation FlyToEnvironmentAndGetResult(IEnvironment environment);
 }

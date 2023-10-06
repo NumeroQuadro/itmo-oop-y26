@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.ResultsHandler;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.TypeOfShips;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement.SpaceTravelResults;
@@ -35,7 +36,7 @@ public class SpaceWhaleInNitrinoParticleSpace
         var environment = new NitrinoParticleNebula(1, 3476);
 
         // Act
-        SpaceTravelResult? shuttleResult = shuttle?.FlyToEnvironmentAndGetResult(environment);
+        TripResultInformation? shuttleResult = shuttle?.FlyToEnvironmentAndGetResult(environment);
 
         // Assert
         Assert.NotNull(shuttle);
@@ -44,9 +45,9 @@ public class SpaceWhaleInNitrinoParticleSpace
 
         if (!isSuccess)
         {
-            Assert.IsType<ShuttleIsDestroyed>(shuttleResult);
+            Assert.IsType<ShuttleIsDestroyed>(shuttleResult?.TravelResult);
         }
 
-        Assert.Equal(shuttleResult is Success, isSuccess);
+        Assert.Equal(shuttleResult?.TravelResult is Success, isSuccess);
     }
 }

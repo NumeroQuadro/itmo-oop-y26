@@ -15,7 +15,7 @@ public class ShipHullDamageHandler : DamageHandler
     {
         if (hitPoints > _shipHullHitPoints || _shipHullHitPoints <= 0)
         {
-            return new ShuttleIsDestroyed(Constants.ZeroBurnedFuel, Constants.ZeroBurnedFuel, Constants.ZeroTraveledTime);
+            return new ShuttleIsDestroyed();
         }
 
         _shipHullHitPoints -= hitPoints;

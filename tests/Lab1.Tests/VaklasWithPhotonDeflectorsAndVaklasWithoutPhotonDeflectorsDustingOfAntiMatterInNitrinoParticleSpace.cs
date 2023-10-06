@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.ResultsHandler;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.TypeOfShips;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement.SpaceTravelResults;
@@ -31,7 +32,7 @@ public class VaklasWithPhotonDeflectorsAndVaklasWithoutPhotonDeflectorsDustingOf
         var environment = new NebulaInHighDensitySpace(1, 34);
 
         // Act
-        SpaceTravelResult? shuttleResult = shuttle?.FlyToEnvironmentAndGetResult(environment);
+        TripResultInformation? shuttleResult = shuttle?.FlyToEnvironmentAndGetResult(environment);
 
         // Assert
         Assert.NotNull(shuttle);
@@ -40,10 +41,10 @@ public class VaklasWithPhotonDeflectorsAndVaklasWithoutPhotonDeflectorsDustingOf
 
         if (!isSuccess)
         {
-            Assert.IsType<CrewDeath>(shuttleResult);
+            Assert.IsType<CrewDeath>(shuttleResult?.TravelResult);
             return;
         }
 
-        Assert.Equal(shuttleResult is Success, isSuccess);
+        Assert.Equal(shuttleResult?.TravelResult is Success, isSuccess);
     }
 }

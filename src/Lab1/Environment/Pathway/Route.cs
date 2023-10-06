@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.ResultsHandler;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement.SpaceTravelResults;
 
@@ -13,7 +14,7 @@ public class Route
         _segments = segments;
     }
 
-    public SpaceTravelResult? GoThroughAllSegmentsAndGetResultOfTrip(ISpaceShuttle? shuttle)
+    public TripResultInformation? GoThroughAllSegmentsAndGetResultOfTrip(ISpaceShuttle? shuttle)
     {
         if (shuttle is null)
         {
@@ -26,20 +27,20 @@ public class Route
 
         foreach (PathSegment segment in _segments)
         {
-            SpaceTravelResult? result = segment.GoThroughAllEnvironmentsAndGetResultOfTrip(shuttle);
+            TripResultInformation? result = segment.GoThroughAllEnvironmentsAndGetResultOfTrip(shuttle);
 
-            if (result is Success successResult)
+            if (result.TravelResult is Success successResult)
             {
-                traveledTime += successResult.TraveledTime;
-                wastedActivePlasmaFuel += successResult.BurnedActivePlasmaFuel;
-                wastedGravitonFuel += successResult.BurnedGravitonFuel;
+                traveledTime += result.TraveledTime;
+                wastedActivePlasmaFuel += result.BurnedActivePlasmaFuel;
+                wastedGravitonFuel += result.BurnedGravitonFuel;
             }
             else
             {
-                return result;
+                return new TripResultInformation(result.TravelResult, wastedActivePlasmaFuel, wastedGravitonFuel, traveledTime);
             }
         }
 
-        return new Success(wastedActivePlasmaFuel, wastedGravitonFuel, traveledTime);
+        return new TripResultInformation(new Success(), wastedActivePlasmaFuel, wastedGravitonFuel, traveledTime);
     }
 }

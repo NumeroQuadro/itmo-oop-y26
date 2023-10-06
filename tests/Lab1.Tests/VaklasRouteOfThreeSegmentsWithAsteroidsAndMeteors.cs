@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Pathway;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.ResultsHandler;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.TypeOfShips;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
 using Xunit;
@@ -50,13 +51,13 @@ public class VaklasRouteOfThreeSegmentsWithAsteroidsAndMeteors
         var route = new Route(segments);
 
         // Act
-        SpaceTravelResult? routeResult = route.GoThroughAllSegmentsAndGetResultOfTrip(shuttle);
+        TripResultInformation? routeResult = route.GoThroughAllSegmentsAndGetResultOfTrip(shuttle);
 
         // Assert
         Assert.NotNull(shuttle);
 
         Assert.True(shuttleExists);
 
-        Assert.IsType<ShuttleIsDestroyed>(routeResult);
+        Assert.IsType<ShuttleIsDestroyed>(routeResult?.TravelResult);
     }
 }

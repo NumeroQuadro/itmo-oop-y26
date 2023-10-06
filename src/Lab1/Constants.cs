@@ -6,10 +6,6 @@ public static class Constants
     public static double MeteorDamage => 10.0;
     public static double DustingOfAntimatterDamage => 1000;
     public static double SpaceWhaleDamage => 150.0;
-    public static double NotAllDamageAbsorbedPenalty => 2.5;
-    public static double ZeroTraveledTime => 0.0;
-
-    public static double ZeroBurnedFuel => 0.0;
 
     // Engine specs
     public static double CClassImpulseEngineStartFuelConsumption => 10.0;

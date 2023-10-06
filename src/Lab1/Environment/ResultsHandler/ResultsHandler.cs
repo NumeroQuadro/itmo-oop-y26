@@ -1,20 +1,17 @@
 using System.Collections.Generic;
+using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement.SpaceTravelResults;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.ResultsHandler;
 
 public class ResultsHandler
 {
-    private readonly IDictionary<SpaceTravelResult, ISpaceShuttle> _comprasionValues = new Dictionary<SpaceTravelResult, ISpaceShuttle>();
+    private readonly Dictionary<TripResultInformation, ISpaceShuttle> _comprasionValues = new Dictionary<TripResultInformation, ISpaceShuttle>();
 
-    public void AddValue(SpaceTravelResult result, ISpaceShuttle shuttle)
+    public void AddValue(TripResultInformation result, ISpaceShuttle shuttle)
     {
-        if (result is Success)
-        {
-            _comprasionValues.Add(result, shuttle);
-        }
+        _comprasionValues.Add(result, shuttle);
     }
 
     public ISpaceShuttle? GetShuttleWhichIsMoreProfit(IEnvironment environment)
@@ -26,44 +23,27 @@ public class ResultsHandler
 
         if (environment is NebulaInHighDensitySpace)
         {
-            double maxJumpEngineLength = 0;
-            ISpaceShuttle? answerShuttle = null;
-
-            foreach (KeyValuePair<SpaceTravelResult, ISpaceShuttle> pair in _comprasionValues)
-            {
-                if (pair.Value.JumpEngine is not null)
-                {
-                    if (pair.Value.JumpEngine.MaxLength < maxJumpEngineLength)
-                    {
-                        maxJumpEngineLength = pair.Value.JumpEngine.MaxLength;
-                        answerShuttle = pair.Value;
-                    }
-                }
-
-                return answerShuttle;
-            }
+            return FindBestShuttleInHighDensitySpace();
         }
 
         return null;
     }
 
-    private ISpaceShuttle? FindBestShuttleInSpace()
+    private ISpaceShuttle FindBestShuttleInSpace()
     {
-        double minimalPrice = double.MaxValue;
-        ISpaceShuttle? answerShuttle = null;
-        foreach (KeyValuePair<SpaceTravelResult, ISpaceShuttle> pair in _comprasionValues)
-        {
-            if (pair.Key is Success)
-            {
-                if ((pair.Key.BurnedActivePlasmaFuel * Constants.PriceForActivePlasmaFuel) +
-                    (pair.Key.BurnedGravitonFuel * Constants.PriceForGravitonFuel) < minimalPrice)
-                {
-                    minimalPrice = pair.Key.BurnedGravitonFuel * Constants.PriceForGravitonFuel;
-                    answerShuttle = pair.Value;
-                }
-            }
-        }
+        var orderedDictionary = _comprasionValues
+            .OrderBy(x => x.Key.TraveledTime)
+            .ToDictionary(x => x.Key, x => x.Value);
 
-        return answerShuttle;
+        return orderedDictionary.First().Value;
+    }
+
+    private ISpaceShuttle FindBestShuttleInHighDensitySpace()
+    {
+        var orderedDictionary = _comprasionValues
+            .OrderBy(x => x.Value.JumpEngine?.MaxLength)
+            .ToDictionary(x => x.Key, x => x.Value);
+
+        return orderedDictionary.Last().Value;
     }
 }

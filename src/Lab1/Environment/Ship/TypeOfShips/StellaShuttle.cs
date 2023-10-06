@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.ResultsHandler;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.DeflectorType;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.ImpulseEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.JumpEngines;
@@ -30,7 +31,7 @@ public class StellaShuttle : ISpaceShuttle
         {
             if (ShipHull.TakeDamage(hitPoints) is ImpossibleToBeDamaged)
             {
-                return new ShuttleIsDestroyed(Constants.ZeroBurnedFuel, Constants.ZeroBurnedFuel, Constants.ZeroTraveledTime);
+                return new ShuttleIsDestroyed();
             }
         }
 
@@ -43,24 +44,24 @@ public class StellaShuttle : ISpaceShuttle
         {
             if (Deflector.TakeSpecialDamage(hitPoints) is ImpossibleToBeDamaged)
             {
-                return new CrewDeath(Constants.ZeroBurnedFuel, Constants.ZeroBurnedFuel, Constants.ZeroTraveledTime);
+                return new CrewDeath();
             }
 
             return null;
         }
 
-        return new CrewDeath(Constants.ZeroBurnedFuel, Constants.ZeroBurnedFuel, Constants.ZeroTraveledTime);
+        return new CrewDeath();
     }
 
     public bool IsShuttleIsSuitableToHighDensitySpace() => true;
     public bool IsShuttleIsSuitableToSpace() => true;
     public bool IsShuttleIsSuitableToNitrinoParticleNebula() => false;
 
-    public SpaceTravelResult FlyToEnvironmentAndGetResult(IEnvironment environment)
+    public TripResultInformation FlyToEnvironmentAndGetResult(IEnvironment environment)
     {
         if (!IsShuttlePossibleToLocateInEnvironment(environment))
         {
-            return new ImpossibleToGoToEnvironment(Constants.ZeroBurnedFuel, Constants.ZeroBurnedFuel, Constants.ZeroTraveledTime);
+            return new TripResultInformation(new ImpossibleToGoToEnvironment(), 0, 0, 0);
         }
 
         IMovement.StartEngines(ImpulseEngine, JumpEngine, environment);
@@ -81,11 +82,11 @@ public class StellaShuttle : ISpaceShuttle
             SpaceTravelResult? result = obstacle.DealDamageAndGetShipCondition(this);
             if (result != null)
             {
-                return result;
+                return new TripResultInformation(result, ImpulseEngine.WastedFuel, JumpEngine.WastedGravitonFuel, traveledTime);
             }
         }
 
-        return new Success(ImpulseEngine.WastedFuel, JumpEngine.WastedGravitonFuel, traveledTime);
+        return new TripResultInformation(new Success(), ImpulseEngine.WastedFuel, JumpEngine.WastedGravitonFuel, traveledTime);
     }
 
     private bool IsShuttlePossibleToLocateInEnvironment(IEnvironment environment)
