@@ -68,7 +68,6 @@ public class AvgurShuttle : ISpaceShuttle
 
         IMovement.StartEngines(ImpulseEngine, JumpEngine, environment);
 
-        IEnumerable<IObstacle> obstacles = environment.GetObstacles();
         if (environment is not NebulaInHighDensitySpace)
         {
             traveledTime += ImpulseEngine.GetTravelTime(environment.Length);
@@ -78,6 +77,7 @@ public class AvgurShuttle : ISpaceShuttle
             traveledTime += JumpEngine.GetTravelTime(environment.Length);
         }
 
+        IEnumerable<IObstacle> obstacles = environment.GetObstacles();
         foreach (IObstacle obstacle in obstacles)
         {
             SpaceTravelResult? result = obstacle.DealDamageAndGetShipCondition(this);

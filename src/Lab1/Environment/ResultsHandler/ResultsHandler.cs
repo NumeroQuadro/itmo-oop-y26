@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement.SpaceTravelResults;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.ResultsHandler;
 
@@ -11,14 +12,17 @@ public class ResultsHandler
 
     public void AddValue(TripResultInformation result, ISpaceShuttle shuttle)
     {
-        _comprasionValues.Add(result, shuttle);
+        if (result.TravelResult is Success)
+        {
+            _comprasionValues.Add(result, shuttle);
+        }
     }
 
     public ISpaceShuttle? GetShuttleWhichIsMoreProfit(IEnvironment environment)
     {
         if (environment is Space)
         {
-            return FindBestShuttleInSpace();
+            return FindBestPriceTrip();
         }
 
         if (environment is NebulaInHighDensitySpace)
@@ -26,10 +30,10 @@ public class ResultsHandler
             return FindBestShuttleInHighDensitySpace();
         }
 
-        return null;
+        return FindBestPriceTrip();
     }
 
-    private ISpaceShuttle FindBestShuttleInSpace()
+    private ISpaceShuttle FindBestPriceTrip()
     {
         var orderedDictionary = _comprasionValues
             .OrderBy(x => x.Key.TraveledTime)
