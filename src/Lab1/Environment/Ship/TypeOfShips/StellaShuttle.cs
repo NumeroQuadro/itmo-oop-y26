@@ -19,8 +19,8 @@ public class StellaShuttle : ISpaceShuttle
     }
 
     public IShipHull ShipHull { get; } = new AClassShipHull(false);
-    public CClassImpulseEngine ImpulseEngine { get; } = new CClassImpulseEngine();
-    public OmegaJumpEngine JumpEngine { get; } = new OmegaJumpEngine();
+    public IImpulseEngine ImpulseEngine { get; } = new CClassImpulseImpulseEngine();
+    public IJumpEngine JumpEngine { get; } = new OmegaJumpImpulseEngine();
     public IDeflector Deflector { get; init; }
 
     public SpaceTravelResult? TakeDamageAndGetResult(double hitPoints)

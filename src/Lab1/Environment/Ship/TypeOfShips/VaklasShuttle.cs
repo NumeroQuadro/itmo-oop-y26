@@ -18,8 +18,8 @@ public class VaklasShuttle : ISpaceShuttle
         Deflector = new AClassDeflector(hasPhotonDeflectors);
     }
 
-    public EClassImpulseEngine ImpulseEngine { get; } = new EClassImpulseEngine();
-    public GammaJumpEngine JumpEngine { get; } = new GammaJumpEngine();
+    public IImpulseEngine ImpulseEngine { get; } = new EClassImpulseImpulseEngine();
+    public IJumpEngine JumpEngine { get; } = new GammaJumpImpulseEngine();
     public IShipHull ShipHull { get; } = new BClassShipHull(false);
     public IDeflector Deflector { get; init; }
     public SpaceTravelResult? TakeDamageAndGetResult(double hitPoints)

@@ -19,8 +19,8 @@ public class MeredianShuttle : ISpaceShuttle
     }
 
     public IShipHull ShipHull { get; } = new BClassShipHull(true);
-    public EClassImpulseEngine ImpulseEngine { get;  } = new EClassImpulseEngine();
-    public GammaJumpEngine JumpEngine { get; } = new GammaJumpEngine();
+    public IImpulseEngine ImpulseEngine { get; } = new EClassImpulseImpulseEngine();
+    public IJumpEngine JumpEngine { get; } = new GammaJumpImpulseEngine();
     public IDeflector Deflector { get; init; }
 
     public SpaceTravelResult? TakeDamageAndGetResult(double hitPoints)

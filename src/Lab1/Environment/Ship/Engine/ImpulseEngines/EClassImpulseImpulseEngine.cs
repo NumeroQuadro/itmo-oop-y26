@@ -2,8 +2,9 @@ using System;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.ImpulseEngines;
 
-public class EClassImpulseEngine : IEngine
+public class EClassImpulseImpulseEngine : IImpulseEngine
 {
+    public double MaxLength => 68;
     public double WastedFuel { get; private set; }
 
     public EngineState BurnFuel(double astronomicalUnitsTraveled)

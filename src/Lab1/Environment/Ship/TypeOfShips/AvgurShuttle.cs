@@ -18,8 +18,8 @@ public class AvgurShuttle : ISpaceShuttle
         Deflector = new CClassDeflector(hasPhotonDeflectors);
     }
 
-    public AlphaJumpEngine JumpEngine { get; } = new AlphaJumpEngine();
-    public EClassImpulseEngine ImpulseEngine { get; } = new EClassImpulseEngine();
+    public IJumpEngine JumpEngine { get; } = new AlphaJumpImpulseEngine();
+    public IImpulseEngine ImpulseEngine { get; } = new EClassImpulseImpulseEngine();
     public IShipHull ShipHull { get; } = new CClassShipHull(false);
     public IDeflector Deflector { get; init; }
 

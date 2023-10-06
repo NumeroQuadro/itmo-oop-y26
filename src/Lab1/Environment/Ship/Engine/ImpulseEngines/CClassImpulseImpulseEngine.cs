@@ -1,7 +1,8 @@
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.ImpulseEngines;
 
-public class CClassImpulseEngine : IEngine
+public class CClassImpulseImpulseEngine : IImpulseEngine
 {
+    public double MaxLength => 34;
     public double WastedFuel { get; private set; }
 
     public EngineState BurnFuel(double astronomicalUnitsTraveled)

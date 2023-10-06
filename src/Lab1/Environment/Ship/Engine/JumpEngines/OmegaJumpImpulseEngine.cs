@@ -1,12 +1,15 @@
+using System;
+
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.JumpEngines;
 
-public class GammaJumpEngine : IEngine
+public class OmegaJumpImpulseEngine : IJumpEngine
 {
+    public double MaxLength => 100;
     public double WastedGravitonFuel { get; private set; }
 
     public EngineState BurnFuel(double astronomicalUnitsTraveled)
     {
-        double amountOfBurnedFuel = astronomicalUnitsTraveled * astronomicalUnitsTraveled;
+        double amountOfBurnedFuel = astronomicalUnitsTraveled * Math.Log(astronomicalUnitsTraveled);
 
         WastedGravitonFuel += amountOfBurnedFuel;
 
@@ -15,7 +18,7 @@ public class GammaJumpEngine : IEngine
 
     public double GetTravelTime(double astronomicalUnitsTraveled)
     {
-        return astronomicalUnitsTraveled / Constants.GammaJumpEngineVelocity;
+        return astronomicalUnitsTraveled / Constants.OmegaJumpEngineVelocity;
     }
 
     public EngineState StartEngine()
