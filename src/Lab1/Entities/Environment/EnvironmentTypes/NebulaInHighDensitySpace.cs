@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Environment;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.EnvironmentTypes;
 
 public class NebulaInHighDensitySpace : IEnvironment
 {

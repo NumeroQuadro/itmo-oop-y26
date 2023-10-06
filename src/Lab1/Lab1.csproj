@@ -3,34 +3,7 @@
     <PropertyGroup>
         <RootNamespace>Itmo.ObjectOrientedProgramming.Lab1</RootNamespace>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <ItemGroup>
-      <Folder Include="Entities\" />
-      <Folder Include="Services\" />
-    </ItemGroup>
-
+        
     </PropertyGroup>
-
-
-
-
 
 </Project>

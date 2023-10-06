@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Pathway;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.ResultsHandler;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement.SpaceTravelResults;

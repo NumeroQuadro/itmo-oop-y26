@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.EnvironmentTypes;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.Pathway;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.ResultsHandler;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement.SpaceTravelResults;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Pathway;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Pathway;
 
 public class PathSegment : IPathSegment
 {
