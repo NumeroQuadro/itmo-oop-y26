@@ -19,8 +19,8 @@ public class AvgurShuttle : ISpaceShuttle
         Deflector = new CClassDeflector(hasPhotonDeflectors);
     }
 
-    public IJumpEngine JumpEngine { get; } = new AlphaJumpImpulseEngine();
-    public IImpulseEngine ImpulseEngine { get; } = new EClassImpulseImpulseEngine();
+    public IJumpEngine JumpEngine { get; } = new AlphaJumpEngine();
+    public IImpulseEngine ImpulseEngine { get; } = new EClassImpulseEngine();
     public IShipHull ShipHull { get; } = new CClassShipHull(false);
     public IDeflector Deflector { get; }
 
@@ -101,7 +101,7 @@ public class AvgurShuttle : ISpaceShuttle
         }
         else if (environment is NebulaInHighDensitySpace)
         {
-            if (!IsShuttleIsSuitableToHighDensitySpace())
+            if (!IsShuttleIsSuitableToHighDensitySpace() || environment.Length > JumpEngine.MaxLength)
             {
                 return false;
             }

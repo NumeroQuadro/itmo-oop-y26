@@ -14,7 +14,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.TypeOfShips;
 
 public class PleasureShuttle : ISpaceShuttle
 {
-    public IImpulseEngine ImpulseEngine { get; } = new CClassImpulseImpulseEngine();
+    public IImpulseEngine ImpulseEngine { get; } = new CClassImpulseEngine();
     public IJumpEngine? JumpEngine => null;
     public IShipHull ShipHull { get; } = new BClassShipHull(false);
     public IDeflector? Deflector => null;
@@ -29,7 +29,7 @@ public class PleasureShuttle : ISpaceShuttle
         return null;
     }
 
-    public SpaceTravelResult? TakeSpecialDamageAndGetResult(double hitPoints)
+    public SpaceTravelResult TakeSpecialDamageAndGetResult(double hitPoints)
     {
         return new CrewDeath();
     }
@@ -74,7 +74,7 @@ public class PleasureShuttle : ISpaceShuttle
     {
         if (environment is Space)
         {
-            if (!IsShuttleIsSuitableToSpace())
+            if (!IsShuttleIsSuitableToSpace() || environment.Length > ImpulseEngine.MaxLength)
             {
                 return false;
             }

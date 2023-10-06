@@ -19,8 +19,8 @@ public class VaklasShuttle : ISpaceShuttle
         Deflector = new AClassDeflector(hasPhotonDeflectors);
     }
 
-    public IImpulseEngine ImpulseEngine { get; } = new EClassImpulseImpulseEngine();
-    public IJumpEngine JumpEngine { get; } = new GammaJumpImpulseEngine();
+    public IImpulseEngine ImpulseEngine { get; } = new EClassImpulseEngine();
+    public IJumpEngine JumpEngine { get; } = new GammaJumpEngine();
     public IShipHull ShipHull { get; } = new BClassShipHull(false);
     public IDeflector Deflector { get; init; }
     public SpaceTravelResult? TakeDamageAndGetResult(double hitPoints)
@@ -92,21 +92,21 @@ public class VaklasShuttle : ISpaceShuttle
     {
         if (environment is Space)
         {
-            if (!IsShuttleIsSuitableToSpace())
+            if (!IsShuttleIsSuitableToSpace() || environment.Length > ImpulseEngine.MaxLength)
             {
                 return false;
             }
         }
         else if (environment is NebulaInHighDensitySpace)
         {
-            if (!IsShuttleIsSuitableToHighDensitySpace())
+            if (!IsShuttleIsSuitableToHighDensitySpace() || environment.Length > JumpEngine.MaxLength)
             {
                 return false;
             }
         }
         else if (environment is NitrinoParticleNebula)
         {
-            if (!IsShuttleIsSuitableToNitrinoParticleNebula())
+            if (!IsShuttleIsSuitableToNitrinoParticleNebula() || environment.Length > ImpulseEngine.MaxLength)
             {
                 return false;
             }

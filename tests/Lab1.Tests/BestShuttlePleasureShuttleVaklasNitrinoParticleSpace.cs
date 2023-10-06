@@ -15,7 +15,7 @@ public class BestShuttlePleasureShuttleVaklasNitrinoParticleSpace
     public void ShipShouldNotDestroyedIfItHasAntiNitrinoEmitter()
     {
         // Arrange
-        IEnvironment environment = new NitrinoParticleNebula(0, 45);
+        IEnvironment environment = new NitrinoParticleNebula(0, 3);
 
         // Act
         TripResultInformation vaklasShuttleResult = _vaklasShuttle.FlyToEnvironmentAndGetResult(environment);

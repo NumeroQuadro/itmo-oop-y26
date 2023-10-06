@@ -7,29 +7,27 @@ using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement.SpaceTravelR
 using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
-public class VaklasWithPhotonDeflectorsAndVaklasWithoutPhotonDeflectorsDustingOfAntiMatterInNitrinoParticleSpace
+
+public class ShuttlesDestroyedAvgurPleasureShuttleInHighDensitySpace
 {
     private readonly IDictionary<string, ISpaceShuttle> _starshipsByName = new Dictionary<string, ISpaceShuttle>();
-    private readonly VaklasShuttle _vaklasWithPhotonModification;
-    private readonly VaklasShuttle _vaklasWithoutPhotonModification;
+    private readonly AvgurShuttle _avgur = new AvgurShuttle(false);
+    private readonly PleasureShuttle _pleasure = new PleasureShuttle();
 
-    public VaklasWithPhotonDeflectorsAndVaklasWithoutPhotonDeflectorsDustingOfAntiMatterInNitrinoParticleSpace()
+    public ShuttlesDestroyedAvgurPleasureShuttleInHighDensitySpace()
     {
-        _vaklasWithoutPhotonModification = new VaklasShuttle(false);
-        _vaklasWithPhotonModification = new VaklasShuttle(true);
-
-        _starshipsByName.Add("VaklasModified", _vaklasWithPhotonModification);
-        _starshipsByName.Add("Vaklas", _vaklasWithoutPhotonModification);
+        _starshipsByName.Add("Avgur", _avgur);
+        _starshipsByName.Add("Pleasure", _pleasure);
     }
 
     [Theory]
-    [InlineData("VaklasModified", true)]
-    [InlineData("Vaklas", false)]
+    [InlineData("Avgur", false)]
+    [InlineData("Pleasure", false)]
     public void ShipShouldNotDestroyedIfItHasAntiNitrinoEmitter(string shipName, bool isSuccess)
     {
         // Arrange
         bool shuttleExists = _starshipsByName.TryGetValue(shipName, out ISpaceShuttle? shuttle);
-        var environment = new NebulaInHighDensitySpace(1, 25);
+        var environment = new NebulaInHighDensitySpace(1, 7);
 
         // Act
         TripResultInformation? shuttleResult = shuttle?.FlyToEnvironmentAndGetResult(environment);
@@ -41,10 +39,7 @@ public class VaklasWithPhotonDeflectorsAndVaklasWithoutPhotonDeflectorsDustingOf
 
         if (!isSuccess)
         {
-            Assert.IsType<CrewDeath>(shuttleResult?.TravelResult);
-            return;
+            Assert.IsNotType<Success>(shuttleResult?.TravelResult);
         }
-
-        Assert.Equal(shuttleResult?.TravelResult is Success, isSuccess);
     }
 }

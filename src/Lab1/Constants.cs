@@ -10,9 +10,12 @@ public static class Constants
     // Engine specs
     public static double CClassImpulseEngineStartFuelConsumption => 10.0;
     public static double EClassImpulseEngineStartFuelConsumption => 15.0;
+    public static double JumpEngineStartFuelConsumption => 20.0;
     public static double CClassImpulseEngineVelocity => 45.0;
     public static double EClassImpulseEngineVelocity => 65.0;
-    public static double JumpEngineStartFuelConsumption => 20.0;
+    public static double AlphaJumpEngineMaximalDistance => 5;
+    public static double OmegaJumpEngineMaximalDistance => 10;
+    public static double GammaJumpEngineMaximalDistance => 20;
     public static double AlphaJumpEngineVelocity => 100;
     public static double OmegaJumpEngineVelocity => 200;
     public static double GammaJumpEngineVelocity => 300;

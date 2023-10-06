@@ -20,8 +20,8 @@ public class MeredianShuttle : ISpaceShuttle
     }
 
     public IShipHull ShipHull { get; } = new BClassShipHull(true);
-    public IImpulseEngine ImpulseEngine { get; } = new EClassImpulseImpulseEngine();
-    public IJumpEngine JumpEngine { get; } = new GammaJumpImpulseEngine();
+    public IImpulseEngine ImpulseEngine { get; } = new EClassImpulseEngine();
+    public IJumpEngine JumpEngine { get; } = new GammaJumpEngine();
     public IDeflector Deflector { get; init; }
 
     public SpaceTravelResult? TakeDamageAndGetResult(double hitPoints)
@@ -100,7 +100,7 @@ public class MeredianShuttle : ISpaceShuttle
         }
         else if (environment is NebulaInHighDensitySpace)
         {
-            if (!IsShuttleIsSuitableToHighDensitySpace())
+            if (!IsShuttleIsSuitableToHighDensitySpace() || environment.Length > JumpEngine.MaxLength)
             {
                 return false;
             }

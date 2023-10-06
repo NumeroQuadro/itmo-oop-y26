@@ -20,8 +20,8 @@ public class StellaShuttle : ISpaceShuttle
     }
 
     public IShipHull ShipHull { get; } = new AClassShipHull(false);
-    public IImpulseEngine ImpulseEngine { get; } = new CClassImpulseImpulseEngine();
-    public IJumpEngine JumpEngine { get; } = new OmegaJumpImpulseEngine();
+    public IImpulseEngine ImpulseEngine { get; } = new CClassImpulseEngine();
+    public IJumpEngine JumpEngine { get; } = new OmegaJumpEngine();
     public IDeflector Deflector { get; init; }
 
     public SpaceTravelResult? TakeDamageAndGetResult(double hitPoints)
@@ -93,21 +93,21 @@ public class StellaShuttle : ISpaceShuttle
     {
         if (environment is Space)
         {
-            if (!IsShuttleIsSuitableToSpace())
+            if (!IsShuttleIsSuitableToSpace() || environment.Length > ImpulseEngine.MaxLength)
             {
                 return false;
             }
         }
         else if (environment is NebulaInHighDensitySpace)
         {
-            if (!IsShuttleIsSuitableToHighDensitySpace())
+            if (!IsShuttleIsSuitableToHighDensitySpace() || environment.Length > JumpEngine.MaxLength)
             {
                 return false;
             }
         }
         else if (environment is NitrinoParticleNebula)
         {
-            if (!IsShuttleIsSuitableToNitrinoParticleNebula())
+            if (!IsShuttleIsSuitableToNitrinoParticleNebula() || environment.Length > ImpulseEngine.MaxLength)
             {
                 return false;
             }

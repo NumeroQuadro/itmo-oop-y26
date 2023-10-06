@@ -33,7 +33,7 @@ public class SpaceWhaleInNitrinoParticleSpace
     {
         // Arrange
         bool shuttleExists = _starshipsByName.TryGetValue(shipName, out ISpaceShuttle? shuttle);
-        var environment = new NitrinoParticleNebula(1, 3476);
+        var environment = new NitrinoParticleNebula(1, 3);
 
         // Act
         TripResultInformation? shuttleResult = shuttle?.FlyToEnvironmentAndGetResult(environment);

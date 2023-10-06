@@ -16,7 +16,7 @@ public class MaxumalLenghtTestHighDensitySpaceAvgurStella
     public void ShipShouldNotDestroyedIfItHasAntiNitrinoEmitter()
     {
         // Arrange
-        IEnvironment environment = new NebulaInHighDensitySpace(0, 45);
+        IEnvironment environment = new NebulaInHighDensitySpace(0, 7);
 
         // Act
         TripResultInformation avgurShuttleResult = _avgur.FlyToEnvironmentAndGetResult(environment);

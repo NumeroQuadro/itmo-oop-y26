@@ -26,7 +26,7 @@ public class PriceTestPleasureShuttleAndVaklasInSpace
     public void ShipShouldNotDestroyedIfItHasAntiNitrinoEmitter()
     {
         // Arrange
-        IEnvironment environment = new Space(0, 0, 45);
+        IEnvironment environment = new Space(0, 0, 2);
 
         // Act
         TripResultInformation pleasureShuttleResult = _pleasureShuttle.FlyToEnvironmentAndGetResult(environment);
