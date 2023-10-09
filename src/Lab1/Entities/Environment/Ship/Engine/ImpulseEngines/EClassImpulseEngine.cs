@@ -1,6 +1,8 @@
 using System;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.ImpulseEngines;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.ImpulseEngines;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.Engine.ImpulseEngines;
 
 public class EClassImpulseEngine : IImpulseEngine
 {

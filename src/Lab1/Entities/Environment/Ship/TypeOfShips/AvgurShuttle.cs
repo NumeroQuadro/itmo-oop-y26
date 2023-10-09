@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.EnvironmentTypes;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.Engine.ImpulseEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.ResultsHandler;
@@ -11,7 +12,7 @@ using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.ShipHullType;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement.SpaceTravelResults;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.TypeOfShips;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.TypeOfShips;
 
 public class AvgurShuttle : ISpaceShuttle
 {
@@ -27,7 +28,7 @@ public class AvgurShuttle : ISpaceShuttle
 
     public SpaceTravelResult? TakeDamageAndGetResult(double hitPoints)
     {
-        ProtectionState.ProtectionState resultAfterDeflectorDamaged = Deflector.TakeDamage(hitPoints);
+        ProtectionState resultAfterDeflectorDamaged = Deflector.TakeDamage(hitPoints);
         if (resultAfterDeflectorDamaged is ImpossibleToBeDamaged)
         {
             if (ShipHull.TakeDamage(hitPoints) is ImpossibleToBeDamaged)

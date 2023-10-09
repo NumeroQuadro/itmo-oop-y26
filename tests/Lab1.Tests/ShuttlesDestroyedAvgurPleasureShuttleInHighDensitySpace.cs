@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.EnvironmentTypes;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.TypeOfShips;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.ResultsHandler;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.TypeOfShips;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement.SpaceTravelResults;
 using Xunit;

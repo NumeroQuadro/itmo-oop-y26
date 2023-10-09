@@ -11,7 +11,7 @@ using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.ShipHullType;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement.SpaceTravelResults;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.TypeOfShips;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.TypeOfShips;
 
 public class PleasureShuttle : ISpaceShuttle
 {
