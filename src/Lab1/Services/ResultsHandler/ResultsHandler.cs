@@ -19,7 +19,7 @@ public class ResultsHandler
         }
     }
 
-    public ISpaceShuttle? GetShuttleWhichIsMoreProfit(IEnvironment environment)
+    public ISpaceShuttle GetShuttleWhichIsMoreProfit(IEnvironment environment)
     {
         if (environment is Space)
         {

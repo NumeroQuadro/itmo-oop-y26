@@ -1,9 +1,13 @@
+using System;
 using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.EnvironmentTypes;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Pathway;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.TypeOfShips;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.Pathway;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.ResultsHandler;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement.SpaceTravelResults;
+using Itmo.ObjectOrientedProgramming.Lab1.Services;
 using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
@@ -35,8 +39,22 @@ public class SpaceWhaleInNitrinoParticleSpace
         bool shuttleExists = _starshipsByName.TryGetValue(shipName, out ISpaceShuttle? shuttle);
         var environment = new NitrinoParticleNebula(1, 3);
 
+        IEnumerable<IEnvironment> environments = new[] { environment };
+
+        var segment = new PathSegment(environments);
+        IEnumerable<PathSegment> segments = new[] { segment };
+
+        var route = new Route(segments);
+
+        if (shuttle is null)
+        {
+            throw new ArgumentException("shuttle is null!!!");
+        }
+
+        var flightSimulation = new FlightSimulation(route, shuttle);
+
         // Act
-        TripResultInformation? shuttleResult = shuttle?.FlyToEnvironmentAndGetResult(environment);
+        TripResultInformation shuttleResult = flightSimulation.StartSimulation();
 
         // Assert
         Assert.NotNull(shuttle);
@@ -45,9 +63,9 @@ public class SpaceWhaleInNitrinoParticleSpace
 
         if (!isSuccess)
         {
-            Assert.IsType<ShuttleIsDestroyed>(shuttleResult?.TravelResult);
+            Assert.IsType<ShuttleIsDestroyed>(shuttleResult.TravelResult);
         }
 
-        Assert.Equal(shuttleResult?.TravelResult is Success, isSuccess);
+        Assert.Equal(shuttleResult.TravelResult is Success, isSuccess);
     }
 }

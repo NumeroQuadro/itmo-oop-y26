@@ -1,7 +1,11 @@
+using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.EnvironmentTypes;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Pathway;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.TypeOfShips;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.Pathway;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.ResultsHandler;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
+using Itmo.ObjectOrientedProgramming.Lab1.Services;
 using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
@@ -16,10 +20,16 @@ public class BestShuttlePleasureShuttleVaklasNitrinoParticleSpace
     {
         // Arrange
         IEnvironment environment = new NitrinoParticleNebula(0, 3);
+        IEnumerable<IEnvironment> environments = new[] { environment };
+        var segment = new PathSegment(environments);
+        IEnumerable<PathSegment> segments = new[] { segment };
+        var route = new Route(segments);
+        var flightSimulationForVaklas = new FlightSimulation(route, _vaklasShuttle);
+        var flighSimulationForPleasureShuttle = new FlightSimulation(route, _pleasureShuttle);
 
         // Act
-        TripResultInformation vaklasShuttleResult = _vaklasShuttle.FlyToEnvironmentAndGetResult(environment);
-        TripResultInformation pleasureShuttleResult = _pleasureShuttle.FlyToEnvironmentAndGetResult(environment);
+        TripResultInformation vaklasShuttleResult = flightSimulationForVaklas.StartSimulation();
+        TripResultInformation pleasureShuttleResult = flighSimulationForPleasureShuttle.StartSimulation();
 
         var resultsHandler = new ResultsHandler();
 
@@ -27,7 +37,7 @@ public class BestShuttlePleasureShuttleVaklasNitrinoParticleSpace
         resultsHandler.AddValue(pleasureShuttleResult, _pleasureShuttle);
 
         // Assert
-        ISpaceShuttle? answerShuttle = resultsHandler.GetShuttleWhichIsMoreProfit(environment);
+        ISpaceShuttle answerShuttle = resultsHandler.GetShuttleWhichIsMoreProfit(environment);
 
         Assert.IsType<VaklasShuttle>(answerShuttle);
     }

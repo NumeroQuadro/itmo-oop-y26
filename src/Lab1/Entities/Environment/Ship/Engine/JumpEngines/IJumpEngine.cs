@@ -1,10 +1,6 @@
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.JumpEngines;
 
-public interface IJumpEngine
+public interface IJumpEngine : IEngine
 {
-    public double MaxLength { get; }
-    public double WastedGravitonFuel { get; }
-    public EngineState BurnFuel(double astronomicalUnitsTraveled);
-    public EngineState StartEngine();
-    public double GetTravelTime(double astronomicalUnitsTraveled);
+    public double GetWastedFuelBySpecialFormula(double astronomicalUnitsTraveled);
 }

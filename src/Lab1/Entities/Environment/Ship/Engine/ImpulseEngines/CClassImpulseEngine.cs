@@ -5,22 +5,18 @@ public class CClassImpulseEngine : IImpulseEngine
     public double MaxLength => 1000;
     public double WastedFuel { get; private set; }
 
-    public EngineState BurnFuel(double astronomicalUnitsTraveled)
+    public double GetWastedFuelBySpecialFormula(double astronomicalUnitsTraveled)
     {
-        WastedFuel += astronomicalUnitsTraveled;
-
-        return new EngineIsWorking();
+        return astronomicalUnitsTraveled;
     }
 
-    public double GetTravelTime(double astronomicalUnitsTraveled)
+    public double GetWastedTimeBySpecialFormula(double astronomicalUnitsTraveled)
     {
         return astronomicalUnitsTraveled / Constants.CClassImpulseEngineVelocity;
     }
 
-    public EngineState StartEngine()
+    public double GetWastedFuelForStartBySpecialFormula()
     {
-        WastedFuel += Constants.CClassImpulseEngineStartFuelConsumption;
-
-        return new EngineIsWorking();
+        return Constants.CClassImpulseEngineStartFuelConsumption;
     }
 }

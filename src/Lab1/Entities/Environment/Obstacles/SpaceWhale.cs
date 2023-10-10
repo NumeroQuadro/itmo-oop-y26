@@ -1,14 +1,16 @@
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.ProtectionState;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement.SpaceTravelResults;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
 
 public class SpaceWhale : INitrinoParticleNebulaObstacle
 {
-    public SpaceTravelResult? DealDamageAndGetShipCondition(ISpaceShuttle shuttle)
+    public SpaceTravelResult DealDamageAndGetShipCondition(ISpaceShuttle shuttle)
     {
         if (shuttle.ShipHull.HasAntiNitrinoEmitter)
         {
-            return null;
+            return new Success();
         }
 
         if (shuttle.Deflector is null)
@@ -26,6 +28,12 @@ public class SpaceWhale : INitrinoParticleNebulaObstacle
             return new ShuttleIsDestroyed();
         }
 
-        return shuttle.TakeDamageAndGetResult(Constants.SpaceWhaleDamage);
+        ProtectionState resultAfterDeflectorDamaged = shuttle.Deflector.TakeDamage(Constants.SpaceWhaleDamage);
+        if (resultAfterDeflectorDamaged is ImpossibleToBeDamaged)
+        {
+            return new ShuttleIsDestroyed();
+        }
+
+        return new Success();
     }
 }

@@ -7,24 +7,20 @@ public class OmegaJumpEngine : IJumpEngine
     public double MaxLength => 20;
     public double WastedGravitonFuel { get; private set; }
 
-    public EngineState BurnFuel(double astronomicalUnitsTraveled)
+    public double GetWastedFuelBySpecialFormula(double astronomicalUnitsTraveled)
     {
         double amountOfBurnedFuel = astronomicalUnitsTraveled * Math.Log(astronomicalUnitsTraveled);
 
-        WastedGravitonFuel += amountOfBurnedFuel;
-
-        return new EngineIsWorking();
+        return amountOfBurnedFuel;
     }
 
-    public double GetTravelTime(double astronomicalUnitsTraveled)
+    public double GetWastedTimeBySpecialFormula(double astronomicalUnitsTraveled)
     {
         return astronomicalUnitsTraveled / Constants.OmegaJumpEngineVelocity;
     }
 
-    public EngineState StartEngine()
+    public double GetWastedFuelForStartBySpecialFormula()
     {
-        WastedGravitonFuel += Constants.JumpEngineStartFuelConsumption;
-
-        return new EngineIsWorking();
+        return Constants.JumpEngineStartFuelConsumption;
     }
 }

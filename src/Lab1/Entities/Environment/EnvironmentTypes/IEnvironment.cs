@@ -1,10 +1,10 @@
-using System.Collections.Generic;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.EnvironmentTypes;
 
 public interface IEnvironment
 {
     public uint Length { get; }
-    public IEnumerable<IObstacle> GetObstacles();
+    public SpaceTravelResult TakeOverTheShip(ISpaceShuttle shuttle);
+    public bool IsShuttlePossibleToStayInCurrentEnvironment(ISpaceShuttle shuttle);
 }

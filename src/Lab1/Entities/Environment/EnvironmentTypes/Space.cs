@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement.SpaceTravelResults;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
 
@@ -18,6 +20,16 @@ public class Space : ISpace
 
     public uint Length { get; init; }
 
+    public bool IsShuttlePossibleToStayInCurrentEnvironment(ISpaceShuttle shuttle)
+    {
+        if (shuttle.ImpulseEngine is null || Length > shuttle.ImpulseEngine.MaxLength)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     public void AddMeteors(uint numberOfMeteors)
     {
         for (uint i = 0; i < numberOfMeteors; ++i)
@@ -34,7 +46,32 @@ public class Space : ISpace
         }
     }
 
-    public IEnumerable<IObstacle> GetObstacles()
+    public SpaceTravelResult TakeOverTheShip(ISpaceShuttle shuttle)
+    {
+        if (IsShuttlePossibleToStayInCurrentEnvironment(shuttle))
+        {
+            return GetShuttleThroughAllObstacles(shuttle);
+        }
+
+        return new ImpossibleToGoToEnvironment();
+    }
+
+    private SpaceTravelResult GetShuttleThroughAllObstacles(ISpaceShuttle shuttle)
+    {
+        IEnumerable<IObstacle> obstacles = GetObstacles();
+        foreach (IObstacle obstacle in obstacles)
+        {
+            SpaceTravelResult result = obstacle.DealDamageAndGetShipCondition(shuttle);
+            if (result is not Success)
+            {
+                return result;
+            }
+        }
+
+        return new Success();
+    }
+
+    private IEnumerable<IObstacle> GetObstacles()
     {
         return _obstacles.AsEnumerable();
     }
