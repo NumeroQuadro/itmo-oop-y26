@@ -1,8 +1,7 @@
 using System;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement.SpaceTravelResults;
+using Itmo.ObjectOrientedProgramming.Lab1.Models.SpaceTravelResults;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Environment;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Services.ResultsHandler;
 
 internal static class EventHandler
 {

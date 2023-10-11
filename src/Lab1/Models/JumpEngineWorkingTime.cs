@@ -1,6 +1,6 @@
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.JumpEngines;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Models;
 
 public class JumpEngineWorkingTime : IMesuarableObject<IJumpEngine>
 {

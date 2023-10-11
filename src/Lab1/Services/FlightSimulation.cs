@@ -1,6 +1,6 @@
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Pathway;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.ResultsHandler;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
+using Itmo.ObjectOrientedProgramming.Lab1.Services.ResultsHandler;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Services;
 

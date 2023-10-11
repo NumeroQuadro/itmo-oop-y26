@@ -1,5 +1,5 @@
-using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.ShipHullType;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.ProtectionState;
+using Itmo.ObjectOrientedProgramming.Lab1.Models;
+using Itmo.ObjectOrientedProgramming.Lab1.Models.ProtectionState;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.ShipHullType;
 
@@ -13,7 +13,7 @@ public class AClassShipHull : IShipHull
 
     public bool HasAntiNitrinoEmitter { get; private set; }
     public double HitPoints { get; private set; }
-    public ProtectionState.ProtectionState TakeDamage(double hitPoints)
+    public ProtectionState TakeDamage(double hitPoints)
     {
         if (HitPoints <= 0 || hitPoints > HitPoints)
         {

@@ -1,7 +1,7 @@
-using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.ShipHullType;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.DeflectorType;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.ImpulseEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.JumpEngines;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.ShipHullType;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
 

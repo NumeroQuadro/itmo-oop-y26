@@ -1,29 +1,26 @@
 using System;
 using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.EnvironmentTypes;
-using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Pathway;
-using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.TypeOfShips;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Pathway;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.ResultsHandler;
+using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.TypeOfShips;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement.SpaceTravelResults;
+using Itmo.ObjectOrientedProgramming.Lab1.Models.SpaceTravelResults;
 using Itmo.ObjectOrientedProgramming.Lab1.Services;
+using Itmo.ObjectOrientedProgramming.Lab1.Services.ResultsHandler;
 using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
 public class VaklasWithPhotonDeflectorsAndVaklasWithoutPhotonDeflectorsDustingOfAntiMatterInNitrinoParticleSpace
 {
     private readonly IDictionary<string, ISpaceShuttle> _starshipsByName = new Dictionary<string, ISpaceShuttle>();
-    private readonly VaklasShuttle _vaklasWithPhotonModification;
-    private readonly VaklasShuttle _vaklasWithoutPhotonModification;
 
     public VaklasWithPhotonDeflectorsAndVaklasWithoutPhotonDeflectorsDustingOfAntiMatterInNitrinoParticleSpace()
     {
-        _vaklasWithoutPhotonModification = new VaklasShuttle(false);
-        _vaklasWithPhotonModification = new VaklasShuttle(true);
+        var vaklasWithoutPhotonModification = new VaklasShuttle(false);
+        var vaklasWithPhotonModification = new VaklasShuttle(true);
 
-        _starshipsByName.Add("VaklasModified", _vaklasWithPhotonModification);
-        _starshipsByName.Add("Vaklas", _vaklasWithoutPhotonModification);
+        _starshipsByName.Add("VaklasModified", vaklasWithPhotonModification);
+        _starshipsByName.Add("Vaklas", vaklasWithoutPhotonModification);
     }
 
     [Theory]

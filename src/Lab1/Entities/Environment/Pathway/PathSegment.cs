@@ -1,14 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.EnvironmentTypes;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.Pathway;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.ImpulseEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.JumpEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement.SpaceTravelResults;
+using Itmo.ObjectOrientedProgramming.Lab1.Models;
+using Itmo.ObjectOrientedProgramming.Lab1.Models.SpaceTravelResults;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Pathway;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Pathway;
 
 public class PathSegment : IPathSegment
 {

@@ -1,4 +1,5 @@
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.ProtectionState;
+using Itmo.ObjectOrientedProgramming.Lab1.Models;
+using Itmo.ObjectOrientedProgramming.Lab1.Models.ProtectionState;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.DeflectorType;
 
@@ -15,7 +16,7 @@ public class CClassDeflector : IDeflector
     public double HitPoints { get; private set; }
     public double SpecialHitPoints { get; private set; }
 
-    public ProtectionState.ProtectionState TakeDamage(double hitPoints)
+    public ProtectionState TakeDamage(double hitPoints)
     {
         if (HitPoints > 0)
         {
@@ -27,7 +28,7 @@ public class CClassDeflector : IDeflector
         return new ImpossibleToBeDamaged();
     }
 
-    public ProtectionState.ProtectionState TakeSpecialDamage(double hitPoints)
+    public ProtectionState TakeSpecialDamage(double hitPoints)
     {
         if (SpecialHitPoints > 0)
         {

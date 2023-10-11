@@ -1,9 +1,10 @@
+using Itmo.ObjectOrientedProgramming.Lab1.Models;
+
 namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.JumpEngines;
 
 public class GammaJumpEngine : IJumpEngine
 {
     public double MaxLength => 30;
-    public double WastedGravitonFuel { get; private set; }
 
     public double GetWastedFuelBySpecialFormula(double astronomicalUnitsTraveled)
     {

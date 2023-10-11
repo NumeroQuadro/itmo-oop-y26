@@ -1,6 +1,4 @@
-using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.EnvironmentTypes;
-
-namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.EnvironmentTypes;
 
 public interface ISpace : IEnvironment
 {

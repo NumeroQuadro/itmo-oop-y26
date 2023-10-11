@@ -1,3 +1,3 @@
-namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement.SpaceTravelResults;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Models.SpaceTravelResults;
 
 public sealed record Success : SpaceTravelResult;
