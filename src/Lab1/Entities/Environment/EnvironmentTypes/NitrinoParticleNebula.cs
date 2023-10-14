@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Obstacles;
-using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.Engine.ImpulseEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.SpaceMovement;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.SpaceTravelResults;
 
@@ -9,33 +8,16 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.EnvironmentTy
 
 public class NitrinoParticleNebula : IEnvironment
 {
-    private int _length;
     private List<SpaceWhale> _obstacles;
 
-    public NitrinoParticleNebula(IEnumerable<SpaceWhale> obstaclesCollection, int length)
+    public NitrinoParticleNebula(IEnumerable<SpaceWhale> obstaclesCollection)
     {
         _obstacles = obstaclesCollection.ToList();
-        _length = length;
     }
 
     public SpaceTravelResult TakeOverTheShip(ISpaceShuttle shuttle)
     {
-        if (IsShuttlePossibleToStayInCurrentEnvironment(shuttle))
-        {
-            return GetShuttleThroughAllObstacles(shuttle);
-        }
-
-        return new SpaceTravelResult.ImpossibleToGoToEnvironment();
-    }
-
-    private bool IsShuttlePossibleToStayInCurrentEnvironment(ISpaceShuttle shuttle)
-    {
-        if (shuttle.ImpulseEngine is not EClassImpulseEngine || _length > shuttle.ImpulseEngine.MaxLength)
-        {
-            return false;
-        }
-
-        return true;
+        return GetShuttleThroughAllObstacles(shuttle);
     }
 
     private SpaceTravelResult GetShuttleThroughAllObstacles(ISpaceShuttle shuttle)

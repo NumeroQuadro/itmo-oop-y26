@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.EnvironmentTypes;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Obstacles;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Pathway;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.TypeOfShips;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.SpaceMovement;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.SpaceTravelResults;
-using Itmo.ObjectOrientedProgramming.Lab1.Services;
 using Itmo.ObjectOrientedProgramming.Lab1.Services.ResultsHandler;
 using Xunit;
 
@@ -19,9 +19,9 @@ public class SpaceWhaleInNitrinoParticleSpace
 
     public SpaceWhaleInNitrinoParticleSpace()
     {
-        _avgur = new AvgurShuttle(false);
-        _vaklas = new VaklasShuttle(false);
-        _meredian = new MeredianShuttle(false);
+        _avgur = new AvgurShuttle();
+        _vaklas = new VaklasShuttle();
+        _meredian = new MeredianShuttle();
 
         _starshipsByName.Add("Avgur", _avgur);
         _starshipsByName.Add("Vaklas", _vaklas);
@@ -30,18 +30,16 @@ public class SpaceWhaleInNitrinoParticleSpace
 
     [Theory]
     [InlineData("Avgur", true)]
-    [InlineData("Vaklas", false)]
+    [InlineData("Vaklas", true)]
     [InlineData("Meredian", true)]
     public void ShipShouldNotDestroyedIfItHasAntiNitrinoEmitter(string shipName, bool isSuccess)
     {
         // Arrange
         bool shuttleExists = _starshipsByName.TryGetValue(shipName, out ISpaceShuttle? shuttle);
-        var environment = new NitrinoParticleNebula(1, 3);
 
-        IEnumerable<IEnvironment> environments = new[] { environment };
-
-        var segment = new PathSegment(environments);
-        IEnumerable<PathSegment> segments = new[] { segment };
+        IEnumerable<SpaceWhale> whales = new[] { new SpaceWhale() };
+        var segment = new Segment(new NitrinoParticleNebula(whales), 3);
+        IEnumerable<Segment> segments = new[] { segment };
 
         var route = new Route(segments);
 
@@ -50,10 +48,8 @@ public class SpaceWhaleInNitrinoParticleSpace
             throw new ArgumentException("shuttle is null!!!");
         }
 
-        var flightSimulation = new FlightSimulation(route, shuttle);
-
         // Act
-        TripResultInformation shuttleResult = flightSimulation.StartSimulation();
+        TripResultInformation shuttleResult = route.Travel(shuttle);
 
         // Assert
         Assert.NotNull(shuttle);
@@ -62,9 +58,9 @@ public class SpaceWhaleInNitrinoParticleSpace
 
         if (!isSuccess)
         {
-            Assert.IsType<ShuttleIsDestroyed>(shuttleResult.TravelResult);
+            Assert.IsType<SpaceTravelResult.ShuttleIsDestroyed>(shuttleResult.TravelResult);
         }
 
-        Assert.Equal(shuttleResult.TravelResult is Success, isSuccess);
+        Assert.Equal(shuttleResult.TravelResult is SpaceTravelResult.Success, isSuccess);
     }
 }

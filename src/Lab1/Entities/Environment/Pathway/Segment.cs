@@ -6,8 +6,8 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Pathway;
 
 public class Segment
 {
-    private IEnvironment _environment;
-    private double _length;
+    private readonly IEnvironment _environment;
+    private readonly double _length;
 
     public Segment(IEnvironment environment, double length)
     {
@@ -16,9 +16,25 @@ public class Segment
     }
 
     public double Length => _length;
+    public IEnvironment Environment => _environment;
 
     public SpaceTravelResult TakeOverTheShip(ISpaceShuttle shuttle)
     {
-        return _environment.TakeOverTheShip(shuttle);
+        if (IsShuttlePossibleToStayInCurrentSegment(shuttle))
+        {
+            return _environment.TakeOverTheShip(shuttle);
+        }
+
+        return new SpaceTravelResult.ImpossibleToGoToEnvironment();
+    }
+
+    private bool IsShuttlePossibleToStayInCurrentSegment(ISpaceShuttle shuttle)
+    {
+        if (shuttle.JumpEngine is null || !shuttle.JumpEngine.IsEnoughLengthToFly(_length))
+        {
+            return false;
+        }
+
+        return true;
     }
 }

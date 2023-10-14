@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.EnvironmentTypes;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Obstacles;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Pathway;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.TypeOfShips;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.SpaceMovement;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.SpaceTravelResults;
-using Itmo.ObjectOrientedProgramming.Lab1.Services;
 using Itmo.ObjectOrientedProgramming.Lab1.Services.ResultsHandler;
 using Xunit;
 
@@ -14,7 +14,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
 public class ShuttlesDestroyedAvgurPleasureShuttleInHighDensitySpace
 {
     private readonly IDictionary<string, ISpaceShuttle> _starshipsByName = new Dictionary<string, ISpaceShuttle>();
-    private readonly AvgurShuttle _avgur = new AvgurShuttle(false);
+    private readonly AvgurShuttle _avgur = new AvgurShuttle();
     private readonly PleasureShuttle _pleasure = new PleasureShuttle();
 
     public ShuttlesDestroyedAvgurPleasureShuttleInHighDensitySpace()
@@ -31,11 +31,9 @@ public class ShuttlesDestroyedAvgurPleasureShuttleInHighDensitySpace
         // Arrange
         bool shuttleExists = _starshipsByName.TryGetValue(shipName, out ISpaceShuttle? shuttle);
 
-        var environment = new NebulaInHighDensitySpace(1, 7);
-        IEnumerable<IEnvironment> environments = new[] { environment };
-
-        var segment = new PathSegment(environments);
-        IEnumerable<PathSegment> segments = new[] { segment };
+        IEnumerable<DustingOfAntiMatter> dustings = new[] { new DustingOfAntiMatter() };
+        var segment = new Segment(new NebulaInHighDensitySpace(dustings), 7);
+        IEnumerable<Segment> segments = new[] { segment };
 
         var route = new Route(segments);
 
@@ -44,17 +42,15 @@ public class ShuttlesDestroyedAvgurPleasureShuttleInHighDensitySpace
             throw new ArgumentException("shuttle is null!!!");
         }
 
-        var flightSimulation = new FlightSimulation(route, shuttle);
-
         // Act
-        TripResultInformation shuttleResult = flightSimulation.StartSimulation();
+        TripResultInformation shuttleResult = route.Travel(shuttle);
 
         // Assert
         Assert.True(shuttleExists);
 
         if (!isSuccess)
         {
-            Assert.IsNotType<Success>(shuttleResult?.TravelResult);
+            Assert.IsNotType<SpaceTravelResult.Success>(shuttleResult.TravelResult);
         }
     }
 }

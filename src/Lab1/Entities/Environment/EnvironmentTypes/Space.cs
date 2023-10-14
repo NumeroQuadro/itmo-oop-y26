@@ -6,38 +6,20 @@ using Itmo.ObjectOrientedProgramming.Lab1.Models.SpaceTravelResults;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.EnvironmentTypes;
 
-public class Space
+public class Space : IEnvironment
 {
     private List<Asteroid> _asteroids;
     private List<Meteor> _meteors;
 
-    public Space(IEnumerable<Asteroid> asteroids, IEnumerable<Meteor> meteors, int length)
+    public Space(IEnumerable<Asteroid> asteroids, IEnumerable<Meteor> meteors)
     {
         _asteroids = asteroids.ToList();
         _meteors = meteors.ToList();
-        Length = length;
-    }
-
-    public int Length { get; }
-
-    public bool IsShuttlePossibleToStayInCurrentEnvironment(ISpaceShuttle shuttle)
-    {
-        if (shuttle.ImpulseEngine is null || Length > shuttle.ImpulseEngine.MaxLength)
-        {
-            return false;
-        }
-
-        return true;
     }
 
     public SpaceTravelResult TakeOverTheShip(ISpaceShuttle shuttle)
     {
-        if (IsShuttlePossibleToStayInCurrentEnvironment(shuttle))
-        {
-            return GetShuttleThroughAllObstacles(shuttle);
-        }
-
-        return new ImpossibleToGoToEnvironment();
+        return GetShuttleThroughAllObstacles(shuttle);
     }
 
     private SpaceTravelResult GetShuttleThroughAllObstacles(ISpaceShuttle shuttle)

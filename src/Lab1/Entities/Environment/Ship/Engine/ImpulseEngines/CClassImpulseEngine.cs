@@ -6,7 +6,7 @@ public class CClassImpulseEngine : IImpulseEngine, IFuelUsage, ITimeUsage
 {
     public double GetWastedFuelBySpecialFormula(double astronomicalUnitsTraveled)
     {
-        return astronomicalUnitsTraveled;
+        return astronomicalUnitsTraveled + GetWastedFuelForStartBySpecialFormula();
     }
 
     public double GetWastedTimeBySpecialFormula(double astronomicalUnitsTraveled)
@@ -14,7 +14,7 @@ public class CClassImpulseEngine : IImpulseEngine, IFuelUsage, ITimeUsage
         return astronomicalUnitsTraveled / Constants.CClassImpulseEngineVelocity;
     }
 
-    public double GetWastedFuelForStartBySpecialFormula()
+    private static double GetWastedFuelForStartBySpecialFormula()
     {
         return Constants.CClassImpulseEngineStartFuelConsumption;
     }

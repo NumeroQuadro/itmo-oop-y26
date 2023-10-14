@@ -9,22 +9,15 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.EnvironmentTy
 public class NebulaInHighDensitySpace : IEnvironment
 {
     private readonly List<DustingOfAntiMatter> _obstacles;
-    private readonly int _length;
 
-    public NebulaInHighDensitySpace(IEnumerable<DustingOfAntiMatter> obstaclesCollection, int length)
+    public NebulaInHighDensitySpace(IEnumerable<DustingOfAntiMatter> obstaclesCollection)
     {
         _obstacles = obstaclesCollection.ToList();
-        _length = length;
     }
 
     public SpaceTravelResult TakeOverTheShip(ISpaceShuttle shuttle)
     {
-        if (IsShuttlePossibleToStayInCurrentEnvironment(shuttle))
-        {
-            return GetShuttleThroughAllObstacles(shuttle);
-        }
-
-        return new ImpossibleToGoToEnvironment();
+        return GetShuttleThroughAllObstacles(shuttle);
     }
 
     private SpaceTravelResult GetShuttleThroughAllObstacles(ISpaceShuttle shuttle)
@@ -33,15 +26,5 @@ public class NebulaInHighDensitySpace : IEnvironment
         var comparator = new ResultsComparator(results);
 
         return comparator.CompareResultsAndGetSummarize();
-    }
-
-    private bool IsShuttlePossibleToStayInCurrentEnvironment(ISpaceShuttle shuttle)
-    {
-        if (shuttle.JumpEngine is null || _length > shuttle.JumpEngine.MaxLength)
-        {
-            return false;
-        }
-
-        return true;
     }
 }

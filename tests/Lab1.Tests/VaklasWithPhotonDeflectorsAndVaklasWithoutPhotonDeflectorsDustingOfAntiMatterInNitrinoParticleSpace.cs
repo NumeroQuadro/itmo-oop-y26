@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.EnvironmentTypes;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Obstacles;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Pathway;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.DeflectorType;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.TypeOfShips;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.SpaceMovement;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.SpaceTravelResults;
-using Itmo.ObjectOrientedProgramming.Lab1.Services;
 using Itmo.ObjectOrientedProgramming.Lab1.Services.ResultsHandler;
 using Xunit;
 
@@ -16,8 +17,8 @@ public class VaklasWithPhotonDeflectorsAndVaklasWithoutPhotonDeflectorsDustingOf
 
     public VaklasWithPhotonDeflectorsAndVaklasWithoutPhotonDeflectorsDustingOfAntiMatterInNitrinoParticleSpace()
     {
-        var vaklasWithoutPhotonModification = new VaklasShuttle(false);
-        var vaklasWithPhotonModification = new VaklasShuttle(true);
+        var vaklasWithoutPhotonModification = new VaklasShuttle();
+        var vaklasWithPhotonModification = new VaklasShuttle(new PhotonicDeflector(new AClassDeflector()));
 
         _starshipsByName.Add("VaklasModified", vaklasWithPhotonModification);
         _starshipsByName.Add("Vaklas", vaklasWithoutPhotonModification);
@@ -30,12 +31,10 @@ public class VaklasWithPhotonDeflectorsAndVaklasWithoutPhotonDeflectorsDustingOf
     {
         // Arrange
         bool shuttleExists = _starshipsByName.TryGetValue(shipName, out ISpaceShuttle? shuttle);
-        var environment = new NebulaInHighDensitySpace(1, 25);
+        IEnumerable<DustingOfAntiMatter> dustings = new[] { new DustingOfAntiMatter() };
 
-        IEnumerable<IEnvironment> environments = new[] { environment };
-
-        var segment = new PathSegment(environments);
-        IEnumerable<PathSegment> segments = new[] { segment };
+        var segment = new Segment(new NebulaInHighDensitySpace(dustings), 2);
+        IEnumerable<Segment> segments = new[] { segment };
 
         var route = new Route(segments);
 
@@ -44,10 +43,8 @@ public class VaklasWithPhotonDeflectorsAndVaklasWithoutPhotonDeflectorsDustingOf
             throw new ArgumentException("shuttle is null!!!");
         }
 
-        var flightSimulation = new FlightSimulation(route, shuttle);
-
         // Act
-        TripResultInformation shuttleResult = flightSimulation.StartSimulation();
+        TripResultInformation shuttleResult = route.Travel(shuttle);
 
         // Assert
         Assert.NotNull(shuttle);
@@ -56,10 +53,10 @@ public class VaklasWithPhotonDeflectorsAndVaklasWithoutPhotonDeflectorsDustingOf
 
         if (!isSuccess)
         {
-            Assert.IsType<CrewDeath>(shuttleResult.TravelResult);
+            Assert.IsType<SpaceTravelResult.CrewDeath>(shuttleResult.TravelResult);
             return;
         }
 
-        Assert.Equal(shuttleResult.TravelResult is Success, isSuccess);
+        Assert.IsType<SpaceTravelResult.Success>(shuttleResult.TravelResult);
     }
 }

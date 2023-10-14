@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.EnvironmentTypes;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Obstacles;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Pathway;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.TypeOfShips;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.SpaceMovement;
-using Itmo.ObjectOrientedProgramming.Lab1.Services;
 using Itmo.ObjectOrientedProgramming.Lab1.Services.ResultsHandler;
 using Xunit;
 
@@ -11,33 +12,27 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
 
 public class PriceTestPleasureShuttleAndVaklasInSpace
 {
-    private readonly VaklasShuttle _vaklas = new(false);
+    private readonly VaklasShuttle _vaklas = new();
     private readonly PleasureShuttle _pleasureShuttle = new();
 
     [Fact]
     public void ShipShouldNotDestroyedIfItHasAntiNitrinoEmitter()
     {
         // Arrange
-        IEnvironment environment = new Space(0, 0, 2);
-        IEnumerable<IEnvironment> environments = new[] { environment };
-        var segment = new PathSegment(environments);
-        IEnumerable<PathSegment> segments = new[] { segment };
+        var segment = new Segment(new Space(Enumerable.Empty<Asteroid>(), Enumerable.Empty<Meteor>()), 2);
+        IEnumerable<Segment> segments = new[] { segment };
         var route = new Route(segments);
-        var flightSimulationForPleasureShuttle = new FlightSimulation(route, _pleasureShuttle);
-        var flightSimulationForVaklas = new FlightSimulation(route, _vaklas);
 
         // Act
-        TripResultInformation pleasureShuttleResult = flightSimulationForPleasureShuttle.StartSimulation();
-        TripResultInformation vaklasShuttleResult = flightSimulationForVaklas.StartSimulation();
+        TripResultInformation pleasureShuttleResult = route.Travel(_pleasureShuttle);
+        TripResultInformation vaklasShuttleResult = route.Travel(_vaklas);
 
-        var resultsHandler = new ResultsHandler();
+        TripResultInformation[] results = new[] { pleasureShuttleResult, vaklasShuttleResult };
 
-        resultsHandler.AddValue(pleasureShuttleResult, _pleasureShuttle);
-        resultsHandler.AddValue(vaklasShuttleResult, _vaklas);
+        var resultsHandler = new ResultsHandler(results);
+        ISpaceShuttle answer = resultsHandler.GetShipWithBestResult();
 
         // Assert
-        ISpaceShuttle answerShuttle = resultsHandler.GetShuttleWhichIsMoreProfit(environment);
-
-        Assert.IsType<PleasureShuttle>(answerShuttle);
+        Assert.IsType<PleasureShuttle>(answer);
     }
 }

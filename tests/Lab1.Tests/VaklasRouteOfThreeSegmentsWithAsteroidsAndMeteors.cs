@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.EnvironmentTypes;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Obstacles;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Pathway;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.TypeOfShips;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.SpaceMovement;
@@ -12,13 +14,12 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
 public class VaklasRouteOfThreeSegmentsWithAsteroidsAndMeteors
 {
     private readonly IDictionary<string, ISpaceShuttle> _starshipsByName = new Dictionary<string, ISpaceShuttle>();
-    private readonly VaklasShuttle _vaklas;
 
     public VaklasRouteOfThreeSegmentsWithAsteroidsAndMeteors()
     {
-        _vaklas = new VaklasShuttle(false);
+        var vaklas = new VaklasShuttle();
 
-        _starshipsByName.Add("Vaklas", _vaklas);
+        _starshipsByName.Add("Vaklas", vaklas);
     }
 
     [Theory]
@@ -26,39 +27,34 @@ public class VaklasRouteOfThreeSegmentsWithAsteroidsAndMeteors
     public void ShipShouldNotDestroyedIfItHasAntiNitrinoEmitter(string shipName)
     {
         // Arrange
+        IEnumerable<Asteroid> ten_asteroids = new[]
+        {
+            new Asteroid(), new Asteroid(), new Asteroid(), new Asteroid(), new Asteroid(), new Asteroid(),
+            new Asteroid(), new Asteroid(), new Asteroid(), new Asteroid(),
+        };
+
+        IEnumerable<Meteor> four_meteors = new[]
+        {
+            new Meteor(), new Meteor(), new Meteor(), new Meteor(),
+        };
         bool shuttleExists = _starshipsByName.TryGetValue(shipName, out ISpaceShuttle? shuttle);
-        var oneMeteoroidSpace = new Space(1, 1, 45);
-        var zeroMeteoroidSpace = new Space(0, 0, 30);
-        var killerSpace = new Space(10, 4, 45);
 
-        var first_environments = new List<IEnvironment>();
-        first_environments.Add(oneMeteoroidSpace);
-        first_environments.Add(zeroMeteoroidSpace);
-        first_environments.Add(killerSpace);
-
-        var second_environments = new List<IEnvironment>();
-
-        var twoMeteoroidSpace = new Space(2, 2, 23);
-        var secondZeroMeteoroidSpace = new Space(0, 0, 33);
-        second_environments.Add(twoMeteoroidSpace);
-        second_environments.Add(secondZeroMeteoroidSpace);
-
-        var first_segment = new PathSegment(first_environments);
-        var second_segment = new PathSegment(second_environments);
-        var segments = new List<PathSegment>();
+        var first_segment = new Segment(new Space(ten_asteroids, Enumerable.Empty<Meteor>()), 3);
+        var second_segment = new Segment(new Space(ten_asteroids, four_meteors), 3);
+        var segments = new List<Segment>();
         segments.Add(first_segment);
         segments.Add(second_segment);
 
         var route = new Route(segments);
 
         // Act
-        TripResultInformation? routeResult = route.GoThroughAllSegmentsAndGetResultOfTrip(shuttle);
+        TripResultInformation? routeResult = route.Travel(shuttle);
 
         // Assert
         Assert.NotNull(shuttle);
 
         Assert.True(shuttleExists);
 
-        Assert.IsType<ShuttleIsDestroyed>(routeResult?.TravelResult);
+        Assert.IsType<SpaceTravelResult.ShuttleIsDestroyed>(routeResult?.TravelResult);
     }
 }

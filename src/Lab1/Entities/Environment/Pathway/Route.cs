@@ -1,21 +1,26 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.EnvironmentTypes;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.SpaceMovement;
+using Itmo.ObjectOrientedProgramming.Lab1.Models;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.SpaceTravelResults;
+using Itmo.ObjectOrientedProgramming.Lab1.Services.ResultsHandler;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Pathway;
 
 public class Route
 {
     private readonly IEnumerable<Segment> _segments;
+    private readonly FuelMarket _market;
 
     public Route(IEnumerable<Segment> segments)
     {
+        _market = new FuelMarket();
         _segments = segments;
     }
 
-    public SpaceTravelResult Travel(ISpaceShuttle? shuttle)
+    public TripResultInformation Travel(ISpaceShuttle? shuttle)
     {
         if (shuttle is null)
         {
@@ -26,6 +31,34 @@ public class Route
             .Select(x => x.TakeOverTheShip(shuttle));
         var comparator = new ResultsComparator(results);
 
-        return comparator.CompareResultsAndGetSummarize();
+        SpaceTravelResult summarizeResult = comparator.CompareResultsAndGetSummarize();
+
+        if (summarizeResult is SpaceTravelResult.Success)
+        {
+            TrackStocksForTravel(shuttle);
+        }
+
+        return new TripResultInformation(shuttle, summarizeResult, _market.GetCost, 0);
+    }
+
+    private void TrackStocksForTravel(ISpaceShuttle shuttle)
+    {
+        foreach (Segment segment in _segments)
+        {
+            if (segment.Environment is Space or NitrinoParticleNebula)
+            {
+                if (shuttle.ImpulseEngine is not null)
+                {
+                    _market.IncreaseAmountOfGravitonFuel(shuttle.ImpulseEngine.GetWastedFuelBySpecialFormula(segment.Length));
+                }
+            }
+            else if (segment.Environment is NebulaInHighDensitySpace)
+            {
+                if (shuttle.JumpEngine is not null)
+                {
+                    _market.IncreaseAmountOfGravitonFuel(shuttle.JumpEngine.GetWastedFuelBySpecialFormula(segment.Length));
+                }
+            }
+        }
     }
 }

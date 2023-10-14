@@ -18,6 +18,11 @@ public class SpaceWhale : INitrinoParticleNebulaObstacle
             return new SpaceTravelResult.ShuttleIsDestroyed();
         }
 
-        return shuttle.TakeDamageAndGetResult(Constants.SpaceWhaleDamage);
+        if (shuttle.Deflector.TakeDamageAndGetResult(Constants.SpaceWhaleDamage) is ProtectionState.ImpossibleToBeDamaged)
+        {
+            return new SpaceTravelResult.ShuttleIsDestroyed();
+        }
+
+        return new SpaceTravelResult.Success();
     }
 }
