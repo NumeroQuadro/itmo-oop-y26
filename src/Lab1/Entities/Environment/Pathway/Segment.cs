@@ -28,6 +28,22 @@ public class Segment
         return new SpaceTravelResult.ImpossibleToGoToEnvironment();
     }
 
+    public double GetTime(ISpaceShuttle shuttle)
+    {
+        double zeroTime = 0;
+
+        if (_environment is Space or NitrinoParticleNebula)
+        {
+            if (shuttle.ImpulseEngine != null) return shuttle.ImpulseEngine.GetWastedTimeBySpecialFormula(Length);
+        }
+        else if (_environment is NebulaInHighDensitySpace)
+        {
+            if (shuttle.JumpEngine != null) return shuttle.JumpEngine.GetWastedTimeBySpecialFormula(Length);
+        }
+
+        return zeroTime;
+    }
+
     private bool IsShuttlePossibleToStayInCurrentSegment(ISpaceShuttle shuttle)
     {
         if (shuttle.JumpEngine is null || !shuttle.JumpEngine.IsEnoughLengthToFly(_length))

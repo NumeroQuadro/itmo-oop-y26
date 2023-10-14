@@ -27,6 +27,8 @@ public class Route
             throw new ArgumentException("shuttle is null! cannot complete route!");
         }
 
+        double traveledTime = _segments.Sum(x => x.GetTime(shuttle));
+
         IEnumerable<SpaceTravelResult> results = _segments
             .Select(x => x.TakeOverTheShip(shuttle));
         var comparator = new ResultsComparator(results);
@@ -38,7 +40,7 @@ public class Route
             TrackStocksForTravel(shuttle);
         }
 
-        return new TripResultInformation(shuttle, summarizeResult, _market.GetCost, 0);
+        return new TripResultInformation(shuttle, summarizeResult, _market.GetCost, traveledTime);
     }
 
     private void TrackStocksForTravel(ISpaceShuttle shuttle)

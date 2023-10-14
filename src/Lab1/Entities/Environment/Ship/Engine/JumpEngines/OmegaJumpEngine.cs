@@ -3,7 +3,7 @@ using Itmo.ObjectOrientedProgramming.Lab1.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.Engine.JumpEngines;
 
-public class OmegaJumpEngine : IJumpEngine, ITimeUsage
+public class OmegaJumpEngine : IJumpEngine
 {
     private readonly double _maxLength = 20;
 
