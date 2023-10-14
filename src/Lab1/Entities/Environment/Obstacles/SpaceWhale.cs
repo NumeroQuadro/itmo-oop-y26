@@ -6,6 +6,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Obstacles;
 
 public class SpaceWhale : INitrinoParticleNebulaObstacle
 {
+    private const double SpaceWhaleDamage = 150.0;
     public SpaceTravelResult DealDamageAndGetShipCondition(ISpaceShuttle shuttle)
     {
         if (shuttle.ShipHull.HasAntiNitrinoEmitter)
@@ -18,7 +19,7 @@ public class SpaceWhale : INitrinoParticleNebulaObstacle
             return new SpaceTravelResult.ShuttleIsDestroyed();
         }
 
-        if (shuttle.Deflector.TakeDamageAndGetResult(Constants.SpaceWhaleDamage) is ProtectionState.ImpossibleToBeDamaged)
+        if (shuttle.Deflector.TakeDamageAndGetResult(SpaceWhaleDamage) is ProtectionState.ImpossibleToBeDamaged)
         {
             return new SpaceTravelResult.ShuttleIsDestroyed();
         }

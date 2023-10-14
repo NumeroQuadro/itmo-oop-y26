@@ -4,7 +4,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.Deflecto
 
 public class AClassDeflector : IDeflector
 {
-    private double _hitPoints = Constants.AClassDeflectorHitPoints;
+    private double _hitPoints = 20;
 
     public ProtectionState TakeDamageAndGetResult(double hitPoints)
     {

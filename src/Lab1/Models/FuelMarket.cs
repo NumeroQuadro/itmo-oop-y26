@@ -4,8 +4,8 @@ public class FuelMarket
 {
     private double _amountOfActivePlasma;
     private double _amountOfGravitonFuel;
-    private double _activePlasmaCost = Constants.PriceForActivePlasmaFuel;
-    private double _gravitonFuelCost = Constants.PriceForGravitonFuel;
+    private double _activePlasmaCost = 23;
+    private double _gravitonFuelCost = 56;
 
     public FuelMarket()
     {

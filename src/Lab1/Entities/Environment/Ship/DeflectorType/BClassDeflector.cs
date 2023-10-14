@@ -4,7 +4,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.Deflecto
 
 public class BClassDeflector : IDeflector
 {
-    private double _hitPonts = Constants.BClassDeflectorHitPoints;
+    private double _hitPonts = 50;
     public ProtectionState TakeDamageAndGetResult(double hitPoints)
     {
         if (_hitPonts > 0)
