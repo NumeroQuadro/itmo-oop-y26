@@ -17,7 +17,7 @@ public class NebulaInHighDensitySpace : IEnvironment
         Length = length;
     }
 
-    public uint Length { get; init; }
+    public uint Length { get; }
 
     public bool IsShuttlePossibleToStayInCurrentEnvironment(ISpaceShuttle shuttle)
     {
