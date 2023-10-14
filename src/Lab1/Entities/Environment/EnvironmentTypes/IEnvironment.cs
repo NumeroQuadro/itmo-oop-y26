@@ -5,7 +5,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.EnvironmentTy
 
 public interface IEnvironment
 {
-    public uint Length { get; }
+    public int Length { get; }
     public SpaceTravelResult TakeOverTheShip(ISpaceShuttle shuttle);
     public bool IsShuttlePossibleToStayInCurrentEnvironment(ISpaceShuttle shuttle);
 }

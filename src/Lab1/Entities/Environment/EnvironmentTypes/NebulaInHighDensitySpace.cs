@@ -10,14 +10,14 @@ public class NebulaInHighDensitySpace : IEnvironment
 {
     private List<IObstacle> _obstacles;
 
-    public NebulaInHighDensitySpace(uint numberOfDustingOfAntiMatters, uint length)
+    public NebulaInHighDensitySpace(int numberOfDustingOfAntiMatters, int length)
     {
         _obstacles = new List<IObstacle>();
         AddDustingOfAntiMatters(numberOfDustingOfAntiMatters);
         Length = length;
     }
 
-    public uint Length { get; }
+    public int Length { get; }
 
     public bool IsShuttlePossibleToStayInCurrentEnvironment(ISpaceShuttle shuttle)
     {
@@ -29,7 +29,7 @@ public class NebulaInHighDensitySpace : IEnvironment
         return true;
     }
 
-    public void AddDustingOfAntiMatters(uint numberOfDustingOfAntiMatters)
+    public void AddDustingOfAntiMatters(int numberOfDustingOfAntiMatters)
     {
         for (uint i = 0; i < numberOfDustingOfAntiMatters; ++i)
         {

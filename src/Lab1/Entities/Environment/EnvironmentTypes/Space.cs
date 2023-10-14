@@ -10,7 +10,7 @@ public class Space : ISpace
 {
     private List<IObstacle> _obstacles;
 
-    public Space(uint numberOfAsteroids, uint numberOfMeteors, uint length)
+    public Space(int numberOfAsteroids, int numberOfMeteors, int length)
     {
         _obstacles = new List<IObstacle>();
         AddAsteroids(numberOfAsteroids);
@@ -18,7 +18,7 @@ public class Space : ISpace
         Length = length;
     }
 
-    public uint Length { get; }
+    public int Length { get; }
 
     public bool IsShuttlePossibleToStayInCurrentEnvironment(ISpaceShuttle shuttle)
     {
@@ -30,7 +30,7 @@ public class Space : ISpace
         return true;
     }
 
-    public void AddMeteors(uint numberOfMeteors)
+    public void AddMeteors(int numberOfMeteors)
     {
         for (uint i = 0; i < numberOfMeteors; ++i)
         {
@@ -38,7 +38,7 @@ public class Space : ISpace
         }
     }
 
-    public void AddAsteroids(uint numberOfAsteroids)
+    public void AddAsteroids(int numberOfAsteroids)
     {
         for (uint i = 0; i < numberOfAsteroids; ++i)
         {

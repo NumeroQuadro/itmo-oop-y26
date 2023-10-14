@@ -2,6 +2,6 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.EnvironmentTy
 
 public interface ISpace : IEnvironment
 {
-    public void AddAsteroids(uint numberOfAsteroids);
-    public void AddMeteors(uint numberOfMeteors);
+    public void AddAsteroids(int numberOfAsteroids);
+    public void AddMeteors(int numberOfMeteors);
 }

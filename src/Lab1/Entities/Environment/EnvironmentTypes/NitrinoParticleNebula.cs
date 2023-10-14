@@ -11,14 +11,14 @@ public class NitrinoParticleNebula : IEnvironment
 {
     private List<IObstacle> _obstacles;
 
-    public NitrinoParticleNebula(uint numberOfSpaceWhales, uint length)
+    public NitrinoParticleNebula(int numberOfSpaceWhales, int length)
     {
         _obstacles = new List<IObstacle>();
         AddSpaceWhales(numberOfSpaceWhales);
         Length = length;
     }
 
-    public uint Length { get; }
+    public int Length { get; }
 
     public bool IsShuttlePossibleToStayInCurrentEnvironment(ISpaceShuttle shuttle)
     {
@@ -30,7 +30,7 @@ public class NitrinoParticleNebula : IEnvironment
         return true;
     }
 
-    public void AddSpaceWhales(uint numberOfSpaceWhales)
+    public void AddSpaceWhales(int numberOfSpaceWhales)
     {
         for (uint i = 0; i < numberOfSpaceWhales; ++i)
         {
