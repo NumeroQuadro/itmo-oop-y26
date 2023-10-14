@@ -1,7 +1,7 @@
 using Itmo.ObjectOrientedProgramming.Lab1.Models;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.ProtectionState;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.DeflectorType;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.DeflectorType;
 
 public class CClassDeflector : IDeflector
 {

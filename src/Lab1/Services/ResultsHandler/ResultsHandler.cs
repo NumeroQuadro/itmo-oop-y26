@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.EnvironmentTypes;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.EnvironmentTypes;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.SpaceMovement;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.SpaceTravelResults;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Services.ResultsHandler;

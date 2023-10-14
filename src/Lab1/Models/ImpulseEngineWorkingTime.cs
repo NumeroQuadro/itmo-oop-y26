@@ -1,4 +1,4 @@
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.ImpulseEngines;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.Engine.ImpulseEngines;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Models;
 

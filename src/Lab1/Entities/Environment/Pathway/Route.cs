@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.SpaceMovement;
 using Itmo.ObjectOrientedProgramming.Lab1.Models;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.SpaceTravelResults;
 using Itmo.ObjectOrientedProgramming.Lab1.Services.ResultsHandler;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Pathway;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Pathway;
 
 public class Route
 {

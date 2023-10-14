@@ -1,4 +1,4 @@
-namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Obstacles;
 
 public interface INebulaInHighDensitySpaceObstacle : IObstacle
 {

@@ -1,6 +1,6 @@
 using Itmo.ObjectOrientedProgramming.Lab1.Models.ProtectionState;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.ShipHullType;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.ShipHullType;
 
 public interface IShipHull
 {

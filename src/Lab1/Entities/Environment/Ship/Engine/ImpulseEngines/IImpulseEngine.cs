@@ -1,6 +1,6 @@
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.JumpEngines;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.Engine.JumpEngines;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Ship.Engine.ImpulseEngines;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.Engine.ImpulseEngines;
 
 public interface IImpulseEngine : IEngine
 {

@@ -1,9 +1,9 @@
-using Itmo.ObjectOrientedProgramming.Lab1.Environment.SpaceMovement;
+using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.SpaceMovement;
 using Itmo.ObjectOrientedProgramming.Lab1.Models;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.ProtectionState;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.SpaceTravelResults;
 
-namespace Itmo.ObjectOrientedProgramming.Lab1.Environment.Obstacles;
+namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Obstacles;
 
 public class DustingOfAntiMatter : INebulaInHighDensitySpaceObstacle
 {
