@@ -4,7 +4,7 @@ public static class Constants
 {
     public static double AsteroidDamage => 5.0;
     public static double MeteorDamage => 10.0;
-    public static double DustingOfAntimatterDamage => 1000;
+    public static double DustingOfAntimatterDamage => 3;
     public static double SpaceWhaleDamage => 150.0;
 
     // Engine specs

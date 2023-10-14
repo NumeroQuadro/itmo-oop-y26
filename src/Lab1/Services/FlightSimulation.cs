@@ -1,6 +1,6 @@
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Pathway;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.SpaceMovement;
-using Itmo.ObjectOrientedProgramming.Lab1.Services.ResultsHandler;
+using Itmo.ObjectOrientedProgramming.Lab1.Models.SpaceTravelResults;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Services;
 
@@ -15,8 +15,8 @@ public class FlightSimulation
         _shuttle = shuttle;
     }
 
-    public TripResultInformation StartSimulation()
+    public SpaceTravelResult StartSimulation()
     {
-        return _route.GoThroughAllSegmentsAndGetResultOfTrip(_shuttle);
+        return _route.Travel(_shuttle);
     }
 }

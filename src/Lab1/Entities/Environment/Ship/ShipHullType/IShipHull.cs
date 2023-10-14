@@ -1,4 +1,4 @@
-using Itmo.ObjectOrientedProgramming.Lab1.Models.ProtectionState;
+using Itmo.ObjectOrientedProgramming.Lab1.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.ShipHullType;
 

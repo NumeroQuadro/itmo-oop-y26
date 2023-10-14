@@ -1,42 +1,20 @@
 using Itmo.ObjectOrientedProgramming.Lab1.Models;
-using Itmo.ObjectOrientedProgramming.Lab1.Models.ProtectionState;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.DeflectorType;
 
 public class CClassDeflector : IDeflector
 {
-    public CClassDeflector(bool hasPhotonModification)
-    {
-        HasPhotonModification = hasPhotonModification;
-        HitPoints = Constants.CClassDeflectorHitPoints;
-        SpecialHitPoints = Constants.CClassDeflectorHitPoints;
-    }
+    private double _hitPoints = Constants.CClassDeflectorHitPoints;
 
-    public bool HasPhotonModification { get; }
-    public double HitPoints { get; private set; }
-    public double SpecialHitPoints { get; private set; }
-
-    public ProtectionState TakeDamage(double hitPoints)
+    public ProtectionState TakeDamageAndGetResult(double hitPoints)
     {
-        if (HitPoints > 0)
+        if (_hitPoints > 0)
         {
-            HitPoints -= hitPoints;
+            _hitPoints -= hitPoints;
 
-            return new ProtectionIsEnabled();
+            return new ProtectionState.ProtectionIsEnabled();
         }
 
-        return new ImpossibleToBeDamaged();
-    }
-
-    public ProtectionState TakeSpecialDamage(double hitPoints)
-    {
-        if (SpecialHitPoints > 0)
-        {
-            SpecialHitPoints -= Constants.CClassDeflectorDustingAntiMatterDamageReduceCoefficient * hitPoints;
-
-            return new ProtectionIsEnabled();
-        }
-
-        return new ImpossibleToBeDamaged();
+        return new ProtectionState.ImpossibleToBeDamaged();
     }
 }

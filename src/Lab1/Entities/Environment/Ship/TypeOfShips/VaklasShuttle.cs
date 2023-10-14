@@ -3,48 +3,48 @@ using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.Engine.Impul
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.Engine.JumpEngines;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.ShipHullType;
 using Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.SpaceMovement;
-using Itmo.ObjectOrientedProgramming.Lab1.Models.ProtectionState;
+using Itmo.ObjectOrientedProgramming.Lab1.Models;
 using Itmo.ObjectOrientedProgramming.Lab1.Models.SpaceTravelResults;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.TypeOfShips;
 
 public class VaklasShuttle : ISpaceShuttle
 {
-    public VaklasShuttle(bool hasPhotonDeflectors)
+    public VaklasShuttle(PhotonicDeflector? photonicDeflector = null)
     {
-        Deflector = new AClassDeflector(hasPhotonDeflectors);
+        if (photonicDeflector is null)
+        {
+            Deflector = new AClassDeflector();
+        }
+        else
+        {
+            Deflector = photonicDeflector;
+        }
     }
 
     public IImpulseEngine ImpulseEngine { get; } = new EClassImpulseEngine();
     public IJumpEngine JumpEngine { get; } = new GammaJumpEngine();
     public IShipHull ShipHull { get; } = new BClassShipHull(false);
-    public IDeflector Deflector { get; init; }
-    public SpaceTravelResult? TakeDamageAndGetResult(double hitPoints)
+    public IDeflector Deflector { get; }
+    public SpaceTravelResult TakeDamageAndGetResult(double hitPoints)
     {
-        ProtectionState resultAfterDeflectorDamaged = Deflector.TakeDamage(hitPoints);
-        if (resultAfterDeflectorDamaged is ImpossibleToBeDamaged)
+        if (Deflector.TakeDamageAndGetResult(hitPoints) is ProtectionState.ImpossibleToBeDamaged)
         {
-            if (ShipHull.TakeDamage(hitPoints) is ImpossibleToBeDamaged)
-            {
-                return new ShuttleIsDestroyed();
-            }
+            ProtectionState result = ShipHull.TakeDamage(hitPoints);
+
+            return SpaceTravelResultAndProtectionConditionComparator(result);
         }
 
-        return null;
+        return new SpaceTravelResult.Success();
     }
 
-    public SpaceTravelResult? TakeSpecialDamageAndGetResult(double hitPoints)
+    private static SpaceTravelResult SpaceTravelResultAndProtectionConditionComparator(ProtectionState state)
     {
-        if (Deflector.HasPhotonModification)
+        if (state is ProtectionState.ImpossibleToBeDamaged)
         {
-            if (Deflector.TakeSpecialDamage(hitPoints) is ImpossibleToBeDamaged)
-            {
-                return new CrewDeath();
-            }
-
-            return null;
+            return new SpaceTravelResult.ShuttleIsDestroyed();
         }
 
-        return new CrewDeath();
+        return new SpaceTravelResult.Success();
     }
 }

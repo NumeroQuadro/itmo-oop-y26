@@ -18,14 +18,6 @@ public class NitrinoParticleNebula : IEnvironment
         _length = length;
     }
 
-    public void AddSpaceWhales(int numberOfSpaceWhales)
-    {
-        for (uint i = 0; i < numberOfSpaceWhales; ++i)
-        {
-            _obstacles.Add(new SpaceWhale());
-        }
-    }
-
     public SpaceTravelResult TakeOverTheShip(ISpaceShuttle shuttle)
     {
         if (IsShuttlePossibleToStayInCurrentEnvironment(shuttle))
@@ -33,7 +25,7 @@ public class NitrinoParticleNebula : IEnvironment
             return GetShuttleThroughAllObstacles(shuttle);
         }
 
-        return new ImpossibleToGoToEnvironment();
+        return new SpaceTravelResult.ImpossibleToGoToEnvironment();
     }
 
     private bool IsShuttlePossibleToStayInCurrentEnvironment(ISpaceShuttle shuttle)

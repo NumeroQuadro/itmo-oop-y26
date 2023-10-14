@@ -1,5 +1,4 @@
 using Itmo.ObjectOrientedProgramming.Lab1.Models;
-using Itmo.ObjectOrientedProgramming.Lab1.Models.ProtectionState;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.ShipHullType;
 
@@ -17,11 +16,11 @@ public class AClassShipHull : IShipHull
     {
         if (HitPoints <= 0 || hitPoints > HitPoints)
         {
-            return new ImpossibleToBeDamaged();
+            return new ProtectionState.ImpossibleToBeDamaged();
         }
 
         HitPoints -= hitPoints;
 
-        return new ProtectionIsEnabled();
+        return new ProtectionState.ProtectionIsEnabled();
     }
 }

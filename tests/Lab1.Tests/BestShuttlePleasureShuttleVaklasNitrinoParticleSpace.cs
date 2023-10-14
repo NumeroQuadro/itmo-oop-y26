@@ -20,8 +20,8 @@ public class BestShuttlePleasureShuttleVaklasNitrinoParticleSpace
         // Arrange
         IEnvironment environment = new NitrinoParticleNebula(0, 3);
         IEnumerable<IEnvironment> environments = new[] { environment };
-        var segment = new PathSegment(environments);
-        IEnumerable<PathSegment> segments = new[] { segment };
+        var segment = new Segment(environments);
+        IEnumerable<Segment> segments = new[] { segment };
         var route = new Route(segments);
         var flightSimulationForVaklas = new FlightSimulation(route, _vaklasShuttle);
         var flighSimulationForPleasureShuttle = new FlightSimulation(route, _pleasureShuttle);

@@ -8,26 +8,13 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.EnvironmentTy
 
 public class NebulaInHighDensitySpace : IEnvironment
 {
-    private List<DustingOfAntiMatter> _obstacles;
-    private int _length;
+    private readonly List<DustingOfAntiMatter> _obstacles;
+    private readonly int _length;
 
     public NebulaInHighDensitySpace(IEnumerable<DustingOfAntiMatter> obstaclesCollection, int length)
     {
         _obstacles = obstaclesCollection.ToList();
         _length = length;
-    }
-
-    public void AddDustingOfAntiMatters(int numberOfDustingOfAntiMatters)
-    {
-        for (uint i = 0; i < numberOfDustingOfAntiMatters; ++i)
-        {
-            _obstacles.Add(new DustingOfAntiMatter());
-        }
-    }
-
-    public IEnumerable<IObstacle> GetObstacles()
-    {
-        return _obstacles.AsEnumerable();
     }
 
     public SpaceTravelResult TakeOverTheShip(ISpaceShuttle shuttle)

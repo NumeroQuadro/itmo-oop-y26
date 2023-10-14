@@ -2,10 +2,8 @@ using Itmo.ObjectOrientedProgramming.Lab1.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.Engine.ImpulseEngines;
 
-public class CClassImpulseEngine : IImpulseEngine
+public class CClassImpulseEngine : IImpulseEngine, IFuelUsage, ITimeUsage
 {
-    public double MaxLength => 1000;
-
     public double GetWastedFuelBySpecialFormula(double astronomicalUnitsTraveled)
     {
         return astronomicalUnitsTraveled;

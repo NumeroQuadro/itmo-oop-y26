@@ -14,26 +14,16 @@ public class ResultsComparator
 
     public SpaceTravelResult CompareResultsAndGetSummarize()
     {
-        if (_results.Contains(new CrewDeath()))
+        IEnumerable<SpaceTravelResult> notSuccessResults = _results
+            .Select(x => x)
+            .Where(x => x is not SpaceTravelResult.Success);
+
+        SpaceTravelResult? summarizeResult = notSuccessResults.FirstOrDefault();
+        if (summarizeResult is null)
         {
-            return new CrewDeath();
+            return new SpaceTravelResult.Success();
         }
 
-        if (_results.Contains(new ShuttleIsDestroyed()))
-        {
-            return new ShuttleIsDestroyed();
-        }
-
-        if (_results.Contains(new ImpossibleToGoToEnvironment()))
-        {
-            return new ImpossibleToGoToEnvironment();
-        }
-
-        if (_results.Contains(new ShuttleLost()))
-        {
-            return new ShuttleLost();
-        }
-
-        return new Success();
+        return summarizeResult;
     }
 }

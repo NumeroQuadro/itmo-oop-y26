@@ -3,9 +3,9 @@ using Itmo.ObjectOrientedProgramming.Lab1.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.Engine.JumpEngines;
 
-public class OmegaJumpEngine : IJumpEngine
+public class OmegaJumpEngine : IJumpEngine, IFuelUsage, ITimeUsage
 {
-    public double MaxLength => 20;
+    private readonly double _maxLength = 20;
 
     public double GetWastedFuelBySpecialFormula(double astronomicalUnitsTraveled)
     {
@@ -22,5 +22,10 @@ public class OmegaJumpEngine : IJumpEngine
     public double GetWastedFuelForStartBySpecialFormula()
     {
         return Constants.JumpEngineStartFuelConsumption;
+    }
+
+    public bool IsEnoughLengthToFly(double environmentLength)
+    {
+        return environmentLength < _maxLength;
     }
 }

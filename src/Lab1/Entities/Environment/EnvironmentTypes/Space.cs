@@ -42,7 +42,8 @@ public class Space
 
     private SpaceTravelResult GetShuttleThroughAllObstacles(ISpaceShuttle shuttle)
     {
-        IEnumerable<SpaceTravelResult> results = _asteroids.Select(x => x.DealDamageAndGetShipCondition(shuttle));
+        IEnumerable<SpaceTravelResult> resultsAsteroids = _asteroids.Select(x => x.DealDamageAndGetShipCondition(shuttle));
+        IEnumerable<SpaceTravelResult> results = resultsAsteroids.Concat(_meteors.Select(x => x.DealDamageAndGetShipCondition(shuttle)));
         var comparator = new ResultsComparator(results);
 
         return comparator.CompareResultsAndGetSummarize();
