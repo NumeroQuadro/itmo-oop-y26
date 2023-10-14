@@ -9,25 +9,13 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.EnvironmentTy
 
 public class NitrinoParticleNebula : IEnvironment
 {
-    private List<IObstacle> _obstacles;
+    private int _length;
+    private List<SpaceWhale> _obstacles;
 
-    public NitrinoParticleNebula(int numberOfSpaceWhales, int length)
+    public NitrinoParticleNebula(IEnumerable<SpaceWhale> obstaclesCollection, int length)
     {
-        _obstacles = new List<IObstacle>();
-        AddSpaceWhales(numberOfSpaceWhales);
-        Length = length;
-    }
-
-    public int Length { get; }
-
-    public bool IsShuttlePossibleToStayInCurrentEnvironment(ISpaceShuttle shuttle)
-    {
-        if (shuttle.ImpulseEngine is not EClassImpulseEngine || Length > shuttle.ImpulseEngine.MaxLength)
-        {
-            return false;
-        }
-
-        return true;
+        _obstacles = obstaclesCollection.ToList();
+        _length = length;
     }
 
     public void AddSpaceWhales(int numberOfSpaceWhales)
@@ -36,11 +24,6 @@ public class NitrinoParticleNebula : IEnvironment
         {
             _obstacles.Add(new SpaceWhale());
         }
-    }
-
-    public IEnumerable<IObstacle> GetObstacles()
-    {
-        return _obstacles.AsEnumerable();
     }
 
     public SpaceTravelResult TakeOverTheShip(ISpaceShuttle shuttle)
@@ -53,18 +36,21 @@ public class NitrinoParticleNebula : IEnvironment
         return new ImpossibleToGoToEnvironment();
     }
 
-    private SpaceTravelResult GetShuttleThroughAllObstacles(ISpaceShuttle shuttle)
+    private bool IsShuttlePossibleToStayInCurrentEnvironment(ISpaceShuttle shuttle)
     {
-        IEnumerable<IObstacle> obstacles = GetObstacles();
-        foreach (IObstacle obstacle in obstacles)
+        if (shuttle.ImpulseEngine is not EClassImpulseEngine || _length > shuttle.ImpulseEngine.MaxLength)
         {
-            SpaceTravelResult result = obstacle.DealDamageAndGetShipCondition(shuttle);
-            if (result is not Success)
-            {
-                return result;
-            }
+            return false;
         }
 
-        return new Success();
+        return true;
+    }
+
+    private SpaceTravelResult GetShuttleThroughAllObstacles(ISpaceShuttle shuttle)
+    {
+        IEnumerable<SpaceTravelResult> results = _obstacles.Select(x => x.DealDamageAndGetShipCondition(shuttle));
+        var comparator = new ResultsComparator(results);
+
+        return comparator.CompareResultsAndGetSummarize();
     }
 }

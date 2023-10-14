@@ -6,15 +6,15 @@ using Itmo.ObjectOrientedProgramming.Lab1.Models.SpaceTravelResults;
 
 namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.EnvironmentTypes;
 
-public class Space : ISpace
+public class Space
 {
-    private List<IObstacle> _obstacles;
+    private List<Asteroid> _asteroids;
+    private List<Meteor> _meteors;
 
-    public Space(int numberOfAsteroids, int numberOfMeteors, int length)
+    public Space(IEnumerable<Asteroid> asteroids, IEnumerable<Meteor> meteors, int length)
     {
-        _obstacles = new List<IObstacle>();
-        AddAsteroids(numberOfAsteroids);
-        AddMeteors(numberOfMeteors);
+        _asteroids = asteroids.ToList();
+        _meteors = meteors.ToList();
         Length = length;
     }
 
@@ -30,22 +30,6 @@ public class Space : ISpace
         return true;
     }
 
-    public void AddMeteors(int numberOfMeteors)
-    {
-        for (uint i = 0; i < numberOfMeteors; ++i)
-        {
-            _obstacles.Add(new Meteor());
-        }
-    }
-
-    public void AddAsteroids(int numberOfAsteroids)
-    {
-        for (uint i = 0; i < numberOfAsteroids; ++i)
-        {
-            _obstacles.Add(new Asteroid());
-        }
-    }
-
     public SpaceTravelResult TakeOverTheShip(ISpaceShuttle shuttle)
     {
         if (IsShuttlePossibleToStayInCurrentEnvironment(shuttle))
@@ -58,21 +42,9 @@ public class Space : ISpace
 
     private SpaceTravelResult GetShuttleThroughAllObstacles(ISpaceShuttle shuttle)
     {
-        IEnumerable<IObstacle> obstacles = GetObstacles();
-        foreach (IObstacle obstacle in obstacles)
-        {
-            SpaceTravelResult result = obstacle.DealDamageAndGetShipCondition(shuttle);
-            if (result is not Success)
-            {
-                return result;
-            }
-        }
+        IEnumerable<SpaceTravelResult> results = _asteroids.Select(x => x.DealDamageAndGetShipCondition(shuttle));
+        var comparator = new ResultsComparator(results);
 
-        return new Success();
-    }
-
-    private IEnumerable<IObstacle> GetObstacles()
-    {
-        return _obstacles.AsEnumerable();
+        return comparator.CompareResultsAndGetSummarize();
     }
 }

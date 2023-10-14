@@ -8,25 +8,13 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.EnvironmentTy
 
 public class NebulaInHighDensitySpace : IEnvironment
 {
-    private List<IObstacle> _obstacles;
+    private List<DustingOfAntiMatter> _obstacles;
+    private int _length;
 
-    public NebulaInHighDensitySpace(int numberOfDustingOfAntiMatters, int length)
+    public NebulaInHighDensitySpace(IEnumerable<DustingOfAntiMatter> obstaclesCollection, int length)
     {
-        _obstacles = new List<IObstacle>();
-        AddDustingOfAntiMatters(numberOfDustingOfAntiMatters);
-        Length = length;
-    }
-
-    public int Length { get; }
-
-    public bool IsShuttlePossibleToStayInCurrentEnvironment(ISpaceShuttle shuttle)
-    {
-        if (shuttle.JumpEngine is null || Length > shuttle.JumpEngine.MaxLength)
-        {
-            return false;
-        }
-
-        return true;
+        _obstacles = obstaclesCollection.ToList();
+        _length = length;
     }
 
     public void AddDustingOfAntiMatters(int numberOfDustingOfAntiMatters)
@@ -54,16 +42,19 @@ public class NebulaInHighDensitySpace : IEnvironment
 
     private SpaceTravelResult GetShuttleThroughAllObstacles(ISpaceShuttle shuttle)
     {
-        IEnumerable<IObstacle> obstacles = GetObstacles();
-        foreach (IObstacle obstacle in obstacles)
+        IEnumerable<SpaceTravelResult> results = _obstacles.Select(x => x.DealDamageAndGetShipCondition(shuttle));
+        var comparator = new ResultsComparator(results);
+
+        return comparator.CompareResultsAndGetSummarize();
+    }
+
+    private bool IsShuttlePossibleToStayInCurrentEnvironment(ISpaceShuttle shuttle)
+    {
+        if (shuttle.JumpEngine is null || _length > shuttle.JumpEngine.MaxLength)
         {
-            SpaceTravelResult result = obstacle.DealDamageAndGetShipCondition(shuttle);
-            if (result is not Success)
-            {
-                return result;
-            }
+            return false;
         }
 
-        return new Success();
+        return true;
     }
 }
