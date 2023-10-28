@@ -10,9 +10,21 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.TypeOfSh
 
 public class PleasureShuttle : ISpaceShuttle
 {
+    public PleasureShuttle(NitrinoEmmiter? nitrinoEmmiter = null)
+    {
+        if (nitrinoEmmiter is null)
+        {
+            ShipHull = new BClassShipHull();
+        }
+        else
+        {
+            ShipHull = nitrinoEmmiter;
+        }
+    }
+
     public IImpulseEngine ImpulseEngine { get; } = new CClassImpulseEngine();
     public IJumpEngine? JumpEngine => null;
-    public IShipHull ShipHull { get; } = new BClassShipHull(false);
+    public IShipHull ShipHull { get; }
     public IDeflector? Deflector => null;
 
     public SpaceTravelResult TakeDamageAndGetResult(double hitPoints)

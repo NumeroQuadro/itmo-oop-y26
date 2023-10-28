@@ -5,13 +5,11 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.ShipHull
 public class AClassShipHull : IShipHull
 {
     private const double AClassShipHullHitPoints = 10;
-    public AClassShipHull(bool hasAntiNitrinoEmitter)
+    public AClassShipHull()
     {
-        HasAntiNitrinoEmitter = hasAntiNitrinoEmitter;
         HitPoints = AClassShipHullHitPoints;
     }
 
-    public bool HasAntiNitrinoEmitter { get; private set; }
     public double HitPoints { get; private set; }
     public ProtectionState TakeDamage(double hitPoints)
     {

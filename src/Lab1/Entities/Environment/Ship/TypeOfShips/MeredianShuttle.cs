@@ -10,7 +10,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.TypeOfSh
 
 public class MeredianShuttle : ISpaceShuttle
 {
-    public MeredianShuttle(PhotonicDeflector? photonicDeflector = null)
+    public MeredianShuttle(PhotonicDeflector? photonicDeflector = null, NitrinoEmmiter? nitrinoEmmiter = null)
     {
         if (photonicDeflector is null)
         {
@@ -20,9 +20,18 @@ public class MeredianShuttle : ISpaceShuttle
         {
             Deflector = photonicDeflector;
         }
+
+        if (nitrinoEmmiter is null)
+        {
+            ShipHull = new CClassShipHull();
+        }
+        else
+        {
+            ShipHull = nitrinoEmmiter;
+        }
     }
 
-    public IShipHull ShipHull { get; } = new BClassShipHull(true);
+    public IShipHull ShipHull { get; }
     public IImpulseEngine ImpulseEngine { get; } = new EClassImpulseEngine();
     public IJumpEngine JumpEngine { get; } = new GammaJumpEngine();
     public IDeflector Deflector { get; }

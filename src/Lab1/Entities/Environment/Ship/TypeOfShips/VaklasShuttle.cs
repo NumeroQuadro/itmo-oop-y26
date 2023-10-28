@@ -10,7 +10,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.TypeOfSh
 
 public class VaklasShuttle : ISpaceShuttle
 {
-    public VaklasShuttle(PhotonicDeflector? photonicDeflector = null)
+    public VaklasShuttle(PhotonicDeflector? photonicDeflector = null, NitrinoEmmiter? nitrinoEmmiter = null)
     {
         if (photonicDeflector is null)
         {
@@ -20,11 +20,20 @@ public class VaklasShuttle : ISpaceShuttle
         {
             Deflector = photonicDeflector;
         }
+
+        if (nitrinoEmmiter is null)
+        {
+            ShipHull = new BClassShipHull();
+        }
+        else
+        {
+            ShipHull = nitrinoEmmiter;
+        }
     }
 
     public IImpulseEngine ImpulseEngine { get; } = new EClassImpulseEngine();
     public IJumpEngine JumpEngine { get; } = new GammaJumpEngine();
-    public IShipHull ShipHull { get; } = new BClassShipHull(false);
+    public IShipHull ShipHull { get; }
     public IDeflector Deflector { get; }
     public SpaceTravelResult TakeDamageAndGetResult(double hitPoints)
     {

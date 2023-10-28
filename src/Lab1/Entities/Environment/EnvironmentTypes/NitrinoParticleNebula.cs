@@ -8,7 +8,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.EnvironmentTy
 
 public class NitrinoParticleNebula : IEnvironment
 {
-    private List<SpaceWhale> _obstacles;
+    private readonly List<SpaceWhale> _obstacles;
 
     public NitrinoParticleNebula(IEnumerable<SpaceWhale> obstaclesCollection)
     {
