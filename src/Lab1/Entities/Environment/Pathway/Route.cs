@@ -49,18 +49,15 @@ public class Route
         {
             if (segment.Environment is Space or NitrinoParticleNebula)
             {
-                if (shuttle.ImpulseEngine is not null)
-                {
-                    _market.IncreaseAmountOfGravitonFuel(shuttle.ImpulseEngine.GetWastedFuelBySpecialFormula(segment.Length));
-                }
+                segment.IncreaseWastedAmountOfActivePlasma(shuttle, segment.Length);
             }
             else if (segment.Environment is NebulaInHighDensitySpace)
             {
-                if (shuttle.JumpEngine is not null)
-                {
-                    _market.IncreaseAmountOfGravitonFuel(shuttle.JumpEngine.GetWastedFuelBySpecialFormula(segment.Length));
-                }
+                segment.IncreaseWastedAmountOfGravitonFuel(shuttle, segment.Length);
             }
+
+            segment.SetWastedAmountOfActivePlasma(_market);
+            segment.SetWastedAmountOfGravitonFuel(_market);
         }
     }
 }

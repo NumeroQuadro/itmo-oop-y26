@@ -14,6 +14,8 @@ public class FuelMarket
     }
 
     public double GetCost => (_amountOfActivePlasma * _activePlasmaCost) + (_amountOfGravitonFuel * _gravitonFuelCost);
+    public double GetAmountOfActivePlasma => _amountOfActivePlasma;
+    public double GetAmountOfGravitonFuel => _amountOfGravitonFuel;
 
     public void IncreaseAmountOfGravitonFuel(double amount)
     {

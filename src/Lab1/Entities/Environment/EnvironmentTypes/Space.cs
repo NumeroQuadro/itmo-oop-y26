@@ -8,8 +8,8 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.EnvironmentTy
 
 public class Space : IEnvironment
 {
-    private List<Asteroid> _asteroids;
-    private List<Meteor> _meteors;
+    private IEnumerable<Asteroid> _asteroids;
+    private IEnumerable<Meteor> _meteors;
 
     public Space(IEnumerable<Asteroid> asteroids, IEnumerable<Meteor> meteors)
     {
