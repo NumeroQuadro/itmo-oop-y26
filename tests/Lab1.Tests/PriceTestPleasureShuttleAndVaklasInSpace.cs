@@ -19,7 +19,7 @@ public class PriceTestPleasureShuttleAndVaklasInSpace
     public void ShipShouldNotDestroyedIfItHasAntiNitrinoEmitter()
     {
         // Arrange
-        var segment = new Segment(new Space(Enumerable.Empty<Asteroid>(), Enumerable.Empty<Meteor>()), 2);
+        var segment = new Segment(new Space(Enumerable.Empty<ISpaceObstacle>()), 2);
         IEnumerable<Segment> segments = new[] { segment };
         var route = new Route(segments);
 

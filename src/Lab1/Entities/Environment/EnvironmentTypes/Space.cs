@@ -8,13 +8,11 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.EnvironmentTy
 
 public class Space : IEnvironment
 {
-    private readonly IEnumerable<Asteroid> _asteroids;
-    private readonly IEnumerable<Meteor> _meteors;
+    private readonly IEnumerable<ISpaceObstacle> _obstacles;
 
-    public Space(IEnumerable<Asteroid> asteroids, IEnumerable<Meteor> meteors)
+    public Space(IEnumerable<ISpaceObstacle> obstacles)
     {
-        _asteroids = asteroids.ToList();
-        _meteors = meteors.ToList();
+        _obstacles = obstacles.ToList();
     }
 
     public SpaceTravelResult TakeOverTheShip(ISpaceShuttle shuttle)
@@ -24,8 +22,8 @@ public class Space : IEnvironment
 
     private SpaceTravelResult GetShuttleThroughAllObstacles(ISpaceShuttle shuttle)
     {
-        IEnumerable<SpaceTravelResult> resultsAsteroids = _asteroids.Select(x => x.DealDamageAndGetShipCondition(shuttle));
-        IEnumerable<SpaceTravelResult> results = resultsAsteroids.Concat(_meteors.Select(x => x.DealDamageAndGetShipCondition(shuttle)));
+        IEnumerable<SpaceTravelResult> resultsAsteroids = _obstacles.Select(x => x.DealDamageAndGetShipCondition(shuttle));
+        IEnumerable<SpaceTravelResult> results = resultsAsteroids.Concat(_obstacles.Select(x => x.DealDamageAndGetShipCondition(shuttle)));
         var comparator = new ResultsComparator(results);
 
         return comparator.CompareResultsAndGetSummarize();

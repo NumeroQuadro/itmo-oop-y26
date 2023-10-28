@@ -37,10 +37,11 @@ public class VaklasRouteOfThreeSegmentsWithAsteroidsAndMeteors
         {
             new Meteor(), new Meteor(), new Meteor(), new Meteor(),
         };
+        IEnumerable<ISpaceObstacle> obstacles = ten_asteroids.Concat<ISpaceObstacle>(four_meteors);
         bool shuttleExists = _starshipsByName.TryGetValue(shipName, out ISpaceShuttle? shuttle);
 
-        var first_segment = new Segment(new Space(ten_asteroids, Enumerable.Empty<Meteor>()), 3);
-        var second_segment = new Segment(new Space(ten_asteroids, four_meteors), 3);
+        var first_segment = new Segment(new Space(ten_asteroids), 3);
+        var second_segment = new Segment(new Space(obstacles), 3);
         var segments = new List<Segment>();
         segments.Add(first_segment);
         segments.Add(second_segment);
