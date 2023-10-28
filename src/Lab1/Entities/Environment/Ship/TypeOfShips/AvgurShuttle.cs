@@ -10,7 +10,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.TypeOfSh
 
 public class AvgurShuttle : ISpaceShuttle
 {
-    public AvgurShuttle(PhotonicDeflector? photonicDeflector = null)
+    public AvgurShuttle(PhotonicDeflector? photonicDeflector = null, NitrinoEmmiter? nitrinoEmmiter = null)
     {
         if (photonicDeflector is null)
         {
@@ -20,11 +20,20 @@ public class AvgurShuttle : ISpaceShuttle
         {
             Deflector = photonicDeflector;
         }
+
+        if (nitrinoEmmiter is null)
+        {
+            ShipHull = new CClassShipHull();
+        }
+        else
+        {
+            ShipHull = nitrinoEmmiter;
+        }
     }
 
     public IJumpEngine JumpEngine { get; } = new AlphaJumpEngine();
     public IImpulseEngine ImpulseEngine { get; } = new EClassImpulseEngine();
-    public IShipHull ShipHull { get; } = new CClassShipHull(false);
+    public IShipHull ShipHull { get; }
     public IDeflector Deflector { get; }
 
     public SpaceTravelResult TakeDamageAndGetResult(double hitPoints)

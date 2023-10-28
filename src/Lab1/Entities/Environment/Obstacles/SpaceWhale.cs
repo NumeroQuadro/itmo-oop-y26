@@ -9,11 +9,6 @@ public class SpaceWhale : INitrinoParticleNebulaObstacle
     private const double SpaceWhaleDamage = 150.0;
     public SpaceTravelResult DealDamageAndGetShipCondition(ISpaceShuttle shuttle)
     {
-        if (shuttle.ShipHull.HasAntiNitrinoEmitter)
-        {
-            return new SpaceTravelResult.Success();
-        }
-
         if (shuttle.Deflector is null)
         {
             return new SpaceTravelResult.ShuttleIsDestroyed();

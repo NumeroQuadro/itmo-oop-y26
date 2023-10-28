@@ -4,7 +4,6 @@ namespace Itmo.ObjectOrientedProgramming.Lab1.Entities.Environment.Ship.ShipHull
 
 public interface IShipHull
 {
-    public bool HasAntiNitrinoEmitter { get; }
     public double HitPoints { get; }
     public ProtectionState TakeDamage(double hitPoints);
 }
