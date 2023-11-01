@@ -2,6 +2,16 @@
 
     <PropertyGroup>
         <RootNamespace>Itmo.ObjectOrientedProgramming.Lab3</RootNamespace>
+        <OutputType>Exe</OutputType>
+
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
     </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Crayon" />
+    </ItemGroup>
+
+
 
 </Project>
