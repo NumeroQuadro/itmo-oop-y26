@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Messangers;
 
-public class Messanger : IDeliverer
+public class Messanger : IMessanger
 {
     private readonly List<string> _messages;
 

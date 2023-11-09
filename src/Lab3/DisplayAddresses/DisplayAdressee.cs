@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab3.Displays;
 using Itmo.ObjectOrientedProgramming.Lab3.Messages;
 
@@ -11,5 +12,10 @@ public class DisplayAdressee : IAdressee
     public void GetMessage(Message message)
     {
         _display.Value.GetMessage(message.Content);
+    }
+
+    public IEnumerable<string> Print()
+    {
+        return _display.Value.Print();
     }
 }

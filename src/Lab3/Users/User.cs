@@ -4,7 +4,7 @@ using Itmo.ObjectOrientedProgramming.Lab3.Users.MessageStates;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Users;
 
-public class User : IUser
+public class User
 {
     private readonly List<MessageStatus> _messages;
 
@@ -13,7 +13,7 @@ public class User : IUser
         _messages = new List<MessageStatus>();
     }
 
-    public ReadingResult MarkMessageRead(MessageStatus message)
+    public static ReadingResult MarkMessageRead(MessageStatus message)
     {
         ReadingResult result = message.MarkMessageAsRead();
 
