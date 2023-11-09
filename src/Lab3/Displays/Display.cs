@@ -13,11 +13,12 @@ public class Display
         _messages.Add(message);
     }
 
-    public IEnumerable<string> Print()
+    public void Print()
     {
         IEnumerable<ConsoleColorTextPrinter> printers = _messages.Select(x => new ConsoleColorTextPrinter(x));
-        IEnumerable<string> results = printers.Select(e => e.Print());
-
-        return results;
+        foreach (ConsoleColorTextPrinter printer in printers)
+        {
+            printer.Print();
+        }
     }
 }
