@@ -1,6 +1,6 @@
-using Itmo.ObjectOrientedProgramming.Lab3.ColoredConsoleTextDisplayer.Modifiers;
+using Itmo.ObjectOrientedProgramming.Lab3.ColoredConsoleTextDisplayer.Modifiers.Interfaces;
 
-namespace Itmo.ObjectOrientedProgramming.Lab3.ColoredConsoleTextDisplayer;
+namespace Itmo.ObjectOrientedProgramming.Lab3.ColoredConsoleTextDisplayer.Interfaces;
 
 public interface IItem : IRenderable
 {

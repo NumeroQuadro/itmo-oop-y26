@@ -1,5 +1,5 @@
-using Itmo.ObjectOrientedProgramming.Lab3.ColoredConsoleTextDisplayer;
-using Itmo.ObjectOrientedProgramming.Lab3.ColoredConsoleTextDisplayer.Modifiers;
+using Itmo.ObjectOrientedProgramming.Lab3.Messages;
+using Itmo.ObjectOrientedProgramming.Lab3.MessangerAdressees;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3;
 
@@ -7,8 +7,8 @@ public static class Program
 {
     public static void Main()
     {
-        var item = new TextItem("dimon", new[] { new BlueModifier() });
-        var printer = new ItemPrinter(item);
-        printer.Print();
+        var message = new Message("dimon", 2);
+        var aggregator = new MessangerAdresse();
+        aggregator.GetMessage(message);
     }
 }
