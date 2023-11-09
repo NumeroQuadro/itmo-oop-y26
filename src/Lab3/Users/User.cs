@@ -24,6 +24,6 @@ public class User : IUser
     {
         var messageState = new MessageState();
         messageState.MarkMessageAsUnread();
-        _messages.Add(new MessageStatus(message, messageState));
+        _messages.Add(new MessageStatus(message.Content, messageState));
     }
 }

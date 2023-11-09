@@ -2,7 +2,7 @@ using System;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Messangers;
 
-internal class MessangerTextPrinter : IDeliverer
+internal class MessangerTextPrinter
 {
     private readonly string _content;
 
