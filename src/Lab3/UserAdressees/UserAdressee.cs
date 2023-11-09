@@ -2,7 +2,7 @@ using System;
 using Itmo.ObjectOrientedProgramming.Lab3.Messages;
 using Itmo.ObjectOrientedProgramming.Lab3.Users;
 
-namespace Itmo.ObjectOrientedProgramming.Lab3.UserAdresses;
+namespace Itmo.ObjectOrientedProgramming.Lab3.UserAdressees;
 
 public class UserAdressee : IAdressee
 {
