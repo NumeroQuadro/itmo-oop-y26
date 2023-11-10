@@ -11,7 +11,7 @@ public static class Program
     {
         var displayAdressee = new DisplayAdressee(new Logger());
         var topic = new Topic(displayAdressee, "dimon", 2);
-        var message = new Message("hello dimon", 4);
+        var message = new Message("hello dimon", 4, "numero uno goofy ahh cat");
         topic.RedirectMessage(message);
         displayAdressee.Print();
     }

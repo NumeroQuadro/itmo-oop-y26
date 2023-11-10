@@ -14,7 +14,12 @@ public class SendMessage_LoggerWasCalledOnce_IfMessageWasReceived
     public SendMessage_LoggerWasCalledOnce_IfMessageWasReceived()
     {
         const int importanceLevel = 5;
-        _messageToSend = new Message("Hello, world!", importanceLevel);
+        var builder = new MessageBuilder();
+        builder
+            .SetUpImportanceLevel(importanceLevel)
+            .SetUpBody("numero uno goofy ahh cat")
+            .SetUpContent("Hello, world!");
+        _messageToSend = builder.Build();
     }
 
     [Fact]

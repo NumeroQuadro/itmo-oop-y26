@@ -14,7 +14,13 @@ public class SendMessage_MessangerDoAsUsual_MessageDoNotFiltered
     {
         // Arrange
         const int importanceLevel = 5;
-        var messageToSend = new Message("Hello, world!", importanceLevel);
+        var builder = new MessageBuilder();
+        builder
+            .SetUpImportanceLevel(importanceLevel)
+            .SetUpBody("numero uno goofy ahh cat")
+            .SetUpContent("Hello, world!");
+        Message messageToSend = builder.Build();
+
         MessangerAdresse messangerAdresse = Substitute.For<MessangerAdresse>(new Logger());
 
         var topic = new Topic(messangerAdresse, "numero uno", 5);

@@ -4,7 +4,6 @@ using Itmo.ObjectOrientedProgramming.Lab3.Messages;
 using Itmo.ObjectOrientedProgramming.Lab3.Topics;
 using Itmo.ObjectOrientedProgramming.Lab3.UserAdressees;
 using Itmo.ObjectOrientedProgramming.Lab3.Users.MessageStates;
-using NSubstitute;
 using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Tests;
@@ -16,7 +15,13 @@ public class SendMessage_MessageIsUnread_MessageSentToUser
     public SendMessage_MessageIsUnread_MessageSentToUser()
     {
         const int importanceLevel = 5;
-        _messageToSend = new Message("Hello, world!", importanceLevel);
+
+        var builder = new MessageBuilder();
+        builder
+            .SetUpImportanceLevel(importanceLevel)
+            .SetUpBody("numero uno goofy ahh cat")
+            .SetUpContent("Hello, world!");
+        _messageToSend = builder.Build();
     }
 
     [Fact]
@@ -24,7 +29,7 @@ public class SendMessage_MessageIsUnread_MessageSentToUser
     {
         // Arrange
         UserAdressee userAdressee = new(new Logger());
-        Topic topic = Substitute.For<Topic>(userAdressee, "numero finko", 5);
+        var topic = new Topic(userAdressee, "numero finko", 5);
 
         // Act
         topic.RedirectMessage(_messageToSend);

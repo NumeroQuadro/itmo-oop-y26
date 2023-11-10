@@ -15,7 +15,12 @@ public class MarkUnreadMessageLikeRead_MessageIsUnread_ReturnFailure
     public void MarkUnreadMessage_ReturnFailre()
     {
         const int importanceLevel = 5;
-        var messageToSend = new Message("Hello, world!", importanceLevel);
+        var builder = new MessageBuilder();
+        builder
+            .SetUpImportanceLevel(importanceLevel)
+            .SetUpBody("numero uno goofy ahh cat")
+            .SetUpContent("Hello, world!");
+        Message messageToSend = builder.Build();
 
         Topic topic = Substitute.For<Topic>(new UserAdressee(new Logger()), "numero uno", 1);
         MessageStatus? messageStatus = topic.RedirectMessage(messageToSend);

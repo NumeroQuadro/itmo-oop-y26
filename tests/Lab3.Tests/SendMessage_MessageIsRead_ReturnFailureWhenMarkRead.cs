@@ -15,7 +15,12 @@ public class SendMessage_MessageIsRead_ReturnFailureWhenMarkRead
     {
         // Arrange
         const int importanceLevel = 5;
-        var messageToSend = new Message("Hello, world!", importanceLevel);
+        var builder = new MessageBuilder();
+        builder
+            .SetUpImportanceLevel(importanceLevel)
+            .SetUpBody("numero uno goofy ahh cat")
+            .SetUpContent("Hello, world!");
+        Message messageToSend = builder.Build();
 
         var topic = new Topic(new UserAdressee(new Logger()), "numro finko", 5);
         MessageStatus? messageStatus = topic.RedirectMessage(messageToSend);
