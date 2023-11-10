@@ -1,4 +1,5 @@
 using Itmo.ObjectOrientedProgramming.Lab3.DisplayAddresses;
+using Itmo.ObjectOrientedProgramming.Lab3.Loggers;
 using Itmo.ObjectOrientedProgramming.Lab3.Messages;
 using Itmo.ObjectOrientedProgramming.Lab3.Topics;
 
@@ -8,7 +9,7 @@ public static class Program
 {
     public static void Main()
     {
-        var displayAdressee = new DisplayAdressee();
+        var displayAdressee = new DisplayAdressee(new Logger());
         var topic = new Topic(displayAdressee, "dimon", 2);
         var message = new Message("hello dimon", 4);
         topic.RedirectMessage(message);

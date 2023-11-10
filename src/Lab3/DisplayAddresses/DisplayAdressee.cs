@@ -10,7 +10,12 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.DisplayAddresses;
 public class DisplayAdressee : IAdressee
 {
     private readonly Lazy<Display> _display = new Lazy<Display>(() => new Display());
-    private readonly Logger _logger = new Logger();
+    private readonly ILogger _logger;
+
+    public DisplayAdressee(ILogger logger)
+    {
+        _logger = logger;
+    }
 
     public MessageStatus GetMessage(Message message)
     {

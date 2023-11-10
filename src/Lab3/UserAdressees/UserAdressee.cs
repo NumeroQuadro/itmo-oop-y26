@@ -10,7 +10,12 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.UserAdressees;
 public class UserAdressee : IAdressee
 {
     private readonly Lazy<User> _user = new Lazy<User>(() => new User());
-    private readonly ILogger _logger = new Logger();
+    private readonly ILogger _logger;
+
+    public UserAdressee(ILogger logger)
+    {
+        _logger = logger;
+    }
 
     public IEnumerable<MessageStatus> GetUserReceivedMessagesStatuses => _user.Value.Messages;
 

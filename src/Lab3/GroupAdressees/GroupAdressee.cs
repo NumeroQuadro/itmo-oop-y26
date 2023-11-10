@@ -8,11 +8,12 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.GroupAdressees;
 public class GroupAdressee
 {
     private readonly List<IAdressee> _adressees;
-    private readonly Logger _logger = new Logger();
+    private readonly ILogger _logger;
 
-    public GroupAdressee(IEnumerable<IAdressee> adressees)
+    public GroupAdressee(IEnumerable<IAdressee> adressees, ILogger logger)
     {
         _adressees = adressees.ToList();
+        _logger = logger;
     }
 
     public void GetMessage(Message message)

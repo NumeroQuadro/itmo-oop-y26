@@ -1,4 +1,5 @@
 using System.Linq;
+using Itmo.ObjectOrientedProgramming.Lab3.Loggers;
 using Itmo.ObjectOrientedProgramming.Lab3.Messages;
 using Itmo.ObjectOrientedProgramming.Lab3.Topics;
 using Itmo.ObjectOrientedProgramming.Lab3.UserAdressees;
@@ -22,7 +23,7 @@ public class SendMessage_MessageIsUnread_MessageSentToUser
     public void SendMessage_CheckReadStatus()
     {
         // Arrange
-        UserAdressee userAdressee = new();
+        UserAdressee userAdressee = new(new Logger());
         Topic topic = Substitute.For<Topic>(userAdressee, "numero finko", 5);
 
         // Act

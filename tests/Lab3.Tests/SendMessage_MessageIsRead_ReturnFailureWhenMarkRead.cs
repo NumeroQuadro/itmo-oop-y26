@@ -1,3 +1,4 @@
+using Itmo.ObjectOrientedProgramming.Lab3.Loggers;
 using Itmo.ObjectOrientedProgramming.Lab3.Messages;
 using Itmo.ObjectOrientedProgramming.Lab3.Topics;
 using Itmo.ObjectOrientedProgramming.Lab3.UserAdressees;
@@ -16,7 +17,7 @@ public class SendMessage_MessageIsRead_ReturnFailureWhenMarkRead
         const int importanceLevel = 5;
         var messageToSend = new Message("Hello, world!", importanceLevel);
 
-        var topic = new Topic(new UserAdressee(), "numro finko", 5);
+        var topic = new Topic(new UserAdressee(new Logger()), "numro finko", 5);
         MessageStatus? messageStatus = topic.RedirectMessage(messageToSend);
 
         Assert.NotNull(messageStatus);

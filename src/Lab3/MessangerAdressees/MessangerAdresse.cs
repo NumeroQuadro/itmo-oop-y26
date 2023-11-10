@@ -10,7 +10,12 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.MessangerAdressees;
 public class MessangerAdresse : IAdressee
 {
     private readonly Lazy<IMessanger> _messanger = new Lazy<IMessanger>(() => new Messanger());
-    private readonly ILogger _logger = new Logger();
+    private readonly ILogger _logger;
+
+    public MessangerAdresse(ILogger logger)
+    {
+        _logger = logger;
+    }
 
     public MessageStatus GetMessage(Message message)
     {
@@ -29,6 +34,6 @@ public class MessangerAdresse : IAdressee
 
     private static string ArgumentsToLogMessage()
     {
-        return "Messanger reveived message";
+        return "Messanger received message";
     }
 }
