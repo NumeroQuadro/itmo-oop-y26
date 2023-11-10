@@ -1,14 +1,14 @@
 namespace Itmo.ObjectOrientedProgramming.Lab3.Users.MessageStates;
 
-public class MessageRead : IMessageState
+public class MessageErrorState : IMessageState
 {
     public IMessageState MoveToRead()
     {
-        return new MessageErrorState();
+        return this;
     }
 
     public IMessageState MoveToUnread()
     {
-        return new MessageUnread();
+        return this;
     }
 }

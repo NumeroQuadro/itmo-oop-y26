@@ -13,17 +13,19 @@ public class User
         _messages = new List<MessageStatus>();
     }
 
-    public static ReadingResult MarkMessageRead(MessageStatus message)
+    public IEnumerable<MessageStatus> Messages => _messages;
+
+    public static IMessageState MarkMessageRead(MessageStatus message)
     {
-        ReadingResult result = message.MarkMessageAsRead();
+        IMessageState result = message.MarkMessageAsRead();
 
         return result;
     }
 
     public void GetMessage(Message message)
     {
-        var messageState = new MessageState();
-        messageState.MarkMessageAsUnread();
+        var messageState = new MessageUnread();
+
         _messages.Add(new MessageStatus(message.Content, messageState));
     }
 }

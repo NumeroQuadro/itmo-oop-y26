@@ -1,4 +1,5 @@
 using Itmo.ObjectOrientedProgramming.Lab3.Messages;
+using Itmo.ObjectOrientedProgramming.Lab3.Users;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Topics;
 
@@ -15,13 +16,15 @@ public class Topic : IFilter
         _name = name;
     }
 
-    public void RedirectMessage(Message message)
+    public MessageStatus? RedirectMessage(Message message)
     {
         Message? filteredMessage = PassThroughFilter(message);
         if (filteredMessage is not null)
         {
-            _adressee.GetMessage(filteredMessage);
+            return _adressee.GetMessage(filteredMessage);
         }
+
+        return null;
     }
 
     public Message? PassThroughFilter(Message message)
