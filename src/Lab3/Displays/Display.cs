@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab3.ColoredConsoleTextDisplayer;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Displays;
@@ -15,10 +14,10 @@ public class Display : IPrinter
 
     public void Print()
     {
-        IEnumerable<ConsoleColorTextPrinter> printers = _messages.Select(x => new ConsoleColorTextPrinter(x));
-        foreach (ConsoleColorTextPrinter printer in printers)
+        var driver = new DisplayDriver();
+        foreach (string x in _messages)
         {
-            printer.Print();
+            driver.Print(x);
         }
     }
 }
