@@ -1,6 +1,6 @@
-using Itmo.ObjectOrientedProgramming.Lab3.Loggers;
 using Itmo.ObjectOrientedProgramming.Lab3.Messages;
 using Itmo.ObjectOrientedProgramming.Lab3.MessangerAdressees;
+using Itmo.ObjectOrientedProgramming.Lab3.Messangers;
 using Itmo.ObjectOrientedProgramming.Lab3.Topics;
 using NSubstitute;
 using Xunit;
@@ -21,11 +21,12 @@ public class SendMessage_MessangerDoAsUsual_MessageDoNotFiltered
             .SetUpContent("Hello, world!");
         Message messageToSend = builder.Build();
 
-        MessangerAdresse messangerAdresse = Substitute.For<MessangerAdresse>(new Logger());
+        Messanger messanger = Substitute.For<Messanger>();
+        var messangerAdresse = new MessangerAdresse(messanger);
 
-        var topic = new Topic(messangerAdresse, "numero uno", 5);
+        var topic = new Topic(messangerAdresse, "numero uno");
         topic.RedirectMessage(messageToSend);
 
-        messangerAdresse.Received(1).GetMessage(messageToSend);
+        messanger.Received(1).GetMessage(messageToSend.Content);
     }
 }

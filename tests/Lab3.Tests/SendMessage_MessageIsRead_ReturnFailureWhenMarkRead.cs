@@ -1,4 +1,3 @@
-using Itmo.ObjectOrientedProgramming.Lab3.Loggers;
 using Itmo.ObjectOrientedProgramming.Lab3.Messages;
 using Itmo.ObjectOrientedProgramming.Lab3.Topics;
 using Itmo.ObjectOrientedProgramming.Lab3.UserAdressees;
@@ -22,11 +21,12 @@ public class SendMessage_MessageIsRead_ReturnFailureWhenMarkRead
             .SetUpContent("Hello, world!");
         Message messageToSend = builder.Build();
 
-        var topic = new Topic(new UserAdressee(new Logger()), "numro finko", 5);
-        MessageStatus? messageStatus = topic.RedirectMessage(messageToSend);
+        var user = new User();
 
-        Assert.NotNull(messageStatus);
-        IMessageState result = messageStatus.MessageState.MoveToRead().MoveToRead();
+        var topic = new Topic(new UserAdressee(user), "numero finko");
+        topic.RedirectMessage(messageToSend);
+
+        IMessageState result = user.MarkMessageUnread(messageToSend);
 
         Assert.IsType<MessageErrorState>(result);
     }

@@ -1,4 +1,7 @@
+using Itmo.ObjectOrientedProgramming.Lab3.Filters;
 using Itmo.ObjectOrientedProgramming.Lab3.Messages;
+using Itmo.ObjectOrientedProgramming.Lab3.MessangerAdressees;
+using Itmo.ObjectOrientedProgramming.Lab3.Messangers;
 using Itmo.ObjectOrientedProgramming.Lab3.Topics;
 using NSubstitute;
 using Xunit;
@@ -19,12 +22,12 @@ public class SendMessage_FilterDoNotSift_IfMessageDoNotCorrect
             .SetUpContent("Hello, world!");
         Message messageToSend = builder.Build();
 
-        IAdressee messangerAdresse = Substitute.For<IAdressee>();
+        FilterAddressee filterAddressee = Substitute.For<FilterAddressee>(new MessangerAdresse(new Messanger()), 8);
 
-        var topic = new Topic(messangerAdresse, "numero uno", 8);
+        var topic = new Topic(filterAddressee, "numero uno");
         topic.RedirectMessage(messageToSend);
 
         // Act
-        messangerAdresse.Received(0).GetMessage(messageToSend);
+        filterAddressee.Received(0).GetMessage(messageToSend);
     }
 }

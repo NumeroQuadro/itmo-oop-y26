@@ -1,18 +1,10 @@
-using Itmo.ObjectOrientedProgramming.Lab3.DisplayAddresses;
-using Itmo.ObjectOrientedProgramming.Lab3.Loggers;
-using Itmo.ObjectOrientedProgramming.Lab3.Messages;
-using Itmo.ObjectOrientedProgramming.Lab3.Topics;
-
+using System;
 namespace Itmo.ObjectOrientedProgramming.Lab3;
 
 public static class Program
 {
     public static void Main()
     {
-        var displayAdressee = new DisplayAdressee(new Logger());
-        var topic = new Topic(displayAdressee, "dimon", 2);
-        var message = new Message("hello dimon", 4, "numero uno goofy ahh cat");
-        topic.RedirectMessage(message);
-        displayAdressee.Print();
+        Console.WriteLine("dimon limon");
     }
 }

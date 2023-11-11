@@ -1,35 +1,25 @@
-using System;
-using Itmo.ObjectOrientedProgramming.Lab3.Loggers;
 using Itmo.ObjectOrientedProgramming.Lab3.Messages;
 using Itmo.ObjectOrientedProgramming.Lab3.Messangers;
-using Itmo.ObjectOrientedProgramming.Lab3.Users;
-using Itmo.ObjectOrientedProgramming.Lab3.Users.MessageStates;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.MessangerAdressees;
 
 public class MessangerAdresse : IAdressee
 {
-    private readonly Lazy<IMessanger> _messanger = new Lazy<IMessanger>(() => new Messanger());
-    private readonly ILogger _logger;
+    private readonly Messanger _messanger;
 
-    public MessangerAdresse(ILogger logger)
+    public MessangerAdresse(Messanger messanger)
     {
-        _logger = logger;
+        _messanger = messanger;
     }
 
-    public MessageStatus GetMessage(Message message)
+    public void GetMessage(Message message)
     {
-        _logger.LogEvent(ArgumentsToLogMessage());
-        _messanger.Value.GetMessage(message.Content);
-
-        var messageState = new MessageUnread();
-
-        return new MessageStatus(message.Content, messageState);
+        _messanger.GetMessage(message.Content);
     }
 
     public string Print()
     {
-        return _messanger.Value.Deliver();
+        return _messanger.Deliver();
     }
 
     private static string ArgumentsToLogMessage()

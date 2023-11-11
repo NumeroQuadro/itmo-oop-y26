@@ -1,15 +1,13 @@
-using Itmo.ObjectOrientedProgramming.Lab3.Loggers;
 using Itmo.ObjectOrientedProgramming.Lab3.Messages;
 using Itmo.ObjectOrientedProgramming.Lab3.Topics;
 using Itmo.ObjectOrientedProgramming.Lab3.UserAdressees;
 using Itmo.ObjectOrientedProgramming.Lab3.Users;
 using Itmo.ObjectOrientedProgramming.Lab3.Users.MessageStates;
-using NSubstitute;
 using Xunit;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Tests;
 
-public class MarkUnreadMessageLikeRead_MessageIsUnread_ReturnFailure
+public class MarkUnreadMessageLikeRead_MessageIsUnread_ReturnSuccess
 {
     [Fact]
     public void MarkUnreadMessage_ReturnFailre()
@@ -21,13 +19,12 @@ public class MarkUnreadMessageLikeRead_MessageIsUnread_ReturnFailure
             .SetUpBody("numero uno goofy ahh cat")
             .SetUpContent("Hello, world!");
         Message messageToSend = builder.Build();
+        var user = new User();
+        var topic = new Topic(new UserAdressee(user), "numero uno");
+        topic.RedirectMessage(messageToSend);
 
-        Topic topic = Substitute.For<Topic>(new UserAdressee(new Logger()), "numero uno", 1);
-        MessageStatus? messageStatus = topic.RedirectMessage(messageToSend);
+        IMessageState result = user.MarkMessageRead(messageToSend);
 
-        Assert.NotNull(messageStatus);
-        IMessageState result = messageStatus.MessageState.MoveToRead().MoveToRead();
-
-        Assert.IsType<MessageErrorState>(result);
+        Assert.IsType<MessageRead>(result);
     }
 }

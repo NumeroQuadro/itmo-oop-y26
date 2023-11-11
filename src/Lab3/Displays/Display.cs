@@ -4,7 +4,7 @@ using Itmo.ObjectOrientedProgramming.Lab3.ColoredConsoleTextDisplayer;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Displays;
 
-public class Display
+public class Display : IPrinter
 {
     private readonly List<string> _messages = new();
 

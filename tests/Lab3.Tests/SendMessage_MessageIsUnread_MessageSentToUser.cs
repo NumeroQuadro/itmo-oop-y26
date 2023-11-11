@@ -1,8 +1,9 @@
+using System.Collections.Generic;
 using System.Linq;
-using Itmo.ObjectOrientedProgramming.Lab3.Loggers;
 using Itmo.ObjectOrientedProgramming.Lab3.Messages;
 using Itmo.ObjectOrientedProgramming.Lab3.Topics;
 using Itmo.ObjectOrientedProgramming.Lab3.UserAdressees;
+using Itmo.ObjectOrientedProgramming.Lab3.Users;
 using Itmo.ObjectOrientedProgramming.Lab3.Users.MessageStates;
 using Xunit;
 
@@ -28,13 +29,17 @@ public class SendMessage_MessageIsUnread_MessageSentToUser
     public void SendMessage_CheckReadStatus()
     {
         // Arrange
-        UserAdressee userAdressee = new(new Logger());
-        var topic = new Topic(userAdressee, "numero finko", 5);
+        var user = new User();
+        UserAdressee userAdressee = new(user);
+        var topic = new Topic(userAdressee, "numero finko");
 
         // Act
         topic.RedirectMessage(_messageToSend);
 
+        IEnumerable<MessageWithStatus> messages = user.Messages;
+        MessageWithStatus message = messages.Last();
+
         // Assert
-        Assert.IsType<MessageUnread>(userAdressee.GetUserReceivedMessagesStatuses.Last().MessageState);
+        Assert.IsType<MessageUnread>(message.MessageState);
     }
 }

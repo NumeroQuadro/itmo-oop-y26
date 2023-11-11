@@ -1,6 +1,7 @@
 using Itmo.ObjectOrientedProgramming.Lab3.Loggers;
 using Itmo.ObjectOrientedProgramming.Lab3.Messages;
 using Itmo.ObjectOrientedProgramming.Lab3.MessangerAdressees;
+using Itmo.ObjectOrientedProgramming.Lab3.Messangers;
 using Itmo.ObjectOrientedProgramming.Lab3.Topics;
 using NSubstitute;
 using Xunit;
@@ -27,7 +28,7 @@ public class SendMessage_LoggerWasCalledOnce_IfMessageWasReceived
     {
         // Arrange
         Logger logger = Substitute.For<Logger>();
-        var topic = new Topic(new MessangerAdresse(logger), "numero uno", 1);
+        var topic = new Topic(new MessangerAdresse(new Messanger()), "numero uno");
 
         // Act
         topic.RedirectMessage(_messageToSend);

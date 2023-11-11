@@ -1,35 +1,25 @@
-using System;
 using Itmo.ObjectOrientedProgramming.Lab3.Displays;
-using Itmo.ObjectOrientedProgramming.Lab3.Loggers;
 using Itmo.ObjectOrientedProgramming.Lab3.Messages;
-using Itmo.ObjectOrientedProgramming.Lab3.Users;
-using Itmo.ObjectOrientedProgramming.Lab3.Users.MessageStates;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.DisplayAddresses;
 
 public class DisplayAdressee : IAdressee
 {
-    private readonly Lazy<Display> _display = new Lazy<Display>(() => new Display());
-    private readonly ILogger _logger;
+    private readonly Display _display;
 
-    public DisplayAdressee(ILogger logger)
+    public DisplayAdressee(Display display)
     {
-        _logger = logger;
+        _display = display;
     }
 
-    public MessageStatus GetMessage(Message message)
+    public void GetMessage(Message message)
     {
-        _logger.LogEvent(ArgumentsToLogMessage());
-        _display.Value.GetMessage(message.Content);
-
-        var messageState = new MessageUnread();
-
-        return new MessageStatus(message.Content, messageState);
+        _display.GetMessage(message.Content);
     }
 
     public void Print()
     {
-        _display.Value.Print();
+        _display.Print();
     }
 
     private static string ArgumentsToLogMessage()

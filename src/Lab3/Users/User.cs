@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab3.Messages;
 using Itmo.ObjectOrientedProgramming.Lab3.Users.MessageStates;
 
@@ -6,26 +7,35 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Users;
 
 public class User
 {
-    private readonly List<MessageStatus> _messages;
+    private readonly List<MessageWithStatus> _messages;
 
     public User()
     {
-        _messages = new List<MessageStatus>();
+        _messages = new List<MessageWithStatus>();
     }
 
-    public IEnumerable<MessageStatus> Messages => _messages;
+    public IEnumerable<MessageWithStatus> Messages => _messages;
 
-    public static IMessageState MarkMessageRead(MessageStatus message)
+    public IMessageState MarkMessageRead(Message message)
     {
-        IMessageState result = message.MarkMessageAsRead();
+        IEnumerable<MessageWithStatus> foundMessages = _messages.Select(x => x).Where(x => x.Message == message.Content);
+        IEnumerable<IMessageState> results = foundMessages.Select(x => x.MarkMessageAsRead());
 
-        return result;
+        return results.First();
+    }
+
+    public IMessageState MarkMessageUnread(Message message)
+    {
+        IEnumerable<MessageWithStatus> foundMessages = _messages.Select(x => x).Where(x => x.Message == message.Content);
+        IEnumerable<IMessageState> results = foundMessages.Select(x => x.MarkMessageAsUnread());
+
+        return results.First();
     }
 
     public void GetMessage(Message message)
     {
         var messageState = new MessageUnread();
 
-        _messages.Add(new MessageStatus(message.Content, messageState));
+        _messages.Add(new MessageWithStatus(message.Content, messageState));
     }
 }

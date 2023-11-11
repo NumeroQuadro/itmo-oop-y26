@@ -1,6 +1,6 @@
 using Itmo.ObjectOrientedProgramming.Lab3.Messages;
 
-namespace Itmo.ObjectOrientedProgramming.Lab3.Topics;
+namespace Itmo.ObjectOrientedProgramming.Lab3.Filters;
 
 public interface IFilter
 {

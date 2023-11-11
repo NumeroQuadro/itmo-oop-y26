@@ -1,32 +1,20 @@
-using System;
-using System.Collections.Generic;
-using Itmo.ObjectOrientedProgramming.Lab3.Loggers;
 using Itmo.ObjectOrientedProgramming.Lab3.Messages;
 using Itmo.ObjectOrientedProgramming.Lab3.Users;
-using Itmo.ObjectOrientedProgramming.Lab3.Users.MessageStates;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.UserAdressees;
 
 public class UserAdressee : IAdressee
 {
-    private readonly Lazy<User> _user = new Lazy<User>(() => new User());
-    private readonly ILogger _logger;
+    private readonly User _user;
 
-    public UserAdressee(ILogger logger)
+    public UserAdressee(User user)
     {
-        _logger = logger;
+        _user = user;
     }
 
-    public IEnumerable<MessageStatus> GetUserReceivedMessagesStatuses => _user.Value.Messages;
-
-    public MessageStatus GetMessage(Message message)
+    public void GetMessage(Message message)
     {
-        _logger.LogEvent(ArgumentsToLogMessage());
-        _user.Value.GetMessage(message);
-
-        var messageState = new MessageUnread();
-
-        return new MessageStatus(message.Content, messageState);
+        _user.GetMessage(message);
     }
 
     private static string ArgumentsToLogMessage()

@@ -6,8 +6,6 @@ public class Logger : ILogger
 {
     public string LogEvent(string eventInformation)
     {
-        Console.WriteLine($"{eventInformation}");
-
-        return eventInformation;
+        return $"[{DateTime.Now}] {eventInformation}";
     }
 }
