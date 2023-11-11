@@ -17,11 +17,6 @@ public class MessangerAdresse : IAdressee
         _messanger.GetMessage(message.Content);
     }
 
-    public void Print()
-    {
-        _messanger.Deliver();
-    }
-
     private static string ArgumentsToLogMessage()
     {
         return "Messanger received message";

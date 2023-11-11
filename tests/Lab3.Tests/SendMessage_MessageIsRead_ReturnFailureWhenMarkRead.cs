@@ -26,8 +26,8 @@ public class SendMessage_MessageIsRead_ReturnFailureWhenMarkRead
         var topic = new Topic(new UserAdressee(user), "numero finko");
         topic.RedirectMessage(messageToSend);
 
-        IMessageState result = user.MarkMessageUnread(messageToSend);
+        MessageReadChangeModeResult result = user.MarkMessageUnread(messageToSend);
 
-        Assert.IsType<MessageErrorState>(result);
+        Assert.IsType<MessageReadChangeModeResult.InvalidChange>(result);
     }
 }

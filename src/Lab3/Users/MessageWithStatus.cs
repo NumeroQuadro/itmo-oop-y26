@@ -15,12 +15,12 @@ public class MessageWithStatus
     public string Message => _message;
     public IMessageState MessageState => _messageState;
 
-    public IMessageState MarkMessageAsRead()
+    public MessageReadChangeModeResult MarkMessageAsRead()
     {
         return _messageState.MoveToRead();
     }
 
-    public IMessageState MarkMessageAsUnread()
+    public MessageReadChangeModeResult MarkMessageAsUnread()
     {
         return _messageState.MoveToUnread();
     }

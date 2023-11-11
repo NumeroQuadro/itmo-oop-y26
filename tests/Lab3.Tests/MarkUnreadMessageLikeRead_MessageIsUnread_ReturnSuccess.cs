@@ -23,8 +23,8 @@ public class MarkUnreadMessageLikeRead_MessageIsUnread_ReturnSuccess
         var topic = new Topic(new UserAdressee(user), "numero uno");
         topic.RedirectMessage(messageToSend);
 
-        IMessageState result = user.MarkMessageRead(messageToSend);
+        MessageReadChangeModeResult result = user.MarkMessageRead(messageToSend);
 
-        Assert.IsType<MessageRead>(result);
+        Assert.IsType<MessageReadChangeModeResult.Success>(result);
     }
 }

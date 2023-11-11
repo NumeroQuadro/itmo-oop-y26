@@ -2,6 +2,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Users.MessageStates;
 
 public interface IMessageState
 {
-    IMessageState MoveToRead();
-    IMessageState MoveToUnread();
+    public MessageReadStatus ReadStatus { get; }
+    MessageReadChangeModeResult MoveToRead();
+    MessageReadChangeModeResult MoveToUnread();
 }

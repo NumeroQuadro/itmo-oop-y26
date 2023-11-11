@@ -2,13 +2,14 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Users.MessageStates;
 
 public class MessageUnread : IMessageState
 {
-    public IMessageState MoveToRead()
+    public MessageReadStatus ReadStatus => MessageReadStatus.Unread;
+    public MessageReadChangeModeResult MoveToRead()
     {
-        return new MessageRead();
+        return new MessageReadChangeModeResult.Success(new MessageRead());
     }
 
-    public IMessageState MoveToUnread()
+    public MessageReadChangeModeResult MoveToUnread()
     {
-        return new MessageErrorState();
+        return new MessageReadChangeModeResult.InvalidChange();
     }
 }

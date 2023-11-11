@@ -16,18 +16,18 @@ public class User
 
     public IEnumerable<MessageWithStatus> Messages => _messages;
 
-    public IMessageState MarkMessageRead(Message message)
+    public MessageReadChangeModeResult MarkMessageRead(Message message)
     {
         IEnumerable<MessageWithStatus> foundMessages = _messages.Select(x => x).Where(x => x.Message == message.Content);
-        IEnumerable<IMessageState> results = foundMessages.Select(x => x.MarkMessageAsRead());
+        IEnumerable<MessageReadChangeModeResult> results = foundMessages.Select(x => x.MarkMessageAsRead());
 
         return results.First();
     }
 
-    public IMessageState MarkMessageUnread(Message message)
+    public MessageReadChangeModeResult MarkMessageUnread(Message message)
     {
         IEnumerable<MessageWithStatus> foundMessages = _messages.Select(x => x).Where(x => x.Message == message.Content);
-        IEnumerable<IMessageState> results = foundMessages.Select(x => x.MarkMessageAsUnread());
+        IEnumerable<MessageReadChangeModeResult> results = foundMessages.Select(x => x.MarkMessageAsUnread());
 
         return results.First();
     }
