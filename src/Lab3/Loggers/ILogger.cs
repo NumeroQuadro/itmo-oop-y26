@@ -2,5 +2,6 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.Loggers;
 
 public interface ILogger
 {
-    public string LogEvent(string eventInformation);
+    public string LogEventToConsole(string eventInformation);
+    public void LogEventToFile(string eventInformation);
 }

@@ -34,6 +34,6 @@ public class SendMessage_LoggerWasCalledOnce_IfMessageWasReceived
         topic.RedirectMessage(_messageToSend);
 
         // Assert
-        logger.Received(1).LogEvent(_messageToSend.Content);
+        logger.Received(1).LogEventToConsole(_messageToSend.Content);
     }
 }
