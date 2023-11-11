@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Messangers;
 
@@ -17,10 +16,12 @@ public class Messanger : IMessanger
         _messages.Add(message);
     }
 
-    public string Deliver()
+    public void Deliver()
     {
-        string results = _messages.Aggregate("From messanger: ", (s, m) => new MessangerTextPrinter(m).Deliver());
-
-        return results;
+        MessangerTextPrinter printer = new();
+        foreach (string message in _messages)
+        {
+            printer.Print(message);
+        }
     }
 }

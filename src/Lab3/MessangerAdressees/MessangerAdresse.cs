@@ -17,9 +17,9 @@ public class MessangerAdresse : IAdressee
         _messanger.GetMessage(message.Content);
     }
 
-    public string Print()
+    public void Print()
     {
-        return _messanger.Deliver();
+        _messanger.Deliver();
     }
 
     private static string ArgumentsToLogMessage()

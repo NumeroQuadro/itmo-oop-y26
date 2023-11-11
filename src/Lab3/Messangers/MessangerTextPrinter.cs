@@ -2,21 +2,12 @@ using System;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Messangers;
 
-internal class MessangerTextPrinter
+internal class MessangerTextPrinter : IMessangerPrinter
 {
-    private readonly string _content;
-
-    public MessangerTextPrinter(string content)
-    {
-        _content = content;
-    }
-
-    public string Deliver()
+    public void Print(string value)
     {
         string messengerString = "Messenger: ";
-        string resultString = $"{messengerString} {_content}";
+        string resultString = $"{messengerString} {value}";
         Console.WriteLine(resultString);
-
-        return resultString;
     }
 }
