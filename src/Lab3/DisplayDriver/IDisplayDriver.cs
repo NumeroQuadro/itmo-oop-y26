@@ -1,6 +1,6 @@
-using Itmo.ObjectOrientedProgramming.Lab3.ColoredConsoleTextDisplayer.Modifiers.Interfaces;
+using Itmo.ObjectOrientedProgramming.Lab3.DisplayDriver.Modifiers.Interfaces;
 
-namespace Itmo.ObjectOrientedProgramming.Lab3.ColoredConsoleTextDisplayer;
+namespace Itmo.ObjectOrientedProgramming.Lab3.DisplayDriver;
 
 public interface IDisplayDriver
 {

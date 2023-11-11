@@ -1,4 +1,4 @@
-namespace Itmo.ObjectOrientedProgramming.Lab3.ColoredConsoleTextDisplayer;
+namespace Itmo.ObjectOrientedProgramming.Lab3.DisplayDriver;
 
 public interface IPrinter
 {

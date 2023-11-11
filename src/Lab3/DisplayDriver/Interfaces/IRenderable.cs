@@ -1,4 +1,4 @@
-namespace Itmo.ObjectOrientedProgramming.Lab3.ColoredConsoleTextDisplayer.Interfaces;
+namespace Itmo.ObjectOrientedProgramming.Lab3.DisplayDriver.Interfaces;
 
 public interface IRenderable
 {

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Itmo.ObjectOrientedProgramming.Lab3.ColoredConsoleTextDisplayer;
+using Itmo.ObjectOrientedProgramming.Lab3.DisplayDriver;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Displays;
 
@@ -14,7 +14,7 @@ public class Display : IPrinter
 
     public void Print()
     {
-        var driver = new DisplayDriver();
+        var driver = new DisplayDriver.DisplayDriver();
         foreach (string x in _messages)
         {
             driver.Print(x);
