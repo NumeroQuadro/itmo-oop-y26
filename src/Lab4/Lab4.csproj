@@ -2,6 +2,19 @@
 
     <PropertyGroup>
         <RootNamespace>Itmo.ObjectOrientedProgramming.Lab4</RootNamespace>
+        <OutputType>Exe</OutputType>
+
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
+
+
+
+
+
+
+
+    <ItemGroup>
+      <Folder Include="CommandContexts\DisconnectCommandContexts\" />
+    </ItemGroup>
 
 </Project>
