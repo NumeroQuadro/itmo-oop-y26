@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
+using Itmo.ObjectOrientedProgramming.Lab4.Entities.CommandContexts.ConnectCommandContexts;
+using Itmo.ObjectOrientedProgramming.Lab4.Models;
 
-namespace Itmo.ObjectOrientedProgramming.Lab4.CommandParsers;
+namespace Itmo.ObjectOrientedProgramming.Lab4.Parsing.ConnectCommandParsers;
 
-public class ConnectCommandOptionalFlagRetriever : IConnectParser
+public class ConnectCommandRequiredFlagRetriever : IConnectParser
 {
     private IConnectParser? _nextParser;
 
@@ -22,7 +24,7 @@ public class ConnectCommandOptionalFlagRetriever : IConnectParser
         int firstIndexOptionalFlag = argsList.FindIndex(x => x == "-m");
         if (firstIndexOptionalFlag == -1)
         {
-            return new ParsingResult.Failure();
+            return new ParsingResult.Failure("required flag not found");
         }
 
         const int numberOfOptionalFlags = 1;

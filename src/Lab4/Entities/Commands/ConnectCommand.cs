@@ -1,0 +1,36 @@
+using System;
+using Itmo.ObjectOrientedProgramming.Lab4.Entities.CommandContexts.ConnectCommandContexts;
+using Itmo.ObjectOrientedProgramming.Lab4.Models;
+using AppContext = Itmo.ObjectOrientedProgramming.Lab4.Entities.AppStateInformation.AppStateInitial.AppContext;
+
+namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.Commands;
+
+public class ConnectCommand : ICommand
+{
+    private readonly ConnectCommandContext _context;
+
+    public ConnectCommand(ConnectCommandContext context)
+    {
+        _context = context;
+    }
+
+    public CommandExecutionResult Execute(AppContext appContext)
+    {
+        if (_context.Mode == 0)
+        {
+            return new CommandExecutionResult.ExecutedWithFailure("Mode is not specified");
+        }
+
+        if (string.IsNullOrEmpty(_context.Path))
+        {
+            return new CommandExecutionResult.ExecutedWithFailure("Path is not specified");
+        }
+
+        appContext.WithAbsolutePath(_context.Path);
+        appContext.WithConnectMode(_context.Mode);
+        appContext.WithCurrentDirectory(_context.Path);
+        appContext.WithOsPlatform(Environment.OSVersion);
+
+        return new CommandExecutionResult.ExecutedSuccessfully();
+    }
+}

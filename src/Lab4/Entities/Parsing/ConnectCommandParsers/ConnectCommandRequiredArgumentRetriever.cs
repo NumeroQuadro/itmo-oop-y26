@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using Itmo.ObjectOrientedProgramming.Lab4.Entities.CommandContexts.ConnectCommandContexts;
+using Itmo.ObjectOrientedProgramming.Lab4.Models;
 
-namespace Itmo.ObjectOrientedProgramming.Lab4.CommandParsers;
+namespace Itmo.ObjectOrientedProgramming.Lab4.Parsing.ConnectCommandParsers;
 
 public class ConnectCommandRequiredArgumentRetriever : IConnectParser
 {
@@ -17,7 +19,7 @@ public class ConnectCommandRequiredArgumentRetriever : IConnectParser
     {
         if (_nextParser is null)
         {
-            return new ParsingResult.Failure();
+            return new ParsingResult.Failure("next parser is null");
         }
 
         var enumerable = args.ToList();

@@ -1,4 +1,4 @@
-namespace Itmo.ObjectOrientedProgramming.Lab4;
+namespace Itmo.ObjectOrientedProgramming.Lab4.Models;
 
 public abstract record ParsingResult
 {
@@ -7,5 +7,5 @@ public abstract record ParsingResult
 
     public sealed record Success : ParsingResult;
 
-    public sealed record Failure : ParsingResult;
+    public sealed record Failure(string FailureMessage) : ParsingResult;
 }
