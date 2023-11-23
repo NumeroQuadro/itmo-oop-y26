@@ -16,9 +16,20 @@ public class ConnectParser : ICommandParser
             .SetNext(new ConnectCommandRequiredArgumentRetriever())
             .SetNext(new ConnectCommandRequiredFlagRetriever());
 
-        var connectCommandContextBuilder = new ConnectCommandContextBuilder();
+        var connectCommandContextBuilder = new ConnectContextBuilder();
 
         nameRetriever.Parse(connectCommandContextBuilder, listCommandLineArguments);
+
+        CommandExecutionResult s = connectCommandContextBuilder.Build();
+        if (s is CommandExecutionResult.RetrievedWithFailure)
+        {
+            if (_nextCommandParser is null)
+            {
+                return new CommandExecutionResult.RetrievedWithFailure("Next parser is null");
+            }
+
+            return _nextCommandParser.Parse(listCommandLineArguments);
+        }
 
         return connectCommandContextBuilder.Build();
     }

@@ -7,5 +7,5 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.Parsing.ConnectCommandPar
 public interface IConnectParser
 {
     public IConnectParser SetNext(IConnectParser parser);
-    public ParsingResult Parse(ConnectCommandContextBuilder contextRetriever, IEnumerable<string> args);
+    public ParsingResult Parse(ConnectContextBuilder connectContextRetriever, IEnumerable<string> args);
 }

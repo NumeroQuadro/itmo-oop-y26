@@ -7,9 +7,9 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.Commands;
 
 public class ConnectCommand : ICommand
 {
-    private readonly ConnectCommandContext _context;
+    private readonly ConnectContext _context;
 
-    public ConnectCommand(ConnectCommandContext context)
+    public ConnectCommand(ConnectContext context)
     {
         _context = context;
     }
@@ -21,6 +21,7 @@ public class ConnectCommand : ICommand
         appContext.WithCurrentDirectory(_context.Path);
         appContext.WithOsPlatform(Environment.OSVersion);
 
-        return new CommandExecutionResult.ExecutedSuccessfully();
+        return new CommandExecutionResult
+            .ExecutedSuccessfully($"Connect command executed successfully! Absolute path {_context.Path} is set. Mode is {_context.Mode}. Your system is {Environment.OSVersion}");
     }
 }

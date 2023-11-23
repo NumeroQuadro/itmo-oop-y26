@@ -2,7 +2,7 @@ using Itmo.ObjectOrientedProgramming.Lab4.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.CommandContexts.ConnectCommandContexts;
 
-public class ConnectCommandContextBuilder : IConnectCommandContextBuilder
+public class ConnectContextBuilder : IContextBuilder
 {
     private string _path = string.Empty;
     private ConnectMode _mode;
@@ -29,7 +29,7 @@ public class ConnectCommandContextBuilder : IConnectCommandContextBuilder
 
     public CommandExecutionResult Build()
     {
-        var validator = new ConnectCommandValidator();
+        var validator = new ConnectValidator();
         CommandContextValidationResult commandContextValidationResult = validator.Validate(_path, _mode);
 
         if (commandContextValidationResult is CommandContextValidationResult.Failure failure)
@@ -37,6 +37,6 @@ public class ConnectCommandContextBuilder : IConnectCommandContextBuilder
             return new CommandExecutionResult.RetrievedWithFailure(failure.FailureMessage);
         }
 
-        return new CommandExecutionResult.RetrievedSuccessfully(new ConnectCommandContext(_path, _mode));
+        return new CommandExecutionResult.RetrievedSuccessfully(new ConnectContext(_path, _mode));
     }
 }

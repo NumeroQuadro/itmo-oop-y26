@@ -15,7 +15,7 @@ public class ConnectCommandRequiredArgumentRetriever : IConnectParser
         return parser;
     }
 
-    public ParsingResult Parse(ConnectCommandContextBuilder contextRetriever, IEnumerable<string> args)
+    public ParsingResult Parse(ConnectContextBuilder connectContextRetriever, IEnumerable<string> args)
     {
         if (_nextParser is null)
         {
@@ -27,8 +27,8 @@ public class ConnectCommandRequiredArgumentRetriever : IConnectParser
 
         const int requiredArgumentsIndex = 0; // path is only next to name, flags is in any order after path
 
-        contextRetriever.WithPath(argsList[requiredArgumentsIndex]);
+        connectContextRetriever.WithPath(argsList[requiredArgumentsIndex]);
 
-        return _nextParser.Parse(contextRetriever, argsList);
+        return _nextParser.Parse(connectContextRetriever, argsList);
     }
 }

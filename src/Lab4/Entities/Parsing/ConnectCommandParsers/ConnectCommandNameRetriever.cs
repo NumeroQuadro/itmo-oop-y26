@@ -16,7 +16,7 @@ public class ConnectCommandNameRetriever : IConnectParser
         return parser;
     }
 
-    public ParsingResult Parse(ConnectCommandContextBuilder contextRetriever, IEnumerable<string> args)
+    public ParsingResult Parse(ConnectContextBuilder connectContextRetriever, IEnumerable<string> args)
     {
         const string commandName = "connect";
         const int numberOfAttributeWords = 1;
@@ -34,6 +34,6 @@ public class ConnectCommandNameRetriever : IConnectParser
             return new ParsingResult.Failure("next parser is null");
         }
 
-        return _nextParser.Parse(contextRetriever, enumerable);
+        return _nextParser.Parse(connectContextRetriever, enumerable);
     }
 }

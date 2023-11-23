@@ -11,7 +11,7 @@ public record CommandExecutionResult
 
     public sealed record RetrievedWithFailure(string FailureMessage) : CommandExecutionResult;
 
-    public sealed record ExecutedSuccessfully : CommandExecutionResult;
+    public sealed record ExecutedSuccessfully(string ExecutionDescription) : CommandExecutionResult;
 
     public sealed record ExecutedWithFailure(string FailureMessage) : CommandExecutionResult;
 }

@@ -16,7 +16,7 @@ public class ConnectCommandRequiredFlagRetriever : IConnectParser
         return parser;
     }
 
-    public ParsingResult Parse(ConnectCommandContextBuilder contextRetriever, IEnumerable<string> args)
+    public ParsingResult Parse(ConnectContextBuilder connectContextRetriever, IEnumerable<string> args)
     {
         var enumerable = args.ToList();
         var argsList = enumerable.ToList();
@@ -29,7 +29,7 @@ public class ConnectCommandRequiredFlagRetriever : IConnectParser
 
         const int indexOfRequiredFlag = 2;
 
-        contextRetriever.WithConnectMode(argsList[indexOfRequiredFlag]);
+        connectContextRetriever.WithConnectMode(argsList[indexOfRequiredFlag]);
 
         return new ParsingResult.Success();
     }

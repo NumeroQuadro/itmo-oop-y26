@@ -3,7 +3,7 @@ using Itmo.ObjectOrientedProgramming.Lab4.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.CommandContexts;
 
-public interface IConnectCommandValidator
+public interface IConnectValidator
 {
     public CommandContextValidationResult Validate(string path, ConnectMode mode);
 }

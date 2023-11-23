@@ -17,10 +17,10 @@ public class ConsoleOutputReceiver : IOutputReceiver
     {
         foreach (CommandExecutionResult result in _results)
         {
-            if (result is CommandExecutionResult.ExecutedSuccessfully)
+            if (result is CommandExecutionResult.ExecutedSuccessfully success)
             {
                 var displayer = new SuccessResultMessageDisplayer();
-                displayer.DisplaySuccessMessage("Command executed successfully");
+                displayer.DisplaySuccessMessage(success.ExecutionDescription);
             }
             else if (result is CommandExecutionResult.ExecutedWithFailure executedWithFailure)
             {
