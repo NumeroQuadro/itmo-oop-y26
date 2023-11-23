@@ -13,7 +13,7 @@ public class ConsoleOutputReceiver : IOutputReceiver
         _results = results;
     }
 
-    public void DisplayMessages()
+    public void DisplayResultsInfo()
     {
         foreach (CommandExecutionResult result in _results)
         {

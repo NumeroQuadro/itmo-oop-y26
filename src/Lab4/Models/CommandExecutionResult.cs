@@ -1,3 +1,5 @@
+using Itmo.ObjectOrientedProgramming.Lab4.Entities;
+
 namespace Itmo.ObjectOrientedProgramming.Lab4.Models;
 
 public record CommandExecutionResult

@@ -5,7 +5,7 @@ using Itmo.ObjectOrientedProgramming.Lab4.Entities.OutputReceivers;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.ParserOrganizers;
 using Itmo.ObjectOrientedProgramming.Lab4.Models;
 
-namespace Itmo.ObjectOrientedProgramming.Lab4.QueryHandlers;
+namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.QueryHandlers;
 
 public class QueryHandler : IQueryHandler
 {
@@ -29,6 +29,6 @@ public class QueryHandler : IQueryHandler
         }
 
         IOutputReceiver receiver = converter.GetOutputReceiver(results);
-        receiver.DisplayMessages();
+        receiver.DisplayResultsInfo();
     }
 }

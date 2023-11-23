@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.CommandContexts.ConnectCommandContexts;
 using Itmo.ObjectOrientedProgramming.Lab4.Models;
 
-namespace Itmo.ObjectOrientedProgramming.Lab4.Parsing.ConnectCommandParsers;
+namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.Parsing.ConnectCommandParsers;
 
 public class ConnectParser : ICommandParser
 {
