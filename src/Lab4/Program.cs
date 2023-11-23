@@ -1,5 +1,5 @@
-using Itmo.ObjectOrientedProgramming.Lab4.Entities.AppStateInformation.AppStateInitial;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.QueryHandlers;
+using AppContext = Itmo.ObjectOrientedProgramming.Lab4.Entities.AppStateInformation.AppStateInitial.AppContext;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4;
 

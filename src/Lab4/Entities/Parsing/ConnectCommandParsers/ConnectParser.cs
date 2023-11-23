@@ -12,7 +12,8 @@ public class ConnectParser : ICommandParser
         var listCommandLineArguments = new List<string>(args);
 
         var nameRetriever = new ConnectCommandNameRetriever();
-        nameRetriever.SetNext(new ConnectCommandRequiredArgumentRetriever())
+        nameRetriever
+            .SetNext(new ConnectCommandRequiredArgumentRetriever())
             .SetNext(new ConnectCommandRequiredFlagRetriever());
 
         var connectCommandContextBuilder = new ConnectCommandContextBuilder();

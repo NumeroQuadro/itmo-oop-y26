@@ -16,16 +16,6 @@ public class ConnectCommand : ICommand
 
     public CommandExecutionResult Execute(AppContext appContext)
     {
-        if (_context.Mode == 0)
-        {
-            return new CommandExecutionResult.ExecutedWithFailure("Mode is not specified");
-        }
-
-        if (string.IsNullOrEmpty(_context.Path))
-        {
-            return new CommandExecutionResult.ExecutedWithFailure("Path is not specified");
-        }
-
         appContext.WithAbsolutePath(_context.Path);
         appContext.WithConnectMode(_context.Mode);
         appContext.WithCurrentDirectory(_context.Path);

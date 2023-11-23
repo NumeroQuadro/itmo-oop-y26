@@ -19,7 +19,7 @@ public class ConnectCommandNameRetriever : IConnectParser
     public ParsingResult Parse(ConnectCommandContextBuilder contextRetriever, IEnumerable<string> args)
     {
         const string commandName = "connect";
-        const int numberOfRequiredArguments = 1;
+        const int numberOfAttributeWords = 1;
 
         var listCommandLineArguments = new List<string>(args);
         if (listCommandLineArguments.Find(x => x == commandName) != commandName)
@@ -27,7 +27,7 @@ public class ConnectCommandNameRetriever : IConnectParser
             return new ParsingResult.Failure("name of command \"connect\" not found");
         }
 
-        IEnumerable<string> enumerable = listCommandLineArguments.Skip(numberOfRequiredArguments);
+        IEnumerable<string> enumerable = listCommandLineArguments.Skip(numberOfAttributeWords);
 
         if (_nextParser is null)
         {

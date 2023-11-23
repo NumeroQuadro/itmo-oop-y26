@@ -27,9 +27,9 @@ public class ConnectCommandRequiredFlagRetriever : IConnectParser
             return new ParsingResult.Failure("required flag not found");
         }
 
-        const int numberOfOptionalFlags = 1;
+        const int indexOfRequiredFlag = 2;
 
-        argsList.GetRange(firstIndexOptionalFlag, numberOfOptionalFlags).ForEach(x => contextRetriever.WithConnectMode(x));
+        contextRetriever.WithConnectMode(argsList[indexOfRequiredFlag]);
 
         return new ParsingResult.Success();
     }

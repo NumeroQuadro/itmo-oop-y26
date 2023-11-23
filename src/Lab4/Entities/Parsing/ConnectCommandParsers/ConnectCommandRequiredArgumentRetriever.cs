@@ -25,7 +25,7 @@ public class ConnectCommandRequiredArgumentRetriever : IConnectParser
         var enumerable = args.ToList();
         var argsList = enumerable.ToList();
 
-        const int requiredArgumentsIndex = 1; // path is only next to name, flags is in any order after path
+        const int requiredArgumentsIndex = 0; // path is only next to name, flags is in any order after path
 
         contextRetriever.WithPath(argsList[requiredArgumentsIndex]);
 

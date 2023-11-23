@@ -1,5 +1,5 @@
-using System;
 using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab4.Entities.ConsoleErrorMessagesWriter;
 using Itmo.ObjectOrientedProgramming.Lab4.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.OutputReceivers;
@@ -19,23 +19,23 @@ public class ConsoleOutputReceiver : IOutputReceiver
         {
             if (result is CommandExecutionResult.ExecutedSuccessfully)
             {
-                Console.WriteLine("Command executed successfully");
+                var displayer = new SuccessResultMessageDisplayer();
+                displayer.DisplaySuccessMessage("Command executed successfully");
             }
             else if (result is CommandExecutionResult.ExecutedWithFailure executedWithFailure)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(executedWithFailure.FailureMessage);
-                Console.ResetColor();
+                var displayer = new ErrorMessageDisplayer();
+                displayer.DisplayErrorMessage(executedWithFailure.FailureMessage);
             }
             else if (result is CommandExecutionResult.RetrievedSuccessfully)
             {
-                Console.WriteLine("Command retrieved successfully");
+                var displayer = new SuccessResultMessageDisplayer();
+                displayer.DisplaySuccessMessage("Command retrieved successfully");
             }
             else if (result is CommandExecutionResult.RetrievedWithFailure retrievedWithFailure)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(retrievedWithFailure.FailureMessage);
-                Console.ResetColor();
+                var displayer = new ErrorMessageDisplayer();
+                displayer.DisplayErrorMessage(retrievedWithFailure.FailureMessage);
             }
         }
     }
