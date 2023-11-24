@@ -1,8 +1,5 @@
 using System.Collections.Generic;
-using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.AppStateInformation.AppStateInitial;
-using Itmo.ObjectOrientedProgramming.Lab4.Entities.Directory.DirectoryItems;
-using Itmo.ObjectOrientedProgramming.Lab4.Entities.InformationConverter;
 using Itmo.ObjectOrientedProgramming.Lab4.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.Directory.DirectoryTreeCreators;
@@ -13,25 +10,18 @@ public class DirectoryItemsTreeCreator : IDirectoryItemsTreeCreator
     {
         if (currentPathDirectory is null)
         {
-            return new TreeCreationResult.TreeCreationFailed("Current path directory is null");
+            return new TreeCreationResult.TreeCreationFailed("Directory is null");
         }
 
-        var directoryItems = GetDirectoryItems(currentPathDirectory.StringDirectoryPath).ToList();
-        List<DirectoryItem> items = new();
-        var converter = new ConverterInfoRelatedToOperatingSystem(context);
+        IEnumerable<IFileSystemItem> items = currentPathDirectory.GetFilesInCurrentDirectory(context);
+        var writer = new ConsoleTreeWriter();
 
-        foreach (string item in directoryItems)
+        foreach (IFileSystemItem item in items)
         {
-            var directoryItem = new DirectoryItem(item);
-            directoryItem.WithParentDirectory(converter.GetPathRelatedToSystem(currentPathDirectory.StringDirectoryPath));
-            items.Add(directoryItem);
+            IEnumerable<string> results = item.GetDisplayableItem(context, 1);
+            writer.DisplayTreeItem(results);
         }
 
-        return new TreeCreationResult.TreeCreatedSuccessfully(items);
-    }
-
-    private static IEnumerable<string> GetDirectoryItems(string path)
-    {
-        return System.IO.Directory.GetFiles(path, "*");
+        return new TreeCreationResult.TreeCreatedSuccessfully();
     }
 }

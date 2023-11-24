@@ -1,7 +1,7 @@
 namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.Directory;
 
-public interface IDirectory
+public interface IDirectory : IFileSystemItem
 {
     public string StringDirectoryPath { get; }
-    public string GetDirectoryDependingOnSystem(string path);
+    public string DirectoryDependingOnSystem { get; }
 }

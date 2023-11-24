@@ -11,6 +11,7 @@ public class FileSystemContext
     private OperatingSystem _osPlatform;
     private IDirectory? _currentDirectory;
     private ConnectMode? _mode;
+    private TreeListWritingOptions? _treeListWritingOptions;
 
     public FileSystemContext()
     {
@@ -21,6 +22,12 @@ public class FileSystemContext
     public OperatingSystem? OsPlatform => _osPlatform;
     public IDirectory? AbsolutePath => _absolutePath;
     public ConnectMode? Mode => _mode;
+    public TreeListWritingOptions? TreeListWritingOptions => _treeListWritingOptions;
+
+    public void WithTreeListWritingOptions(string indentation, string directoryPrefix, string filePrefix)
+    {
+        _treeListWritingOptions = new TreeListWritingOptions(indentation, directoryPrefix, filePrefix);
+    }
 
     public void WithAbsolutePath(string absolutePath)
     {
