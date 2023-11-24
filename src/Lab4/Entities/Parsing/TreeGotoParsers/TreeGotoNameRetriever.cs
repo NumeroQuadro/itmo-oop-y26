@@ -37,7 +37,7 @@ public class TreeGotoNameRetriever : ITreeGoToParser
 
         if (_nextParser is null)
         {
-            return new ParsingResult.Failure("next parser is null");
+            return new ParsingResult.Failure("next parser for tree goto command is null");
         }
 
         return _nextParser.Parse(gotoContextRetriever, enumerable);
