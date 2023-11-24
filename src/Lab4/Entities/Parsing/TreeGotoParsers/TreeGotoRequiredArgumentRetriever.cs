@@ -21,7 +21,7 @@ public class TreeGotoRequiredArgumentRetriever : ITreeGoToParser
         var enumerable = args.ToList();
         var argsList = enumerable.ToList();
 
-        const int requiredArgumentsIndex = 0; // path is only next to name, flags is in any order after path
+        const int requiredArgumentsIndex = 0;
 
         gotoContextRetriever.WithPath(argsList[requiredArgumentsIndex]);
 

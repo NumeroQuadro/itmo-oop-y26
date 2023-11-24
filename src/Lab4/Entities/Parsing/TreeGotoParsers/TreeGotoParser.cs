@@ -30,7 +30,7 @@ public class TreeGotoParser : ICommandParser
         {
             if (_nextCommandParser is null)
             {
-                return new CommandExecutionResult.RetrievedWithFailure("Next parser is null");
+                return new CommandExecutionResult.RetrievedWithFailure("Next parser for goto command is null");
             }
 
             return _nextCommandParser.Parse(listCommandLineArguments);

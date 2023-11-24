@@ -10,11 +10,6 @@ public class ConnectContextBuilder : IContextBuilder
 
     public void WithPath(string path)
     {
-        if (string.IsNullOrEmpty(path))
-        {
-            return;
-        }
-
         _path = path;
     }
 
