@@ -1,5 +1,6 @@
 using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.Parsing.ConnectCommandParsers;
+using Itmo.ObjectOrientedProgramming.Lab4.Entities.Parsing.FileShowCommandParsers;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.Parsing.TreeGotoParsers;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.Parsing.TreeListCommandParsers;
 using Itmo.ObjectOrientedProgramming.Lab4.Models;
@@ -11,7 +12,10 @@ public class ParserOrganizer : IParserOrganizer
     public CommandExecutionResult Retrieve(string[] args)
     {
         var connectCommandParser = new ConnectParser();
-        connectCommandParser.SetNextParser(new TreeListParser()).SetNextParser(new TreeGotoParser());
+        connectCommandParser
+            .SetNextParser(new TreeListParser())
+            .SetNextParser(new TreeGotoParser())
+            .SetNextParser(new FileShowParser());
         var argsList = args.ToList();
 
         return connectCommandParser.Parse(argsList);

@@ -9,12 +9,12 @@ public class ConnectValidator : IConnectValidator
     {
         if (mode != ConnectMode.Console)
         {
-            return new CommandContextValidationResult.Failure("Non Console-Mode is not supported");
+            return new CommandContextValidationResult.Failure("Non Console-Mode for \"connect\" command is not supported");
         }
 
         if (!Path.Exists(path))
         {
-            return new CommandContextValidationResult.Failure("Path does not exist");
+            return new CommandContextValidationResult.Failure("Path does not exist as an argument for \"connect\" command");
         }
 
         return new CommandContextValidationResult.Success();
