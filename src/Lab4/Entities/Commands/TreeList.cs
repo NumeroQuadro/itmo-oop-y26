@@ -12,7 +12,7 @@ public class TreeList : ICommand
         _depth = depth;
     }
 
-    public CommandExecutionResult Execute(AppContext appContext)
+    public CommandExecutionResult Execute(FileSystemContext fileSystemContext)
     {
         return new CommandExecutionResult.ExecutedSuccessfully("dimon limon");
     }

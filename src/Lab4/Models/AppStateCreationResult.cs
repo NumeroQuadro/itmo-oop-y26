@@ -6,6 +6,6 @@ public abstract record AppStateCreationResult
 {
     private AppStateCreationResult() { }
 
-    public record Success(AppContext AppContext) : AppStateCreationResult;
+    public record Success(FileSystemContext FileSystemContext) : AppStateCreationResult;
     public record Failure(string FailureMessage) : AppStateCreationResult;
 }

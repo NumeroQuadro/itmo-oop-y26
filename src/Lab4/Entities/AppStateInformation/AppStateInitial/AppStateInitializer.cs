@@ -2,10 +2,10 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.AppStateInformation.AppSt
 
 public class AppStateInitializer
 {
-    private readonly AppContext _appState;
+    private readonly FileSystemContext _fileSystemState;
 
-    public AppStateInitializer(AppContext appState)
+    public AppStateInitializer(FileSystemContext fileSystemState)
     {
-        _appState = appState;
+        _fileSystemState = fileSystemState;
     }
 }

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Itmo.ObjectOrientedProgramming.Lab4.Entities.ConsoleErrorMessagesWriter;
+using Itmo.ObjectOrientedProgramming.Lab4.Entities.ConsoleMessagesWriter;
 using Itmo.ObjectOrientedProgramming.Lab4.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.OutputReceivers;

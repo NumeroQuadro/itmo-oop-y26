@@ -1,18 +1,18 @@
 using System.Collections.Generic;
+using Itmo.ObjectOrientedProgramming.Lab4.Entities.AppStateInformation.AppStateInitial;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.Directory;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.OutputReceivers;
 using Itmo.ObjectOrientedProgramming.Lab4.Models;
-using AppContext = Itmo.ObjectOrientedProgramming.Lab4.Entities.AppStateInformation.AppStateInitial.AppContext;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.InformationConverter;
 
 public class ConverterInfoRelatedToOperatingSystem : IConverterInfoRelatedToOperatingSystem
 {
-    private readonly AppContext _appContext;
+    private readonly FileSystemContext _fileSystemContext;
 
-    public ConverterInfoRelatedToOperatingSystem(AppContext appContext)
+    public ConverterInfoRelatedToOperatingSystem(FileSystemContext fileSystemContext)
     {
-        _appContext = appContext;
+        _fileSystemContext = fileSystemContext;
     }
 
     public IDirectory GetPathRelatedToSystem(string path)

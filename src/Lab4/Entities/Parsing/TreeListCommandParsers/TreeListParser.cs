@@ -25,7 +25,17 @@ public class TreeListParser : ICommandParser
 
         var treeListCommandContextBuilder = new TreeListContextBuilder();
 
-        nameRetriever.Parse(treeListCommandContextBuilder, listCommandLineArguments);
+        ParsingResult parsingResult = nameRetriever.Parse(treeListCommandContextBuilder, listCommandLineArguments);
+
+        if (parsingResult is ParsingResult.Failure)
+        {
+            if (_nextCommandParser is null)
+            {
+                return new CommandExecutionResult.RetrievedWithFailure("Next parser is null");
+            }
+
+            return _nextCommandParser.Parse(listCommandLineArguments);
+        }
 
         return treeListCommandContextBuilder.Build();
     }

@@ -1,6 +1,6 @@
 using System;
 
-namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.ConsoleErrorMessagesWriter;
+namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.ConsoleMessagesWriter;
 
 public class SuccessResultMessageDisplayer : ISuccessResultMessageDisplayer
 {

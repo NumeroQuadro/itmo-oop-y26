@@ -1,4 +1,4 @@
-namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.CommandContexts.ConnectCommandContexts;
+namespace Itmo.ObjectOrientedProgramming.Lab4.Models;
 
 public enum ConnectMode
 {

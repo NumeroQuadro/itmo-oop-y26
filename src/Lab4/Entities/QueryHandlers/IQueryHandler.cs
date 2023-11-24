@@ -4,5 +4,5 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.QueryHandlers;
 
 public interface IQueryHandler
 {
-    public void HandleQuery(string[] args, AppContext appContext);
+    public void HandleQuery(string[] args, FileSystemContext fileSystemContext);
 }

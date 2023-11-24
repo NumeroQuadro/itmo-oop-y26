@@ -5,5 +5,5 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Entities;
 
 public interface ICommand
 {
-    public CommandExecutionResult Execute(AppContext appContext);
+    public CommandExecutionResult Execute(FileSystemContext fileSystemContext);
 }

@@ -5,7 +5,12 @@
         <OutputType>Exe</OutputType>
 
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+
     </PropertyGroup>
+
+
+
 
 
 

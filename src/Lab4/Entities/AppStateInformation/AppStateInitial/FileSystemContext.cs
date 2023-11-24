@@ -1,18 +1,18 @@
 using System;
-using Itmo.ObjectOrientedProgramming.Lab4.Entities.CommandContexts.ConnectCommandContexts;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.Directory;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.InformationConverter;
+using Itmo.ObjectOrientedProgramming.Lab4.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.AppStateInformation.AppStateInitial;
 
-public class AppContext
+public class FileSystemContext
 {
     private IDirectory? _absolutePath;
     private OperatingSystem _osPlatform;
     private IDirectory? _currentDirectory;
     private ConnectMode? _mode;
 
-    public AppContext()
+    public FileSystemContext()
     {
         _osPlatform = Environment.OSVersion;
     }

@@ -1,22 +1,28 @@
 using System.Collections.Generic;
-using Itmo.ObjectOrientedProgramming.Lab4.Entities.CommandContexts.ConnectCommandContexts;
+using Itmo.ObjectOrientedProgramming.Lab4.Entities.CommandContexts.GotoCommandContexts;
 using Itmo.ObjectOrientedProgramming.Lab4.Models;
 
-namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.Parsing.ConnectCommandParsers;
+namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.Parsing.TreeGotoParsers;
 
-public class ConnectParser : ICommandParser
+public class TreeGotoParser : ICommandParser
 {
     private ICommandParser? _nextCommandParser;
+
+    public ICommandParser SetNextParser(ICommandParser parser)
+    {
+        _nextCommandParser = parser;
+
+        return parser;
+    }
+
     public CommandExecutionResult Parse(IEnumerable<string> args)
     {
         var listCommandLineArguments = new List<string>(args);
 
-        var nameRetriever = new ConnectCommandNameRetriever();
-        nameRetriever
-            .SetNext(new ConnectCommandRequiredArgumentRetriever())
-            .SetNext(new ConnectCommandRequiredFlagRetriever());
+        var nameRetriever = new TreeGotoNameRetriever();
+        nameRetriever.SetNext(new TreeGotoRequiredArgumentRetriever());
 
-        var connectCommandContextBuilder = new ConnectContextBuilder();
+        var connectCommandContextBuilder = new GotoContextBuilder();
 
         ParsingResult parsingResult = nameRetriever.Parse(connectCommandContextBuilder, listCommandLineArguments);
 
@@ -31,12 +37,5 @@ public class ConnectParser : ICommandParser
         }
 
         return connectCommandContextBuilder.Build();
-    }
-
-    public ICommandParser SetNextParser(ICommandParser parser)
-    {
-        _nextCommandParser = parser;
-
-        return parser;
     }
 }

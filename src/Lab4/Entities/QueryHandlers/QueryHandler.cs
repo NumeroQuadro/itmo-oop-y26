@@ -9,18 +9,18 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.QueryHandlers;
 
 public class QueryHandler : IQueryHandler
 {
-    public void HandleQuery(string[] args, AppContext appContext)
+    public void HandleQuery(string[] args, FileSystemContext fileSystemContext)
     {
         var parserOrganizer = new ParserOrganizer();
         CommandExecutionResult retrieveringResult = parserOrganizer.Retrieve(args);
 
-        var converter = new ConverterInfoRelatedToOperatingSystem(appContext);
+        var converter = new ConverterInfoRelatedToOperatingSystem(fileSystemContext);
         var results = new List<CommandExecutionResult>();
 
         if (retrieveringResult is CommandExecutionResult.RetrievedSuccessfully success)
         {
             ICommand command = success.CommandContext.GetCommand();
-            CommandExecutionResult executionResult = command.Execute(appContext);
+            CommandExecutionResult executionResult = command.Execute(fileSystemContext);
             results.Add(executionResult);
         }
         else if (retrieveringResult is CommandExecutionResult.RetrievedWithFailure failure)
