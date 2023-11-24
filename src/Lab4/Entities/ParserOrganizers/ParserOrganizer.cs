@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.Parsing.ConnectCommandParsers;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.Parsing.DeleteCommandParsers;
@@ -13,7 +14,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.ParserOrganizers;
 
 public class ParserOrganizer : IParserOrganizer
 {
-    public CommandExecutionResult Retrieve(string[] args)
+    public CommandExecutionResult Retrieve(IEnumerable<string> args)
     {
         var connectCommandParser = new ConnectParser();
         connectCommandParser

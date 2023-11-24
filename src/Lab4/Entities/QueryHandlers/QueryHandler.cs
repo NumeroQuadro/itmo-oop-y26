@@ -9,7 +9,7 @@ namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.QueryHandlers;
 
 public class QueryHandler : IQueryHandler
 {
-    public void HandleQuery(string[] args, FileSystemContext fileSystemContext)
+    public void HandleQuery(IEnumerable<string> args, FileSystemContext fileSystemContext)
     {
         var parserOrganizer = new ParserOrganizer();
         CommandExecutionResult retrieveringResult = parserOrganizer.Retrieve(args);
