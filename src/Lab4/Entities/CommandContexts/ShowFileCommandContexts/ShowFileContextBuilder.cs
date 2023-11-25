@@ -24,7 +24,7 @@ public class ShowFileContextBuilder : IContextBuilder
 
         if (mode == consoleModeString)
         {
-            _mode = ConnectMode.Console;
+            _mode = ConnectMode.Local;
         }
     }
 

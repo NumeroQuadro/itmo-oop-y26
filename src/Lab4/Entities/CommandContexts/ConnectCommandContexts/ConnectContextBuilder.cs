@@ -15,12 +15,9 @@ public class ConnectContextBuilder : IContextBuilder
 
     public void WithConnectMode(string mode)
     {
-        const string consoleModeString = "Console";
+        const string consoleModeString = "local";
 
-        if (mode == consoleModeString)
-        {
-            _mode = ConnectMode.Console;
-        }
+        _mode = mode == consoleModeString ? ConnectMode.Local : ConnectMode.NotSet;
     }
 
     public CommandExecutionResult Build()

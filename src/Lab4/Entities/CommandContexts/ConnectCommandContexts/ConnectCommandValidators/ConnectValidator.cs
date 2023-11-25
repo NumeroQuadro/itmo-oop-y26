@@ -7,7 +7,7 @@ public class ConnectValidator : IConnectValidator
 {
     public CommandContextValidationResult Validate(string path, ConnectMode mode)
     {
-        if (mode != ConnectMode.Console)
+        if (mode != ConnectMode.Local)
         {
             return new CommandContextValidationResult.Failure("Non Console-Mode for \"connect\" command is not supported");
         }

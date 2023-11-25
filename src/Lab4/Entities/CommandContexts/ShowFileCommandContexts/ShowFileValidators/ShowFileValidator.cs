@@ -7,7 +7,7 @@ public class ShowFileValidator : IShowFileValidator
 {
     public CommandContextValidationResult Validate(string path, ConnectMode mode)
     {
-        if (mode != ConnectMode.Console)
+        if (mode != ConnectMode.Local)
         {
             return new CommandContextValidationResult.Failure("Non Console-Mode for command \"file show\" is not supported");
         }
