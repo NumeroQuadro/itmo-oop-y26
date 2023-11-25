@@ -5,9 +5,9 @@ namespace Itmo.ObjectOrientedProgramming.Lab3.MessangerAdressees;
 
 public class MessangerAdresse : IAdressee
 {
-    private readonly Messanger _messanger;
+    private readonly IMessanger _messanger;
 
-    public MessangerAdresse(Messanger messanger)
+    public MessangerAdresse(IMessanger messanger)
     {
         _messanger = messanger;
     }

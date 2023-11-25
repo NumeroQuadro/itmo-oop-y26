@@ -1,6 +1,6 @@
+using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab3.Messages;
 using Itmo.ObjectOrientedProgramming.Lab3.MessangerAdressees;
-using Itmo.ObjectOrientedProgramming.Lab3.Messangers;
 using Itmo.ObjectOrientedProgramming.Lab3.Topics;
 using NSubstitute;
 using Xunit;
@@ -21,12 +21,14 @@ public class SendMessage_MessangerDoAsUsual_MessageDoNotFiltered
             .SetUpContent("Hello, world!");
         Message messageToSend = builder.Build();
 
-        Messanger messanger = Substitute.For<Messanger>(new MessangerTextPrinter());
+        MockableMessanger messanger = Substitute.For<MockableMessanger>();
         var messangerAdresse = new MessangerAdresse(messanger);
 
         var topic = new Topic(messangerAdresse, "numero uno");
         topic.RedirectMessage(messageToSend);
 
         messanger.Received(1).ReceiveMessage(messageToSend.Content);
+
+        Assert.Equal(messanger.Messages.First(), messageToSend.Content);
     }
 }

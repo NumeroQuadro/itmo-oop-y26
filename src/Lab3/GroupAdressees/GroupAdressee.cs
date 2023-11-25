@@ -20,9 +20,4 @@ public class GroupAdressee : IAdressee
             adressee.ReceiveMessage(message);
         }
     }
-
-    private static string ArgumentsToLogMessage(IAdressee adressee)
-    {
-        return $"{nameof(adressee.ToString)} reveived message";
-    }
 }
