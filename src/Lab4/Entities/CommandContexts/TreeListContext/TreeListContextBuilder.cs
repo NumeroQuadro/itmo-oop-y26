@@ -1,4 +1,3 @@
-using Itmo.ObjectOrientedProgramming.Lab4.Entities.CommandContexts.TreeListContext.TreeListCommandValidators;
 using Itmo.ObjectOrientedProgramming.Lab4.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.CommandContexts.TreeListContext;
@@ -21,14 +20,6 @@ public class TreeListContextBuilder : IContextBuilder
 
     public CommandExecutionResult Build()
     {
-        var validator = new TreeListValidator();
-        CommandContextValidationResult commandContextValidationResult = validator.Validate(_depth);
-
-        if (commandContextValidationResult is CommandContextValidationResult.Failure failure)
-        {
-            return new CommandExecutionResult.RetrievedWithFailure(failure.FailureMessage);
-        }
-
         return new CommandExecutionResult.RetrievedSuccessfully(new TreeListContext(_depth));
     }
 }

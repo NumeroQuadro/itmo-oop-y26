@@ -1,4 +1,3 @@
-using Itmo.ObjectOrientedProgramming.Lab4.Entities.CommandContexts.FileCopyCommandContexts.FileCopyValidators;
 using Itmo.ObjectOrientedProgramming.Lab4.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.CommandContexts.FileCopyCommandContexts;
@@ -22,14 +21,6 @@ public class FileCopyContextBuilder : IContextBuilder
 
     public CommandExecutionResult Build()
     {
-        var validator = new FileCopyValidator();
-        CommandContextValidationResult commandContextValidationResult = validator.Validate(_sourcePath, _destinationPath);
-
-        if (commandContextValidationResult is CommandContextValidationResult.Failure failure)
-        {
-            return new CommandExecutionResult.RetrievedWithFailure(failure.FailureMessage);
-        }
-
         return new CommandExecutionResult.RetrievedSuccessfully(new FileCopyContext(_sourcePath, _destinationPath));
     }
 }

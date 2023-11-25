@@ -1,5 +1,5 @@
 using System;
-using Itmo.ObjectOrientedProgramming.Lab4.Entities.AppStateInformation.AppStateInitial;
+using System.IO;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.CommandContexts.ConnectCommandContexts;
 using Itmo.ObjectOrientedProgramming.Lab4.Models;
 
@@ -16,14 +16,25 @@ public class ConnectCommand : ICommand
 
     public ICommandContext CommandContext => _context;
 
-    public CommandExecutionResult Execute(FileSystemContext fileSystemContext)
+    public CommandExecutionResult Execute(ApplicationContext applicationContext)
     {
-        fileSystemContext.WithAbsolutePath(_context.Path);
-        fileSystemContext.WithConnectMode(_context.Mode);
-        fileSystemContext.WithCurrentDirectory(_context.Path);
-        fileSystemContext.WithOsPlatform(Environment.OSVersion);
+        if (!Path.IsPathRooted(_context.Path))
+        {
+            return new CommandExecutionResult.ExecutedWithFailure("Path should be rooted");
+        }
+
+        if (!Path.Exists(_context.Path))
+        {
+            return new CommandExecutionResult.ExecutedWithFailure("Path does not exist");
+        }
+
+        if (_context.Mode is ConnectMode.Local)
+        {
+            applicationContext.WithFileSystem(new LocalFileSystem(_context.Path, _context.Path));
+        }
 
         return new CommandExecutionResult
-            .ExecutedSuccessfully($"Connect command executed successfully! Absolute path {_context.Path} is set. Mode is {_context.Mode}. Your system is {Environment.OSVersion}");
+            .ExecutedSuccessfully(
+                $"Connect command executed successfully! Absolute path {_context.Path} is set. Mode is {_context.Mode}. Your system is {Environment.OSVersion}");
     }
 }

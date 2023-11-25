@@ -1,4 +1,3 @@
-using Itmo.ObjectOrientedProgramming.Lab4.Entities.CommandContexts.ShowFileCommandContexts.ShowFileValidators;
 using Itmo.ObjectOrientedProgramming.Lab4.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.CommandContexts.ShowFileCommandContexts;
@@ -30,14 +29,6 @@ public class ShowFileContextBuilder : IContextBuilder
 
     public CommandExecutionResult Build()
     {
-        var validator = new ShowFileValidator();
-        CommandContextValidationResult commandContextValidationResult = validator.Validate(_path, _mode);
-
-        if (commandContextValidationResult is CommandContextValidationResult.Failure failure)
-        {
-            return new CommandExecutionResult.RetrievedWithFailure(failure.FailureMessage);
-        }
-
         return new CommandExecutionResult.RetrievedSuccessfully(new ShowFileContext(_path, _mode));
     }
 }

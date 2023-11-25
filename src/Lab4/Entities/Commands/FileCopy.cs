@@ -1,6 +1,4 @@
 using System;
-using System.IO;
-using Itmo.ObjectOrientedProgramming.Lab4.Entities.AppStateInformation.AppStateInitial;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.CommandContexts.FileCopyCommandContexts;
 using Itmo.ObjectOrientedProgramming.Lab4.Models;
 
@@ -17,41 +15,18 @@ public class FileCopy : ICommand
 
     public ICommandContext CommandContext => _context;
 
-    public CommandExecutionResult Execute(FileSystemContext fileSystemContext)
+    public CommandExecutionResult Execute(ApplicationContext applicationContext)
     {
+        if (applicationContext.FileSystem is null)
+        {
+            return new CommandExecutionResult.ExecutedWithFailure("FileSystem is not connected. Use connect command for connecting to fie system!");
+        }
+
         try
         {
-            File.Copy(_context.SourcePath, _context.DestinationPath);
+            applicationContext.FileSystem.CopyFile(_context.SourcePath, _context.DestinationPath);
         }
-        catch (UnauthorizedAccessException e)
-        {
-            return new CommandExecutionResult.ExecutedWithFailure($"copy file error: {e.Message}");
-        }
-        catch (ArgumentNullException e)
-        {
-            return new CommandExecutionResult.ExecutedWithFailure($"copy file error: {e.Message}");
-        }
-        catch (ArgumentException e)
-        {
-            return new CommandExecutionResult.ExecutedWithFailure($"copy file error: {e.Message}");
-        }
-        catch (PathTooLongException e)
-        {
-            return new CommandExecutionResult.ExecutedWithFailure($"copy file error: {e.Message}");
-        }
-        catch (DirectoryNotFoundException e)
-        {
-            return new CommandExecutionResult.ExecutedWithFailure($"copy file error: {e.Message}");
-        }
-        catch (FileNotFoundException e)
-        {
-            return new CommandExecutionResult.ExecutedWithFailure($"copy file error: {e.Message}");
-        }
-        catch (IOException e)
-        {
-            return new CommandExecutionResult.ExecutedWithFailure($"copy file error: {e.Message}");
-        }
-        catch (NotSupportedException e)
+        catch (Exception e)
         {
             return new CommandExecutionResult.ExecutedWithFailure($"copy file error: {e.Message}");
         }

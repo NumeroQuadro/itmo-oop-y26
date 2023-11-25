@@ -1,4 +1,3 @@
-using Itmo.ObjectOrientedProgramming.Lab4.Entities.AppStateInformation.AppStateInitial;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.CommandContexts.DisconnectCommandContexts;
 using Itmo.ObjectOrientedProgramming.Lab4.Models;
 
@@ -15,11 +14,15 @@ public class Disconnect : ICommand
 
     public ICommandContext CommandContext => _context;
 
-    public CommandExecutionResult Execute(FileSystemContext fileSystemContext)
+    public CommandExecutionResult Execute(ApplicationContext applicationContext)
     {
-        fileSystemContext.WithAbsolutePath(string.Empty);
-        fileSystemContext.WithAbsolutePath(string.Empty);
-        fileSystemContext.WithCurrentDirectory(string.Empty);
+        if (applicationContext.FileSystem is null)
+        {
+            return new CommandExecutionResult.ExecutedWithFailure(
+                "FileSystem is not connected. use connect command for connecting to file system!");
+        }
+
+        applicationContext.FileSystem.Disconnect();
 
         return new CommandExecutionResult.ExecutedSuccessfully("Disconnected successfully");
     }

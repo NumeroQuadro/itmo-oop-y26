@@ -1,8 +1,5 @@
 using System;
-using System.IO;
-using Itmo.ObjectOrientedProgramming.Lab4.Entities.AppStateInformation.AppStateInitial;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.CommandContexts.ShowFileCommandContexts;
-using Itmo.ObjectOrientedProgramming.Lab4.Entities.FileDisplayers;
 using Itmo.ObjectOrientedProgramming.Lab4.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.Commands;
@@ -18,24 +15,20 @@ public class ShowFile : ICommand
 
     public ICommandContext CommandContext => _showFileContext;
 
-    public CommandExecutionResult Execute(FileSystemContext fileSystemContext)
+    public CommandExecutionResult Execute(ApplicationContext applicationContext)
     {
-        IFileDisplayer fileDisplayer = new FileDisplayersOrganizer(fileSystemContext).GetFileDisplayerDependingOnSystem();
+        if (applicationContext.FileSystem is null)
+        {
+            return new CommandExecutionResult.ExecutedWithFailure("FileSystem is not connected. Use connect command for connecting to fie system!");
+        }
+
         try
         {
-            fileDisplayer.Display(_showFileContext.Path);
+            applicationContext.FileSystem.ShowFile(_showFileContext.Path);
         }
-        catch (ArgumentNullException argumentNullException)
+        catch (Exception e)
         {
-            return new CommandExecutionResult.ExecutedWithFailure(argumentNullException.Message);
-        }
-        catch (ArgumentException argumentException)
-        {
-            return new CommandExecutionResult.ExecutedWithFailure(argumentException.Message);
-        }
-        catch (IOException ioException)
-        {
-            return new CommandExecutionResult.ExecutedWithFailure(ioException.Message);
+            return new CommandExecutionResult.ExecutedWithFailure(e.Message);
         }
 
         return new CommandExecutionResult.ExecutedSuccessfully("command \"file show\" was executed successfully");

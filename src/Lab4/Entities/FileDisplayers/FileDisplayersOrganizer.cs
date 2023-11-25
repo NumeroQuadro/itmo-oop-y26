@@ -1,12 +1,10 @@
-using Itmo.ObjectOrientedProgramming.Lab4.Entities.AppStateInformation.AppStateInitial;
-
 namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.FileDisplayers;
 
 public class FileDisplayersOrganizer : IFileDisplayerOrganizer
 {
-    private FileSystemContext _context;
+    private ApplicationContext _context;
 
-    public FileDisplayersOrganizer(FileSystemContext context)
+    public FileDisplayersOrganizer(ApplicationContext context)
     {
         _context = context;
     }

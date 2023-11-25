@@ -1,7 +1,8 @@
 using System;
-using Itmo.ObjectOrientedProgramming.Lab4.Entities.AppStateInformation.AppStateInitial;
+using Itmo.ObjectOrientedProgramming.Lab4.Entities;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.CommandLineSeparators;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.QueryHandlers;
+using Itmo.ObjectOrientedProgramming.Lab4.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4;
 
@@ -9,8 +10,7 @@ public static class Program
 {
     public static void Main()
     {
-        var appContext = new FileSystemContext();
-        appContext.WithTreeListWritingOptions("  ", "├──", "└──");
+        var appContext = new ApplicationContext(new TreeListWritingOptions("  ", "├──", "└──"));
 
         while (true)
         {

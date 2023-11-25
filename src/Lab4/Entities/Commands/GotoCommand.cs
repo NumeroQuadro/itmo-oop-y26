@@ -1,4 +1,3 @@
-using Itmo.ObjectOrientedProgramming.Lab4.Entities.AppStateInformation.AppStateInitial;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.CommandContexts.GotoCommandContexts;
 using Itmo.ObjectOrientedProgramming.Lab4.Models;
 
@@ -15,9 +14,15 @@ public class GotoCommand : ICommand
 
     public ICommandContext CommandContext => _gotoContext;
 
-    public CommandExecutionResult Execute(FileSystemContext fileSystemContext)
+    public CommandExecutionResult Execute(ApplicationContext applicationContext)
     {
-        fileSystemContext.WithCurrentDirectory(_gotoContext.Path);
+        if (applicationContext.FileSystem is null)
+        {
+            return new CommandExecutionResult.ExecutedWithFailure(
+                "FileSystem is not connected. Use connect command for connecting to fie system!");
+        }
+
+        applicationContext.FileSystem.ChangeDirectory(_gotoContext.Path);
 
         return new CommandExecutionResult.ExecutedSuccessfully($"Current directory is {_gotoContext.Path}");
     }

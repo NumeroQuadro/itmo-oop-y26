@@ -97,3 +97,6 @@ dotnet_diagnostic.CA1034.severity = none
 
 # 10.11 for correct tests naming with underscores
 dotnet_diagnostic.CA1707.severity = none
+
+# for easier excpetion catching
+dotnet_diagnostic.CA1031.severity = none

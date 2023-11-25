@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using Itmo.ObjectOrientedProgramming.Lab4.Entities.AppStateInformation.AppStateInitial;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.CommandContexts.MoveCommandContexts;
 using Itmo.ObjectOrientedProgramming.Lab4.Models;
 
@@ -17,29 +16,18 @@ public class MoveCommand : ICommand
 
     public ICommandContext CommandContext => _moveContext;
 
-    public CommandExecutionResult Execute(FileSystemContext fileSystemContext)
+    public CommandExecutionResult Execute(ApplicationContext applicationContext)
     {
+        if (applicationContext.FileSystem is null)
+        {
+            return new CommandExecutionResult.ExecutedWithFailure("FileSystem is not connected. Use connect command for connecting to fie system!");
+        }
+
         try
         {
             File.Move(_moveContext.SourcePath, _moveContext.DestinationPath);
         }
-        catch (UnauthorizedAccessException e)
-        {
-            return new CommandExecutionResult.ExecutedWithFailure($"Failed to move file {e.Message}");
-        }
-        catch (ArgumentException e)
-        {
-            return new CommandExecutionResult.ExecutedWithFailure($"Failed to move file {e.Message}");
-        }
-        catch (DirectoryNotFoundException e)
-        {
-            return new CommandExecutionResult.ExecutedWithFailure($"Failed to move file {e.Message}");
-        }
-        catch (IOException e)
-        {
-            return new CommandExecutionResult.ExecutedWithFailure($"Failed to move file {e.Message}");
-        }
-        catch (NotSupportedException e)
+        catch (Exception e)
         {
             return new CommandExecutionResult.ExecutedWithFailure($"Failed to move file {e.Message}");
         }

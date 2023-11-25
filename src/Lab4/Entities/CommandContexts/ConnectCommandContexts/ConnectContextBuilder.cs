@@ -1,4 +1,3 @@
-using Itmo.ObjectOrientedProgramming.Lab4.Entities.CommandContexts.ConnectCommandContexts.ConnectCommandValidators;
 using Itmo.ObjectOrientedProgramming.Lab4.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.CommandContexts.ConnectCommandContexts;
@@ -22,14 +21,6 @@ public class ConnectContextBuilder : IContextBuilder
 
     public CommandExecutionResult Build()
     {
-        var validator = new ConnectValidator();
-        CommandContextValidationResult commandContextValidationResult = validator.Validate(_path, _mode);
-
-        if (commandContextValidationResult is CommandContextValidationResult.Failure failure)
-        {
-            return new CommandExecutionResult.RetrievedWithFailure(failure.FailureMessage);
-        }
-
         return new CommandExecutionResult.RetrievedSuccessfully(new ConnectContext(_path, _mode));
     }
 }

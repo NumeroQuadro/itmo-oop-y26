@@ -1,6 +1,4 @@
 using System;
-using System.IO;
-using Itmo.ObjectOrientedProgramming.Lab4.Entities.AppStateInformation.AppStateInitial;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.CommandContexts.DeleteCommandContexts;
 using Itmo.ObjectOrientedProgramming.Lab4.Models;
 
@@ -17,37 +15,19 @@ public class Delete : ICommand
 
     public ICommandContext CommandContext => _context;
 
-    public CommandExecutionResult Execute(FileSystemContext fileSystemContext)
+    public CommandExecutionResult Execute(ApplicationContext applicationContext)
     {
+        if (applicationContext.FileSystem is null)
+        {
+            return new CommandExecutionResult.ExecutedWithFailure(
+                "FileSystem is not connected. Use connect command for connecting to fie system!");
+        }
+
         try
         {
-            File.Delete(_context.Path);
+            applicationContext.FileSystem.DeleteFile(_context.Path);
         }
-        catch (ArgumentNullException e)
-        {
-            return new CommandExecutionResult.ExecutedWithFailure($"delete failed: {e.Message}");
-        }
-        catch (ArgumentException e)
-        {
-            return new CommandExecutionResult.ExecutedWithFailure($"delete failed: {e.Message}");
-        }
-        catch (DirectoryNotFoundException e)
-        {
-            return new CommandExecutionResult.ExecutedWithFailure($"delete failed: {e.Message}");
-        }
-        catch (NotSupportedException e)
-        {
-            return new CommandExecutionResult.ExecutedWithFailure($"delete failed: {e.Message}");
-        }
-        catch (PathTooLongException e)
-        {
-            return new CommandExecutionResult.ExecutedWithFailure($"delete failed: {e.Message}");
-        }
-        catch (UnauthorizedAccessException e)
-        {
-            return new CommandExecutionResult.ExecutedWithFailure($"delete failed: {e.Message}");
-        }
-        catch (IOException e)
+        catch (Exception e)
         {
             return new CommandExecutionResult.ExecutedWithFailure($"delete failed: {e.Message}");
         }
