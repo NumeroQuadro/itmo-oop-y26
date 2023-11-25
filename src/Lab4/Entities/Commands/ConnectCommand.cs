@@ -14,6 +14,8 @@ public class ConnectCommand : ICommand
         _context = context;
     }
 
+    public ICommandContext CommandContext => _context;
+
     public CommandExecutionResult Execute(FileSystemContext fileSystemContext)
     {
         fileSystemContext.WithAbsolutePath(_context.Path);

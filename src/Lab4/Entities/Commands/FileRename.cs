@@ -15,6 +15,8 @@ public class FileRename : ICommand
         _context = context;
     }
 
+    public ICommandContext CommandContext => _context;
+
     public CommandExecutionResult Execute(FileSystemContext fileSystemContext)
     {
         try

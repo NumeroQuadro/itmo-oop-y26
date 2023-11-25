@@ -15,6 +15,8 @@ public class MoveCommand : ICommand
         _moveContext = moveContext;
     }
 
+    public ICommandContext CommandContext => _moveContext;
+
     public CommandExecutionResult Execute(FileSystemContext fileSystemContext)
     {
         try

@@ -14,6 +14,6 @@ public class TreeListContext : ICommandContext
     public int Depth => _depth;
     public ICommand GetCommand()
     {
-        return new TreeList(_depth);
+        return new TreeList(this);
     }
 }

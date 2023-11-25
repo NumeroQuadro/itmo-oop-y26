@@ -16,6 +16,8 @@ public class ShowFile : ICommand
         _showFileContext = showFileContext;
     }
 
+    public ICommandContext CommandContext => _showFileContext;
+
     public CommandExecutionResult Execute(FileSystemContext fileSystemContext)
     {
         IFileDisplayer fileDisplayer = new FileDisplayersOrganizer(fileSystemContext).GetFileDisplayerDependingOnSystem();

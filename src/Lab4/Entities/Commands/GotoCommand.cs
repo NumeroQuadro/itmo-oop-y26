@@ -13,6 +13,8 @@ public class GotoCommand : ICommand
         _gotoContext = gotoContext;
     }
 
+    public ICommandContext CommandContext => _gotoContext;
+
     public CommandExecutionResult Execute(FileSystemContext fileSystemContext)
     {
         return new CommandExecutionResult.ExecutedSuccessfully("numero finko goofy ahh cat!");
