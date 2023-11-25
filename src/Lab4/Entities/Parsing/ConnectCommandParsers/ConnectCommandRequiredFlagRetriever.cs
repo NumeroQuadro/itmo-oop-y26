@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.CommandContexts.ConnectCommandContexts;
@@ -29,7 +30,14 @@ public class ConnectCommandRequiredFlagRetriever : IConnectParser
 
         const int indexOfRequiredFlag = 2;
 
-        connectContextRetriever.WithConnectMode(argsList[indexOfRequiredFlag]);
+        try
+        {
+            connectContextRetriever.WithConnectMode(argsList[indexOfRequiredFlag]);
+        }
+        catch (ArgumentOutOfRangeException e)
+        {
+            return new ParsingResult.Failure($"connect command should contains flag -m, error: {e.Message}");
+        }
 
         return new ParsingResult.Success();
     }

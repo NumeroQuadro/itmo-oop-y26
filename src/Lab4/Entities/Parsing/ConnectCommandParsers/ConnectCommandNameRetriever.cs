@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.CommandContexts.ConnectCommandContexts;
@@ -27,13 +28,24 @@ public class ConnectCommandNameRetriever : IConnectParser
             return new ParsingResult.Failure("name of command \"connect\" not found");
         }
 
-        IEnumerable<string> enumerable = listCommandLineArguments.Skip(numberOfAttributeWords);
-
-        if (_nextParser is null)
+        try
         {
-            return new ParsingResult.Failure("next parser for connect command is null");
-        }
+            IEnumerable<string> enumerable = listCommandLineArguments.Skip(numberOfAttributeWords);
 
-        return _nextParser.Parse(connectContextRetriever, enumerable);
+            if (_nextParser is null)
+            {
+                return new ParsingResult.Failure("next parser for connect command is null");
+            }
+
+            return _nextParser.Parse(connectContextRetriever, enumerable);
+        }
+        catch (System.ArgumentOutOfRangeException e)
+        {
+            return new ParsingResult.Failure($"connect command need path argument (error: {e.Message})");
+        }
+        catch (ArgumentNullException e)
+        {
+            return new ParsingResult.Failure($"connect command need path argument (error: {e.Message})");
+        }
     }
 }

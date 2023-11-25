@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.CommandContexts.ConnectCommandContexts;
@@ -27,7 +28,14 @@ public class ConnectCommandRequiredArgumentRetriever : IConnectParser
 
         const int requiredArgumentsIndex = 0; // path is only next to name, flags is in any order after path
 
-        connectContextRetriever.WithPath(argsList[requiredArgumentsIndex]);
+        try
+        {
+            connectContextRetriever.WithPath(argsList[requiredArgumentsIndex]);
+        }
+        catch (ArgumentOutOfRangeException e)
+        {
+            return new ParsingResult.Failure($" connect command have to contain path argument {e.Message}");
+        }
 
         return _nextParser.Parse(connectContextRetriever, argsList);
     }
