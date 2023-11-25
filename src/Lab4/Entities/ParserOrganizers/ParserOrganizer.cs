@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.Parsing.ConnectCommandParsers;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.Parsing.DeleteCommandParsers;
+using Itmo.ObjectOrientedProgramming.Lab4.Entities.Parsing.DisconnectCommandParsers;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.Parsing.FileCopyCommandParsers;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.Parsing.FileRenameCommandParsers;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.Parsing.FileShowCommandParsers;
@@ -24,7 +25,8 @@ public class ParserOrganizer : IParserOrganizer
             .SetNextParser(new MoveParser())
             .SetNextParser(new FileCopyParser())
             .SetNextParser(new DeleteParser())
-            .SetNextParser(new FileRenameParser());
+            .SetNextParser(new FileRenameParser()
+            .SetNextParser(new DisconnectParser()));
         var argsList = args.ToList();
 
         return connectCommandParser.Parse(argsList);

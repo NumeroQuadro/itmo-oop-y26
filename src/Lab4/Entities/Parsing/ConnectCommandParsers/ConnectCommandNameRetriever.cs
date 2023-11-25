@@ -31,7 +31,7 @@ public class ConnectCommandNameRetriever : IConnectParser
 
         if (_nextParser is null)
         {
-            return new ParsingResult.Failure("next parser is null");
+            return new ParsingResult.Failure("next parser for connect command is null");
         }
 
         return _nextParser.Parse(connectContextRetriever, enumerable);
