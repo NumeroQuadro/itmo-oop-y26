@@ -20,7 +20,14 @@ public class FileRename : ICommand
     {
         try
         {
-            File.Move(_context.Path, _context.Name);
+            if (applicationContext.FileSystem is null)
+            {
+                return new CommandExecutionResult.ExecutedWithFailure(
+                    "FileSystem is not connected. Use connect command for connecting to fie system!");
+            }
+
+            string destinationPath = string.Concat(applicationContext.FileSystem.GetCurrentPath, _context.Name);
+            File.Move(_context.Path, destinationPath);
             File.Delete(_context.Path);
         }
         catch (Exception e)

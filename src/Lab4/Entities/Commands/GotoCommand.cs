@@ -22,7 +22,8 @@ public class GotoCommand : ICommand
                 "FileSystem is not connected. Use connect command for connecting to fie system!");
         }
 
-        applicationContext.FileSystem.ChangeDirectory(_gotoContext.Path);
+        string destinationPath = string.Concat(applicationContext.FileSystem.GetCurrentPath, _gotoContext.Path);
+        applicationContext.FileSystem.ChangeDirectory(destinationPath);
 
         return new CommandExecutionResult.ExecutedSuccessfully($"Current directory is {_gotoContext.Path}");
     }

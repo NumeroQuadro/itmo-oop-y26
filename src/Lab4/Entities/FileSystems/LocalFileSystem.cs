@@ -16,6 +16,9 @@ public class LocalFileSystem : IFileSystem
     public string BastPath => _basePath;
     public string CurrentPath => _currentPath;
 
+    public string GetBasePath => _basePath;
+    public string GetCurrentPath => _currentPath;
+
     public void MoveFile(string sourcePath, string destinationPath)
     {
         File.Move(sourcePath, destinationPath);

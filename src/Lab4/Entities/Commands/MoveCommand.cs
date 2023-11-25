@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.CommandContexts.MoveCommandContexts;
 using Itmo.ObjectOrientedProgramming.Lab4.Models;
 
@@ -25,7 +24,9 @@ public class MoveCommand : ICommand
 
         try
         {
-            File.Move(_moveContext.SourcePath, _moveContext.DestinationPath);
+            string destinationPath =
+                string.Concat(applicationContext.FileSystem.GetCurrentPath, _moveContext.DestinationPath);
+            applicationContext.FileSystem.MoveFile(_moveContext.SourcePath, destinationPath);
         }
         catch (Exception e)
         {

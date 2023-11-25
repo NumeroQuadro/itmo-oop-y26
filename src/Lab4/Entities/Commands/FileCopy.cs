@@ -24,7 +24,8 @@ public class FileCopy : ICommand
 
         try
         {
-            applicationContext.FileSystem.CopyFile(_context.SourcePath, _context.DestinationPath);
+            string destinationPath = string.Concat(applicationContext.FileSystem.GetBasePath, _context.DestinationPath);
+            applicationContext.FileSystem.CopyFile(_context.SourcePath, destinationPath);
         }
         catch (Exception e)
         {

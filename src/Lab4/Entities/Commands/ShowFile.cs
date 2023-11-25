@@ -24,7 +24,8 @@ public class ShowFile : ICommand
 
         try
         {
-            applicationContext.FileSystem.ShowFile(_showFileContext.Path);
+            string fileToShow = string.Concat(applicationContext.FileSystem.GetCurrentPath, _showFileContext.Path);
+            applicationContext.FileSystem.ShowFile(fileToShow);
         }
         catch (Exception e)
         {
