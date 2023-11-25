@@ -20,7 +20,7 @@ public class ConnectCommandRequiredArgumentRetriever : IConnectParser
     {
         if (_nextParser is null)
         {
-            return new ParsingResult.Failure("next parser is null");
+            return new ParsingResult.CommandIncorrect("next parser is null");
         }
 
         var enumerable = args.ToList();
@@ -34,7 +34,7 @@ public class ConnectCommandRequiredArgumentRetriever : IConnectParser
         }
         catch (ArgumentOutOfRangeException e)
         {
-            return new ParsingResult.Failure($" connect command have to contain path argument {e.Message}");
+            return new ParsingResult.CommandIncorrect($" connect command have to contain path argument {e.Message}");
         }
 
         return _nextParser.Parse(connectContextRetriever, argsList);

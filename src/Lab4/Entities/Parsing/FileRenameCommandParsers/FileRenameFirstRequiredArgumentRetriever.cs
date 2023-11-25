@@ -20,7 +20,7 @@ public class FileRenameFirstRequiredArgumentRetriever : IFileRenameParser
     {
         if (_nextParser is null)
         {
-            return new ParsingResult.Failure("next parser for command file rename is null");
+            return new ParsingResult.CommandIncorrect("next parser for command file rename is null");
         }
 
         var enumerable = args.ToList();

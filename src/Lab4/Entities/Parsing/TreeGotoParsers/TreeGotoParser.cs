@@ -26,7 +26,7 @@ public class TreeGotoParser : ICommandParser
 
         ParsingResult parsingResult = nameRetriever.Parse(connectCommandContextBuilder, listCommandLineArguments);
 
-        if (parsingResult is ParsingResult.Failure)
+        if (parsingResult is ParsingResult.CommandIncorrect)
         {
             if (_nextCommandParser is null)
             {

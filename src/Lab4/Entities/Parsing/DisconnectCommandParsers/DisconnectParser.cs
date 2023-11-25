@@ -24,14 +24,19 @@ public class DisconnectParser : ICommandParser
 
         ParsingResult parsingResult = nameRetriever.Parse(disconnectCommandContextBuilder, listCommandLineArguments);
 
-        if (parsingResult is ParsingResult.Failure)
+        if (parsingResult is ParsingResult.FailureCurrentGoToNextParserWithMessage)
         {
             if (_commandParser is null)
             {
-                return new CommandExecutionResult.RetrievedWithFailure("Next parser for disconnect command is null");
+                return new CommandExecutionResult.RetrievedWithFailure("All commands checked, no correct found");
             }
 
             return _commandParser.Parse(listCommandLineArguments);
+        }
+
+        if (parsingResult is ParsingResult.CommandIncorrect incorrect)
+        {
+            return new CommandExecutionResult.RetrievedWithFailure(incorrect.FailureMessage);
         }
 
         return disconnectCommandContextBuilder.Build();

@@ -25,19 +25,19 @@ public class FileRenameCommandNameRetriever : IFileRenameParser
         var listCommandLineArguments = new List<string>(args);
         if (listCommandLineArguments.Find(x => x == commandNameFirstPart) != commandNameFirstPart)
         {
-            return new ParsingResult.Failure("first part of command name \"file rename\" not found");
+            return new ParsingResult.FailureCurrentGoToNextParserWithMessage("first part of command name \"file rename\" not found");
         }
 
         if (listCommandLineArguments.Find(x => x == commandNameSecondPart) != commandNameSecondPart)
         {
-            return new ParsingResult.Failure("second part of command name \"file rename\" not found");
+            return new ParsingResult.FailureCurrentGoToNextParserWithMessage("second part of command name \"file rename\" not found");
         }
 
         IEnumerable<string> enumerable = listCommandLineArguments.Skip(numberOfAttributeWords);
 
         if (_nextParser is null)
         {
-            return new ParsingResult.Failure("next parser for file rename is null");
+            return new ParsingResult.FailureCurrentGoToNextParserWithMessage("next parser for file rename is null");
         }
 
         return _nextParser.Parse(fileRenameContextBuilder, enumerable);

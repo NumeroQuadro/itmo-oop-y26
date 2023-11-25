@@ -20,7 +20,7 @@ public class MoveFirstRequiredArgumentRetriever : IMoveParser
     {
         if (_nextParser is null)
         {
-            return new ParsingResult.Failure("next parser for command file move is null");
+            return new ParsingResult.CommandIncorrect("next parser for command file move is null");
         }
 
         var enumerable = args.ToList();

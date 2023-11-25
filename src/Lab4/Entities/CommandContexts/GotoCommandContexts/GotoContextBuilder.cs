@@ -27,6 +27,6 @@ public class GotoContextBuilder : IContextBuilder
             return new CommandExecutionResult.RetrievedWithFailure(failure.FailureMessage);
         }
 
-        return new CommandExecutionResult.RetrievedSuccessfully(new GotoContext());
+        return new CommandExecutionResult.RetrievedSuccessfully(new GotoContext(_path));
     }
 }

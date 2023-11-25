@@ -25,7 +25,7 @@ public class ConnectCommandRequiredFlagRetriever : IConnectParser
         int firstIndexOptionalFlag = argsList.FindIndex(x => x == "-m");
         if (firstIndexOptionalFlag == -1)
         {
-            return new ParsingResult.Failure("required flag not found");
+            return new ParsingResult.CommandIncorrect("required flag not found");
         }
 
         const int indexOfRequiredFlag = 2;
@@ -36,7 +36,11 @@ public class ConnectCommandRequiredFlagRetriever : IConnectParser
         }
         catch (ArgumentOutOfRangeException e)
         {
-            return new ParsingResult.Failure($"connect command should contains flag -m, error: {e.Message}");
+            return new ParsingResult.CommandIncorrect($"connect command should contains flag -m, error: {e.Message}");
+        }
+        catch (ArgumentNullException e)
+        {
+            return new ParsingResult.CommandIncorrect($"connect command should contains flag -m, error: {e.Message}");
         }
 
         return new ParsingResult.Success();

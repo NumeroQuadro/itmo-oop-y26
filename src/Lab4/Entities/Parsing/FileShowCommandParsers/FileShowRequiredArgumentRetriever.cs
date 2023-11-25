@@ -19,7 +19,7 @@ public class FileShowRequiredArgumentRetriever : IFileShowParser
     {
         if (_nextParser is null)
         {
-            return new ParsingResult.Failure("next parser for command file show is null");
+            return new ParsingResult.CommandIncorrect("flag is required for file show command");
         }
 
         var enumerable = args.ToList();

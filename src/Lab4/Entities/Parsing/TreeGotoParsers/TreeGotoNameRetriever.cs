@@ -25,19 +25,19 @@ public class TreeGotoNameRetriever : ITreeGoToParser
         var listCommandLineArguments = new List<string>(args);
         if (listCommandLineArguments.Find(x => x == commandNameFirstPart) != commandNameFirstPart)
         {
-            return new ParsingResult.Failure("first part of command name \"tree goto\" not found");
+            return new ParsingResult.FailureCurrentGoToNextParserWithMessage("first part of command name \"tree goto\" not found");
         }
 
         if (listCommandLineArguments.Find(x => x == commandNameSecondPart) != commandNameSecondPart)
         {
-            return new ParsingResult.Failure("second part of command name \"tree goto\" not found");
+            return new ParsingResult.FailureCurrentGoToNextParserWithMessage("second part of command name \"tree goto\" not found");
         }
 
         IEnumerable<string> enumerable = listCommandLineArguments.Skip(numberOfAttributeWords);
 
         if (_nextParser is null)
         {
-            return new ParsingResult.Failure("next parser for tree goto command is null");
+            return new ParsingResult.FailureCurrentGoToNextParserWithMessage("next parser for tree goto command is null");
         }
 
         return _nextParser.Parse(gotoContextRetriever, enumerable);

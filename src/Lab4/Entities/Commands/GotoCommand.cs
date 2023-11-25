@@ -17,6 +17,8 @@ public class GotoCommand : ICommand
 
     public CommandExecutionResult Execute(FileSystemContext fileSystemContext)
     {
-        return new CommandExecutionResult.ExecutedSuccessfully("numero finko goofy ahh cat!");
+        fileSystemContext.WithCurrentDirectory(_gotoContext.Path);
+
+        return new CommandExecutionResult.ExecutedSuccessfully($"Current directory is {_gotoContext.Path}");
     }
 }

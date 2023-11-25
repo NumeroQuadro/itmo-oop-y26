@@ -28,14 +28,19 @@ public class FileCopyParser : ICommandParser
 
         ParsingResult parsingResult = nameRetriever.Parse(showFileCommandContextBuilder, listCommandLineArguments);
 
-        if (parsingResult is ParsingResult.Failure failure)
+        if (parsingResult is ParsingResult.FailureCurrentGoToNextParserWithMessage)
         {
             if (_nextParser is null)
             {
-                return new CommandExecutionResult.RetrievedWithFailure($"Next parser for file copy command is null. {failure.FailureMessage}");
+                return new CommandExecutionResult.RetrievedWithFailure("Next parser for file copy command is null");
             }
 
             return _nextParser.Parse(listCommandLineArguments);
+        }
+
+        if (parsingResult is ParsingResult.CommandIncorrect incorrect)
+        {
+            return new CommandExecutionResult.RetrievedWithFailure(incorrect.FailureMessage);
         }
 
         return showFileCommandContextBuilder.Build();

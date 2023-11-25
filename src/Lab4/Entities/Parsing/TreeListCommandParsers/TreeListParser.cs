@@ -27,7 +27,7 @@ public class TreeListParser : ICommandParser
 
         ParsingResult parsingResult = nameRetriever.Parse(treeListCommandContextBuilder, listCommandLineArguments);
 
-        if (parsingResult is ParsingResult.Failure)
+        if (parsingResult is ParsingResult.FailureCurrentGoToNextParserWithMessage)
         {
             if (_nextCommandParser is null)
             {
@@ -35,6 +35,11 @@ public class TreeListParser : ICommandParser
             }
 
             return _nextCommandParser.Parse(listCommandLineArguments);
+        }
+
+        if (parsingResult is ParsingResult.CommandIncorrect incorrect)
+        {
+            return new CommandExecutionResult.RetrievedWithFailure(incorrect.FailureMessage);
         }
 
         return treeListCommandContextBuilder.Build();

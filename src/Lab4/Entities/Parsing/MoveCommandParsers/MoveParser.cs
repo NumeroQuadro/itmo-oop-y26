@@ -28,7 +28,7 @@ public class MoveParser : ICommandParser
 
         ParsingResult parsingResult = nameRetriever.Parse(showFileCommandContextBuilder, listCommandLineArguments);
 
-        if (parsingResult is ParsingResult.Failure failure)
+        if (parsingResult is ParsingResult.FailureCurrentGoToNextParserWithMessage failure)
         {
             if (_nextParser is null)
             {
@@ -36,6 +36,11 @@ public class MoveParser : ICommandParser
             }
 
             return _nextParser.Parse(listCommandLineArguments);
+        }
+
+        if (parsingResult is ParsingResult.CommandIncorrect incorrect)
+        {
+            return new CommandExecutionResult.RetrievedWithFailure(incorrect.FailureMessage);
         }
 
         return showFileCommandContextBuilder.Build();

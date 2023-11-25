@@ -25,7 +25,7 @@ public class ConnectCommandNameRetriever : IConnectParser
         var listCommandLineArguments = new List<string>(args);
         if (listCommandLineArguments.Find(x => x == commandName) != commandName)
         {
-            return new ParsingResult.Failure("name of command \"connect\" not found");
+            return new ParsingResult.FailureCurrentGoToNextParserWithMessage("name of command \"connect\" not found");
         }
 
         try
@@ -34,18 +34,18 @@ public class ConnectCommandNameRetriever : IConnectParser
 
             if (_nextParser is null)
             {
-                return new ParsingResult.Failure("next parser for connect command is null");
+                return new ParsingResult.FailureCurrentGoToNextParserWithMessage("next parser for connect command is null");
             }
 
             return _nextParser.Parse(connectContextRetriever, enumerable);
         }
         catch (System.ArgumentOutOfRangeException e)
         {
-            return new ParsingResult.Failure($"connect command need path argument (error: {e.Message})");
+            return new ParsingResult.FailureCurrentGoToNextParserWithMessage($"connect command need path argument (error: {e.Message})");
         }
         catch (ArgumentNullException e)
         {
-            return new ParsingResult.Failure($"connect command need path argument (error: {e.Message})");
+            return new ParsingResult.FailureCurrentGoToNextParserWithMessage($"connect command need path argument (error: {e.Message})");
         }
     }
 }

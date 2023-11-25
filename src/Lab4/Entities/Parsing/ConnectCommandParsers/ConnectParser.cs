@@ -20,7 +20,7 @@ public class ConnectParser : ICommandParser
 
         ParsingResult parsingResult = nameRetriever.Parse(connectCommandContextBuilder, listCommandLineArguments);
 
-        if (parsingResult is ParsingResult.Failure)
+        if (parsingResult is ParsingResult.FailureCurrentGoToNextParserWithMessage)
         {
             if (_nextCommandParser is null)
             {
@@ -28,6 +28,11 @@ public class ConnectParser : ICommandParser
             }
 
             return _nextCommandParser.Parse(listCommandLineArguments);
+        }
+
+        if (parsingResult is ParsingResult.CommandIncorrect incorrect)
+        {
+            return new CommandExecutionResult.RetrievedWithFailure(incorrect.FailureMessage);
         }
 
         return connectCommandContextBuilder.Build();

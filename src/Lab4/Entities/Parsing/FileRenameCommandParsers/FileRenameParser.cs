@@ -28,7 +28,7 @@ public class FileRenameParser : ICommandParser
 
         ParsingResult parsingResult = nameRetriever.Parse(connectCommandContextBuilder, listCommandLineArguments);
 
-        if (parsingResult is ParsingResult.Failure)
+        if (parsingResult is ParsingResult.FailureCurrentGoToNextParserWithMessage)
         {
             if (_nextParser is null)
             {
@@ -36,6 +36,11 @@ public class FileRenameParser : ICommandParser
             }
 
             return _nextParser.Parse(listCommandLineArguments);
+        }
+
+        if (parsingResult is ParsingResult.CommandIncorrect incorrect)
+        {
+            return new CommandExecutionResult.ExecutedWithFailure(incorrect.FailureMessage);
         }
 
         return connectCommandContextBuilder.Build();
