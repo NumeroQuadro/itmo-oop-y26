@@ -27,13 +27,13 @@ public class SendMessage_LoggerWasCalledOnce_IfMessageWasReceived
     public void FilterMessage_ReturnNull()
     {
         // Arrange
-        Logger logger = Substitute.For<Logger>();
-        var topic = new Topic(new MessangerAdresse(new Messanger()), "numero uno");
+        ILogger logger = Substitute.For<ConsoleLogger>();
+        var topic = new Topic(new MessangerAdresse(new Messanger(new MessangerTextPrinter())), "numero uno");
 
         // Act
         topic.RedirectMessage(_messageToSend);
 
         // Assert
-        logger.Received(1).LogEventToConsole(_messageToSend.Content);
+        logger.Received(1).LogEvent(_messageToSend.Content);
     }
 }

@@ -12,18 +12,8 @@ public class DisplayAdressee : IAdressee
         _display = display;
     }
 
-    public void GetMessage(Message message)
+    public void ReceiveMessage(Message message)
     {
-        _display.GetMessage(message.Content);
-    }
-
-    public void Print()
-    {
-        _display.Print();
-    }
-
-    private static string ArgumentsToLogMessage()
-    {
-        return "Display reveived message";
+        _display.ReceiveMessage(message.Content);
     }
 }

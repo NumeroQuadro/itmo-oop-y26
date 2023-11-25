@@ -13,9 +13,9 @@ public class LoggerAddressee : IAdressee
         _logger = logger;
     }
 
-    public void GetMessage(Message message)
+    public void ReceiveMessage(Message message)
     {
-        _logger.LogEventToConsole(message.Content);
-        _adressee.GetMessage(message);
+        _logger.LogEvent(message.Content);
+        _adressee.ReceiveMessage(message);
     }
 }

@@ -15,6 +15,6 @@ public class Topic
 
     public void RedirectMessage(Message message)
     {
-        _adressee.GetMessage(message);
+        _adressee.ReceiveMessage(message);
     }
 }

@@ -12,7 +12,7 @@ public class UserAdressee : IAdressee
         _user = user;
     }
 
-    public void GetMessage(Message message)
+    public void ReceiveMessage(Message message)
     {
         _user.GetMessage(message);
     }

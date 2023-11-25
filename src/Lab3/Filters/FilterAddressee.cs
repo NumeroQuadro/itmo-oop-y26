@@ -13,11 +13,11 @@ public class FilterAddressee : IAdressee
         _importanceLevel = importanceLevel;
     }
 
-    public void GetMessage(Message message)
+    public void ReceiveMessage(Message message)
     {
         if (message.ImportanceLevel >= _importanceLevel)
         {
-            _adressee.GetMessage(message);
+            _adressee.ReceiveMessage(message);
         }
     }
 }

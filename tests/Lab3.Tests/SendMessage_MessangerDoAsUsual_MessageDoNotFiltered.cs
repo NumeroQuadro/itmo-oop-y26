@@ -21,12 +21,12 @@ public class SendMessage_MessangerDoAsUsual_MessageDoNotFiltered
             .SetUpContent("Hello, world!");
         Message messageToSend = builder.Build();
 
-        Messanger messanger = Substitute.For<Messanger>();
+        Messanger messanger = Substitute.For<Messanger>(new MessangerTextPrinter());
         var messangerAdresse = new MessangerAdresse(messanger);
 
         var topic = new Topic(messangerAdresse, "numero uno");
         topic.RedirectMessage(messageToSend);
 
-        messanger.Received(1).GetMessage(messageToSend.Content);
+        messanger.Received(1).ReceiveMessage(messageToSend.Content);
     }
 }

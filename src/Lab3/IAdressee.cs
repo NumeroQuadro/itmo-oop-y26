@@ -4,5 +4,5 @@ namespace Itmo.ObjectOrientedProgramming.Lab3;
 
 public interface IAdressee
 {
-    public void GetMessage(Message message);
+    public void ReceiveMessage(Message message);
 }

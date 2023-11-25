@@ -22,12 +22,12 @@ public class SendMessage_FilterDoNotSift_IfMessageDoNotCorrect
             .SetUpContent("Hello, world!");
         Message messageToSend = builder.Build();
 
-        FilterAddressee filterAddressee = Substitute.For<FilterAddressee>(new MessangerAdresse(new Messanger()), 8);
+        FilterAddressee filterAddressee = Substitute.For<FilterAddressee>(new MessangerAdresse(new Messanger(new MessangerTextPrinter())), 8);
 
         var topic = new Topic(filterAddressee, "numero uno");
         topic.RedirectMessage(messageToSend);
 
         // Act
-        filterAddressee.Received(0).GetMessage(messageToSend);
+        filterAddressee.Received(0).ReceiveMessage(messageToSend);
     }
 }

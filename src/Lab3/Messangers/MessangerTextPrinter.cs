@@ -2,7 +2,7 @@ using System;
 
 namespace Itmo.ObjectOrientedProgramming.Lab3.Messangers;
 
-internal class MessangerTextPrinter : IMessangerPrinter
+public class MessangerTextPrinter : IMessangerPrinter
 {
     public void Print(string value)
     {

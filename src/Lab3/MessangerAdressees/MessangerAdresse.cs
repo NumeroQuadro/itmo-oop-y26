@@ -12,9 +12,9 @@ public class MessangerAdresse : IAdressee
         _messanger = messanger;
     }
 
-    public void GetMessage(Message message)
+    public void ReceiveMessage(Message message)
     {
-        _messanger.GetMessage(message.Content);
+        _messanger.ReceiveMessage(message.Content);
     }
 
     private static string ArgumentsToLogMessage()

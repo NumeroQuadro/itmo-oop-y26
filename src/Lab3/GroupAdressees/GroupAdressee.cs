@@ -13,11 +13,11 @@ public class GroupAdressee : IAdressee
         _adressees = adressees.ToList();
     }
 
-    public void GetMessage(Message message)
+    public void ReceiveMessage(Message message)
     {
         foreach (IAdressee adressee in _adressees)
         {
-            adressee.GetMessage(message);
+            adressee.ReceiveMessage(message);
         }
     }
 
