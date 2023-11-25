@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Entities;
@@ -50,5 +51,7 @@ public class LocalFileSystem : IFileSystem
 
     public void ShowFile(string path)
     {
+        string fileContent = File.ReadAllText(path);
+        Console.WriteLine(fileContent);
     }
 }
