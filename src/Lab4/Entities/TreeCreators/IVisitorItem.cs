@@ -6,5 +6,5 @@ public interface IVisitorItem
 {
     public string Name { get; }
     public VisitState VisitState { get; }
-    public void Accept(string indentationItem, IVisitor visitor);
+    public void Accept(int currentDepth, TreeListWritingOptions options, IVisitor visitor);
 }

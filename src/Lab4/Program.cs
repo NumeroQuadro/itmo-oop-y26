@@ -10,7 +10,7 @@ public static class Program
 {
     public static void Main()
     {
-        var appContext = new ApplicationContext(new TreeListWritingOptions("  ", "├──", "└──"));
+        var appContext = new ApplicationContext(new TreeListWritingOptions("-", "fold:", "fil:"));
 
         while (true)
         {

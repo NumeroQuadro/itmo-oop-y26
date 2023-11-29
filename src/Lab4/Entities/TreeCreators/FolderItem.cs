@@ -13,6 +13,12 @@ public class FolderItem : IVisitorItem
         _pathFolderItem = pathFolderItem;
     }
 
+    public FolderItem(string pathFolderItem, IEnumerable<IVisitorItem> reversedChildren)
+    {
+        _pathFolderItem = pathFolderItem;
+        _children = new List<IVisitorItem>(reversedChildren);
+    }
+
     public IEnumerable<IVisitorItem> Children => _children;
     public string Name => _pathFolderItem;
     public VisitState VisitState { get; private set; } = new VisitState.NotVisited();
@@ -22,14 +28,9 @@ public class FolderItem : IVisitorItem
         _children.Add(child);
     }
 
-    public void Accept(string indentationItem, IVisitor visitor)
+    public void Accept(int currentDepth, TreeListWritingOptions options, IVisitor visitor)
     {
         VisitState = new VisitState.Visited();
-        visitor.ExtractFolder(this);
-    }
-
-    public string PathWithIndentationAndIcon(string indentationItem)
-    {
-        return indentationItem + _pathFolderItem;
+        visitor.ExtractFolder(currentDepth, options, this);
     }
 }

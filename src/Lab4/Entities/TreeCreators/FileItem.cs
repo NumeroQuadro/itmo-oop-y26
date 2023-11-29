@@ -15,9 +15,9 @@ public class FileItem : IVisitorItem
 
     public VisitState VisitState { get; private set; } = new VisitState.NotVisited();
 
-    public void Accept(string indentationItem, IVisitor visitor)
+    public void Accept(int currentDepth, TreeListWritingOptions options, IVisitor visitor)
     {
         VisitState = new VisitState.Visited();
-        visitor.ExtractFile(this);
+        visitor.ExtractFile(currentDepth, options, this);
     }
 }
