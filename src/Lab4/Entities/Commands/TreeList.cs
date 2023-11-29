@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.CommandContexts.TreeListContext;
 using Itmo.ObjectOrientedProgramming.Lab4.Entities.TreeCreators;
 using Itmo.ObjectOrientedProgramming.Lab4.Models;
@@ -27,8 +28,12 @@ public class TreeList : ICommand
         FolderItem rootFolder = creator.BuildFileSystemTree(applicationContext.FileSystem.GetCurrentPath);
 
         const int startDepth = 0;
-        var printer = new VisitorItemsExtractor();
-        rootFolder.Accept(startDepth, applicationContext.TreeListWritingOptions, printer);
+        var visitor = new VisitorItemsExtractor();
+        var treeContent = new Collection<string>();
+        rootFolder.Accept(treeContent, startDepth, applicationContext.TreeListWritingOptions, visitor);
+
+        var treePrinter = new TreePrinter(treeContent);
+        treePrinter.Print();
 
         return new CommandExecutionResult.ExecutedSuccessfully("tree list was printed");
     }

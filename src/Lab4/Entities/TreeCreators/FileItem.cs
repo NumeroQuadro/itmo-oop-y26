@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using Itmo.ObjectOrientedProgramming.Lab4.Models;
 
 namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.TreeCreators;
@@ -15,9 +16,9 @@ public class FileItem : IVisitorItem
 
     public VisitState VisitState { get; private set; } = new VisitState.NotVisited();
 
-    public void Accept(int currentDepth, TreeListWritingOptions options, IVisitor visitor)
+    public void Accept(Collection<string> treeContent, int currentDepth, TreeListWritingOptions options, IVisitor visitor)
     {
         VisitState = new VisitState.Visited();
-        visitor.ExtractFile(currentDepth, options, this);
+        visitor.ExtractFile(treeContent, currentDepth, options, this);
     }
 }
