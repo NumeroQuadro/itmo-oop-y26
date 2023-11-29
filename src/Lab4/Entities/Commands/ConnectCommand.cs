@@ -18,11 +18,6 @@ public class ConnectCommand : ICommand
 
     public CommandExecutionResult Execute(ApplicationContext applicationContext)
     {
-        if (!Path.IsPathRooted(_context.Path))
-        {
-            return new CommandExecutionResult.ExecutedWithFailure("Path should be rooted");
-        }
-
         if (!Path.Exists(_context.Path))
         {
             return new CommandExecutionResult.ExecutedWithFailure("Path does not exist");
