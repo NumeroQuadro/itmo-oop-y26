@@ -2,6 +2,29 @@
 
     <PropertyGroup>
         <RootNamespace>Itmo.ObjectOrientedProgramming.Lab3</RootNamespace>
+        <OutputType>Exe</OutputType>
+
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
     </PropertyGroup>
+
+    <ItemGroup>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </ItemGroup>
+
+
+
 
 </Project>
