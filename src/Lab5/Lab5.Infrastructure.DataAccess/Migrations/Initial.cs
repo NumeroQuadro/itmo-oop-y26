@@ -13,13 +13,6 @@ public class Initial : SqlMigration
             'Admin',
             'User',
         );
-        
-        CREATE TABLE Accounts
-        (
-            AccountId SERIAL PRIMARY KEY generated always as identity,
-            UserID bigint not null references Users(UserID),
-            Balance DECIMAL(18, 2) NOT NULL
-        );
 
         CREATE TABLE Admins
         (
@@ -35,12 +28,12 @@ public class Initial : SqlMigration
             Username text not null,
             user_type user_type not null,
             Password VARCHAR(50) NOT NULL
+            Balance DECIMAL(18, 2) NOT NULL
         );
         """;
 
     protected override string GetDownSql(IServiceProvider serviceProvider) =>
         """
-        drop table if exists Accounts cascade;
         drop table if exists Admins cascade;
         drop table if exists Users cascade;
 

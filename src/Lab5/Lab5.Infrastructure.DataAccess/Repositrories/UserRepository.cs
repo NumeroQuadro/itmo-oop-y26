@@ -17,26 +17,21 @@ public class UserRepository : IUserRepository
 
     public async Task<User?> FindUserByUsername(string username)
     {
-        const string sql = """
+        const string findUserByUsernameRequest = """
            select UserID, Username, Type, Password
            from users
            where Username = :username;
         """;
 
         NpgsqlConnection connection = await _connectionProvider
-            .GetConnectionAsync(default)
-            .ConfigureAwait(true);
+            .GetConnectionAsync(default);
 
-        // NpgsqlConnection connection = _connectionProvider
-        //     .GetConnectionAsync(default)
-        //     .GetAwaiter()
-        //     .GetResult();
-        await using var command = new NpgsqlCommand(sql, connection);
+        await using var command = new NpgsqlCommand(findUserByUsernameRequest, connection);
         command.AddParameter("username", username);
 
         await using NpgsqlDataReader reader = await command.ExecuteReaderAsync();
 
-        if (await reader.ReadAsync().ConfigureAwait(true) is false)
+        if (await reader.ReadAsync() is false)
             return null;
 
         return new User(
