@@ -100,3 +100,6 @@ dotnet_diagnostic.CA1707.severity = none
 
 # for easier excpetion catching
 dotnet_diagnostic.CA1031.severity = none
+
+# for 'await using'
+dotnet_diagnostic.CA2007.severity = none
