@@ -32,4 +32,16 @@ public class UserService : IUserService
 
         return new LoginResult.Success();
     }
+
+    public FindUserResult FindUserByUsername(string username)
+    {
+        Task<User?> user = _repository.FindUserByUsername(username);
+
+        if (user.Result is null)
+        {
+            return new FindUserResult.NotFound();
+        }
+
+        return new FindUserResult.Success();
+    }
 }

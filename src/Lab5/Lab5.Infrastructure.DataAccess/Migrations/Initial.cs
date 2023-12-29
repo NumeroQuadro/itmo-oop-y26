@@ -11,7 +11,7 @@ public class Initial : SqlMigration
         create type user_type as enum
         (
             'Admin',
-            'User',
+            'User'
         );
 
         CREATE TABLE Admins
@@ -27,7 +27,7 @@ public class Initial : SqlMigration
             UserID SERIAL PRIMARY KEY generated always as identity,
             Username text not null,
             user_type user_type not null,
-            Password VARCHAR(50) NOT NULL
+            Password VARCHAR(50) NOT NULL,
             Balance DECIMAL(18, 2) NOT NULL
         );
         """;

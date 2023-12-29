@@ -16,6 +16,18 @@ public class LoginScenario : IScenario
     public void Run()
     {
         string username = AnsiConsole.Ask<string>("Enter your username");
+
+        FindUserResult findResult = _userService.FindUserByUsername(username);
+
+        string findUserMessage = findResult switch
+        {
+            FindUserResult.Success => "User found",
+            FindUserResult.NotFound => "User not found",
+            _ => throw new ArgumentOutOfRangeException(nameof(FindUserResult)),
+        };
+
+        AnsiConsole.WriteLine(findUserMessage);
+
         string password = AnsiConsole.Ask<string>("Enter your password");
 
         LoginResult result = _userService.Login(username, password);

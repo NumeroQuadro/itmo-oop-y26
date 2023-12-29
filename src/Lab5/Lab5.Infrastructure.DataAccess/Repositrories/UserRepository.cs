@@ -18,8 +18,8 @@ public class UserRepository : IUserRepository
     public async Task<User?> FindUserByUsername(string username)
     {
         const string findUserByUsernameRequest = """
-           select UserID, Username, Type, Password
-           from users
+           select UserID, Username, Password, Balance
+           from Users
            where Username = :username;
         """;
 
@@ -37,7 +37,7 @@ public class UserRepository : IUserRepository
         return new User(
             Id: reader.GetInt64(0),
             Username: reader.GetString(1),
-            Type: await reader.GetFieldValueAsync<UserType>(2),
-            Password: reader.GetString(3));
+            Password: reader.GetString(2),
+            Balance: await reader.GetFieldValueAsync<decimal>(3));
     }
 }
