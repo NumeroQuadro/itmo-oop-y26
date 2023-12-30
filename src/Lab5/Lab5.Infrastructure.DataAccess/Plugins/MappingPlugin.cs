@@ -10,5 +10,6 @@ public class MappingPlugin : IDataSourcePlugin
     public void Configure(NpgsqlDataSourceBuilder builder)
     {
         builder.MapEnum<TransactionType>();
+        builder.MapEnum<UserType>();
     }
 }

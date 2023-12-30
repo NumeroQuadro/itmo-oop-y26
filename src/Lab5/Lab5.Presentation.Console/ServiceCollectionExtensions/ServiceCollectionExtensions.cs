@@ -2,6 +2,7 @@ using Lab5.Presentation.Console.Scenarios.CheckBalanceScenarios;
 using Lab5.Presentation.Console.Scenarios.CreateAccountScenarios;
 using Lab5.Presentation.Console.Scenarios.DepositScenarios;
 using Lab5.Presentation.Console.Scenarios.LoginScenarios;
+using Lab5.Presentation.Console.Scenarios.ViewTransactionHistoryScenarios;
 using Lab5.Presentation.Console.Scenarios.WithdrawMoney;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,6 +19,7 @@ public static class ServiceCollectionExtensions
         collection.AddScoped<IScenarioProvider, DepositScenarioProvider>();
         collection.AddScoped<IScenarioProvider, CheckBalanceScenarioProvider>();
         collection.AddScoped<IScenarioProvider, CreateAccountScenarioProvider>();
+        collection.AddScoped<IScenarioProvider, ViewTransactionHistoryScenarioProvider>();
         return collection;
     }
 }

@@ -1,3 +1,5 @@
+using Lab5.Presentation.Console.Models;
+using Lab5.Presentation.Console.ScenarioResultHandlers;
 using Spectre.Console;
 
 namespace Lab5.Presentation.Console;
@@ -21,7 +23,10 @@ public class ScenarioRunner
             .UseConverter(x => x.Name);
 
         IScenario scenario = AnsiConsole.Prompt(selector);
-        scenario.Run();
+        ScenarioResult result = scenario.Run();
+
+        IScenarioResultHandler handler = new ConsoleScenarioResultHandler();
+        handler.Handle(result);
     }
 
     private IEnumerable<IScenario> GetScenarios()

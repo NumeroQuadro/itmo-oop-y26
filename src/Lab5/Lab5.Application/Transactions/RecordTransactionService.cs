@@ -17,4 +17,16 @@ public class RecordTransactionService : ITransactionSerivce
     {
         _transactionRepository.RecordTransaction(type, username, amount);
     }
+
+    public ViewTransactionResult ViewTransactionHistoryForUserByUsername(string username)
+    {
+        Task<IEnumerable<Transaction>?> transactions = _transactionRepository.ViewTransactionHistoryForUserByUsername(username);
+
+        if (transactions.Result is null)
+        {
+            return new ViewTransactionResult.Failure("No transactions found for user.");
+        }
+
+        return new ViewTransactionResult.Success(transactions.Result);
+    }
 }
