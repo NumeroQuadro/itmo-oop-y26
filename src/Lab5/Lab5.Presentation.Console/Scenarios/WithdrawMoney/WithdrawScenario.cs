@@ -1,25 +1,27 @@
 using Lab5.Application.Contracts.Users;
 using Lab5.Application.Models.Balance;
+using Lab5.Application.Models.Users;
 using Spectre.Console;
 
-namespace Lab5.Presentation.Console.Scenarios.LoginScenario;
+namespace Lab5.Presentation.Console.Scenarios.WithdrawMoney;
 
 public class WithdrawScenario : IScenario
 {
-    private readonly IBalanceService _balanceService;
+    private readonly IUserService _withdrawBalanceService;
+    private User _user;
 
-    public WithdrawScenario(IBalanceService balanceService)
+    public WithdrawScenario(IUserService withdrawBalanceService, User user)
     {
-        _balanceService = balanceService;
+        _withdrawBalanceService = withdrawBalanceService;
+        _user = user;
     }
 
     public string Name => "Withdraw money";
     public void Run()
     {
-        string username = AnsiConsole.Ask<string>("Enter your username");
         decimal amount = AnsiConsole.Ask<decimal>("Enter the amount you want to withdraw");
 
-        UpdateBalanceResult result = _balanceService.WithdrawMoney(username, amount);
+        UpdateBalanceResult result = _withdrawBalanceService.WithdrawMoney(_user.Balance, _user.Username, amount);
 
         string message = result switch
         {
@@ -29,6 +31,5 @@ public class WithdrawScenario : IScenario
         };
 
         AnsiConsole.WriteLine(message);
-        AnsiConsole.Ask<string>("Ok");
     }
 }

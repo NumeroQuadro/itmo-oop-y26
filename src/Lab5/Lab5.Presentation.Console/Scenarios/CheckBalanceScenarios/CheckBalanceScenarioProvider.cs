@@ -1,17 +1,14 @@
 using System.Diagnostics.CodeAnalysis;
 using Lab5.Application.Contracts.Users;
-using Lab5.Presentation.Console.Scenarios.LoginScenario;
 
-namespace Lab5.Presentation.Console;
+namespace Lab5.Presentation.Console.Scenarios.CheckBalanceScenario;
 
-public class LoginUserScenarioProvider : IScenarioProvider
+public class CheckBalanceScenarioProvider : IScenarioProvider
 {
     private readonly IUserService _service;
     private readonly ICurrentUserService _currentUser;
 
-    public LoginUserScenarioProvider(
-        IUserService service,
-        ICurrentUserService currentUser)
+    public CheckBalanceScenarioProvider(IUserService service, ICurrentUserService currentUser)
     {
         _service = service;
         _currentUser = currentUser;
@@ -20,13 +17,13 @@ public class LoginUserScenarioProvider : IScenarioProvider
     public bool TryGetScenario(
         [NotNullWhen(true)] out IScenario? scenario)
     {
-        if (_currentUser.User is not null)
+        if (_currentUser.User is null)
         {
             scenario = null;
             return false;
         }
 
-        scenario = new LoginScenario(_service);
+        scenario = new CheckBalanceScenario(_service, _currentUser.User);
         return true;
     }
 }

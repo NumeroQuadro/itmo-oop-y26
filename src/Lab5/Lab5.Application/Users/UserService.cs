@@ -1,5 +1,6 @@
 using Lab5.Application.Abstractions.Repositories;
 using Lab5.Application.Contracts.Users;
+using Lab5.Application.Models.Balance;
 using Lab5.Application.Models.Users;
 
 namespace Lab5.Application.Users;
@@ -43,5 +44,36 @@ public class UserService : IUserService
         }
 
         return new FindUserResult.Success();
+    }
+
+    public UpdateBalanceResult WithdrawMoney(decimal currentBalance, string username, decimal amount)
+    {
+        if (currentBalance < amount)
+        {
+            return new UpdateBalanceResult.NotEnoughMoney();
+        }
+
+        _repository.UpdateBalance(username, currentBalance - amount);
+
+        return new UpdateBalanceResult.Success();
+    }
+
+    public UpdateBalanceResult DepositMoney(decimal currentBalance, string username, decimal amount)
+    {
+        _repository.UpdateBalance(username, currentBalance + amount);
+
+        return new UpdateBalanceResult.Success();
+    }
+
+    public CheckBalanceResult CheckBalance(string username)
+    {
+        Task<decimal?> balance = _repository.GetBalance(username);
+
+        if (balance.Result is null)
+        {
+            return new CheckBalanceResult.BalanceInformationNotFound();
+        }
+
+        return new CheckBalanceResult.Success(balance.Result.Value);
     }
 }

@@ -7,4 +7,5 @@ public abstract record UpdateBalanceResult
 
     public sealed record Success : UpdateBalanceResult;
     public sealed record NotEnoughMoney : UpdateBalanceResult;
+    public sealed record UserNotFound : UpdateBalanceResult;
 }

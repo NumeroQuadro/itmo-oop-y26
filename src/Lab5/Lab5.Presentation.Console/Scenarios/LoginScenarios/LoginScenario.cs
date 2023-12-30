@@ -41,6 +41,6 @@ public class LoginScenario : IScenario
         };
 
         AnsiConsole.WriteLine(message);
-        AnsiConsole.Ask<string>("Ok");
+        AnsiConsole.Ask<string>("Choose what do you want to do next");
     }
 }

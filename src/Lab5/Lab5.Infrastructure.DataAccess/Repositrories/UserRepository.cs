@@ -35,9 +35,43 @@ public class UserRepository : IUserRepository
             return null;
 
         return new User(
-            Id: reader.GetInt64(0),
             Username: reader.GetString(1),
             Password: reader.GetString(2),
             Balance: await reader.GetFieldValueAsync<decimal>(3));
+    }
+
+    public async Task UpdateBalance(string username, decimal amount)
+    {
+        const string updateBalanceRequest = """
+                                                UPDATE Users SET Balance = :amount WHERE Username = :username;
+                                            """;
+        NpgsqlConnection connection = await _connectionProvider
+            .GetConnectionAsync(default);
+
+        await using var command = new NpgsqlCommand(updateBalanceRequest, connection);
+        command.AddParameter("Username", username);
+        command.AddParameter("Balance", amount);
+
+        await command.ExecuteNonQueryAsync();
+    }
+
+    public async Task<decimal?> GetBalance(string username)
+    {
+        const string checkBalanceRequest = """
+            SELECT Balance FROM Users WHERE Username = :username;
+        """;
+
+        NpgsqlConnection connection = await _connectionProvider
+            .GetConnectionAsync(default);
+
+        await using var command = new NpgsqlCommand(checkBalanceRequest, connection);
+        command.AddParameter("Username", username);
+
+        await using NpgsqlDataReader reader = await command.ExecuteReaderAsync();
+
+        if (await reader.ReadAsync() is false)
+            return null;
+
+        return await reader.GetFieldValueAsync<decimal>(0);
     }
 }

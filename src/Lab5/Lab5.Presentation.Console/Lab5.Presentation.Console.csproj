@@ -16,7 +16,16 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Lab5.Application.Contracts\Lab5.Application.Contracts.csproj" />
+
+
+
     </ItemGroup>
+
+
+
+
+
+
 
 
 </Project>
