@@ -1,4 +1,4 @@
-namespace Itmo.ObjectOrientedProgramming.Lab4.Entities;
+namespace Itmo.ObjectOrientedProgramming.Lab4.Entities.FileSystems;
 
 public interface IFileSystem
 {

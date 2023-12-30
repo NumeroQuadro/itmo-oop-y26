@@ -1,3 +1,4 @@
+using Lab5.Application.Models.Transactions;
 using Lab5.Application.Models.Users;
 
 namespace Lab5.Application.Contracts.Transactions;

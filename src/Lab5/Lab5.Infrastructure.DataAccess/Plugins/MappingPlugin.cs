@@ -1,4 +1,5 @@
 using Itmo.Dev.Platform.Postgres.Plugins;
+using Lab5.Application.Models.Transactions;
 using Lab5.Application.Models.Users;
 using Npgsql;
 

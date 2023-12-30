@@ -1,7 +1,8 @@
 using Lab5.Application.Contracts.Users;
+using Lab5.Presentation.Console.Models;
 using Spectre.Console;
 
-namespace Lab5.Presentation.Console.Scenarios.LoginScenario;
+namespace Lab5.Presentation.Console.Scenarios.LoginScenarios;
 
 public class LoginScenario : IScenario
 {
@@ -13,7 +14,7 @@ public class LoginScenario : IScenario
     }
 
     public string Name => "Login";
-    public void Run()
+    public ScenarioResult Run()
     {
         string username = AnsiConsole.Ask<string>("Enter your username");
 
@@ -32,15 +33,16 @@ public class LoginScenario : IScenario
 
         LoginResult result = _userService.Login(username, password);
 
-        string message = result switch
+        if (result is LoginResult.PasswordMismatch)
         {
-            LoginResult.Success => "Successful login",
-            LoginResult.PasswordMismatch => "Password mismatch",
-            LoginResult.NotFound => "User not found",
-            _ => throw new ArgumentOutOfRangeException(nameof(result)),
-        };
+            return new ScenarioResult.Failure("Password mismatch");
+        }
 
-        AnsiConsole.WriteLine(message);
-        AnsiConsole.Ask<string>("Choose what do you want to do next");
+        if (result is LoginResult.NotFound)
+        {
+            return new ScenarioResult.Failure("User not found");
+        }
+
+        return new ScenarioResult.Success(this, "Successful login");
     }
 }

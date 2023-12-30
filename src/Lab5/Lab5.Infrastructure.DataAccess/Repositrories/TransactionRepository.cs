@@ -1,6 +1,7 @@
 using Itmo.Dev.Platform.Postgres.Connection;
 using Itmo.Dev.Platform.Postgres.Extensions;
 using Lab5.Application.Abstractions.Repositories;
+using Lab5.Application.Models.Transactions;
 using Lab5.Application.Models.Users;
 using Npgsql;
 

@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Lab5.Application.Contracts.Users;
 
-namespace Lab5.Presentation.Console.Scenarios.CheckBalanceScenario;
+namespace Lab5.Presentation.Console.Scenarios.CheckBalanceScenarios;
 
 public class CheckBalanceScenarioProvider : IScenarioProvider
 {

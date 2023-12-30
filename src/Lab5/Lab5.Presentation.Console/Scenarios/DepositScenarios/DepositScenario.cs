@@ -1,7 +1,9 @@
 using Lab5.Application.Contracts.Transactions;
 using Lab5.Application.Contracts.Users;
 using Lab5.Application.Models.Balance;
+using Lab5.Application.Models.Transactions;
 using Lab5.Application.Models.Users;
+using Lab5.Presentation.Console.Models;
 using Spectre.Console;
 
 namespace Lab5.Presentation.Console.Scenarios.DepositScenarios;
@@ -20,19 +22,23 @@ public class DepositScenario : IScenario
     }
 
     public string Name => "Deposit money";
-    public void Run()
+    public ScenarioResult Run()
     {
         decimal amount = AnsiConsole.Ask<decimal>("Enter the amount you want to withdraw");
 
         UpdateBalanceResult result = _userService.DepositMoney(_user.Balance, _user.Username, amount);
         _transactionSerivce.RecordTransaction(TransactionType.Deposit, _user.Username, amount);
 
-        string message = result switch
+        if (result is UpdateBalanceResult.NotEnoughMoney)
         {
-            UpdateBalanceResult.Success => "Successful deposit",
-            _ => throw new ArgumentOutOfRangeException(nameof(result)),
-        };
+            return new ScenarioResult.Failure("Not enough money");
+        }
 
-        AnsiConsole.WriteLine(message);
+        if (result is UpdateBalanceResult.UserNotFound)
+        {
+            return new ScenarioResult.Failure("User not found");
+        }
+
+        return new ScenarioResult.Success(this, "Successful deposit");
     }
 }

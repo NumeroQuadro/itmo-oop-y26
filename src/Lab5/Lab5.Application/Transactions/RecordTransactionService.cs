@@ -1,8 +1,8 @@
 using Lab5.Application.Abstractions.Repositories;
 using Lab5.Application.Contracts.Transactions;
-using Lab5.Application.Models.Users;
+using Lab5.Application.Models.Transactions;
 
-namespace Lab5.Application.Transaactions;
+namespace Lab5.Application.Transactions;
 
 public class RecordTransactionService : ITransactionSerivce
 {

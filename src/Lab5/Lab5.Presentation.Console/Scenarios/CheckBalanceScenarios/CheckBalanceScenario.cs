@@ -1,9 +1,9 @@
 using Lab5.Application.Contracts.Users;
 using Lab5.Application.Models.Balance;
 using Lab5.Application.Models.Users;
-using Spectre.Console;
+using Lab5.Presentation.Console.Models;
 
-namespace Lab5.Presentation.Console.Scenarios.CheckBalanceScenario;
+namespace Lab5.Presentation.Console.Scenarios.CheckBalanceScenarios;
 
 public class CheckBalanceScenario : IScenario
 {
@@ -17,16 +17,15 @@ public class CheckBalanceScenario : IScenario
     }
 
     public string Name => "Check balance";
-    public void Run()
+    public ScenarioResult Run()
     {
         CheckBalanceResult result = _userService.CheckBalance(_user.Username);
 
-        string message = result switch
+        if (result is CheckBalanceResult.Success success)
         {
-            CheckBalanceResult.Success success => $"Your balance is ${success.Balance}",
-            _ => throw new ArgumentOutOfRangeException(nameof(result)),
-        };
+            return new ScenarioResult.Success(this, $"Your balance is {success.Balance}");
+        }
 
-        AnsiConsole.WriteLine(message);
+        return new ScenarioResult.Failure("Balance information not found");
     }
 }

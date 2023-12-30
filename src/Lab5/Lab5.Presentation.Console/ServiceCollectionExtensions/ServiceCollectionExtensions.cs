@@ -1,7 +1,7 @@
-using Lab5.Presentation.Console.Scenarios.CheckBalanceScenario;
+using Lab5.Presentation.Console.Scenarios.CheckBalanceScenarios;
 using Lab5.Presentation.Console.Scenarios.CreateAccountScenarios;
 using Lab5.Presentation.Console.Scenarios.DepositScenarios;
-using Lab5.Presentation.Console.Scenarios.LoginScenario;
+using Lab5.Presentation.Console.Scenarios.LoginScenarios;
 using Lab5.Presentation.Console.Scenarios.WithdrawMoney;
 using Microsoft.Extensions.DependencyInjection;
 

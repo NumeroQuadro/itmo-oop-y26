@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Lab5.Application.Contracts.Users;
 
-namespace Lab5.Presentation.Console.Scenarios.LoginScenario;
+namespace Lab5.Presentation.Console.Scenarios.LoginScenarios;
 
 public class LoginUserScenarioProvider : IScenarioProvider
 {

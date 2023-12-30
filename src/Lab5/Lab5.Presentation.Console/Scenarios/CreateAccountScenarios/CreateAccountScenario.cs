@@ -1,5 +1,6 @@
 using Lab5.Application.Contracts.Accounts;
 using Lab5.Application.Models.Account;
+using Lab5.Presentation.Console.Models;
 using Spectre.Console;
 
 namespace Lab5.Presentation.Console.Scenarios.CreateAccountScenarios;
@@ -14,7 +15,7 @@ public class CreateAccountScenario : IScenario
     }
 
     public string Name => "Create new account";
-    public void Run()
+    public ScenarioResult Run()
     {
         string role = AnsiConsole.Ask<string>("Enter the role you want to sign in as");
         string desiredUsername = AnsiConsole.Ask<string>("Enter the username you want to use");
@@ -23,14 +24,11 @@ public class CreateAccountScenario : IScenario
 
         CreateAccountResult result = _accountService.CreateUserAccount(role, desiredUsername, desiredPassword, initialBalance);
 
-        string message = result switch
+        if (result is CreateAccountResult.Failure failure)
         {
-            CreateAccountResult.Success success => $"Successful account create: {success.Username}, {success.InitialBalance}",
-            CreateAccountResult.Failure failure => $"Failed to create account: {failure.Reason}",
-            _ => throw new ArgumentOutOfRangeException(nameof(result)),
-        };
+            return new ScenarioResult.Failure(failure.Reason);
+        }
 
-        AnsiConsole.WriteLine(message);
-        AnsiConsole.Ask<string>("Choose what do you want to do next");
+        return new ScenarioResult.Success(this, "Successful account creation");
     }
 }
