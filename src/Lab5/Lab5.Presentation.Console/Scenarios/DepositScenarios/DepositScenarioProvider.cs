@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using Lab5.Application.Contracts.Transactions;
 using Lab5.Application.Contracts.Users;
 
 namespace Lab5.Presentation.Console.Scenarios.DepositScenarios;
@@ -6,11 +7,13 @@ namespace Lab5.Presentation.Console.Scenarios.DepositScenarios;
 public class DepositScenarioProvider : IScenarioProvider
 {
     private readonly IUserService _service;
+    private readonly ITransactionSerivce _transactionSerivce;
     private readonly ICurrentUserService _currentUser;
 
-    public DepositScenarioProvider(IUserService service, ICurrentUserService currentUser)
+    public DepositScenarioProvider(IUserService service, ITransactionSerivce transactionSerivce, ICurrentUserService currentUser)
     {
         _service = service;
+        _transactionSerivce = transactionSerivce;
         _currentUser = currentUser;
     }
 
@@ -23,7 +26,7 @@ public class DepositScenarioProvider : IScenarioProvider
             return false;
         }
 
-        scenario = new DepositScenario(_service, _currentUser.User);
+        scenario = new DepositScenario(_service, _transactionSerivce, _currentUser.User);
         return true;
     }
 }

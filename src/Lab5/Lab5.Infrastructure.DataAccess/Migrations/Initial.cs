@@ -9,26 +9,40 @@ public class Initial : SqlMigration
     protected override string GetUpSql(IServiceProvider serviceProvider) =>
         """
         create type user_type as enum
-        (
-            'Admin',
-            'User'
-        );
-
+            (
+                'Admin',
+                'User'
+                );
+        
+        create type transaction_type as enum
+            (
+                'Deposit',
+                'Withdraw'
+                );
+        
         CREATE TABLE Admins
         (
-            AdminID SERIAL PRIMARY KEY generated always as identity,
+            AdminID bigint PRIMARY KEY generated always as identity,
             user_type user_type not null,
-            Username text not null,
+            Username VARCHAR(50) not null,
             Password VARCHAR(50) NOT NULL
         );
         
         CREATE TABLE Users
         (
-            UserID SERIAL PRIMARY KEY generated always as identity,
-            Username text not null,
+            UserID bigint PRIMARY KEY generated always as identity,
+            Username VARCHAR(50) not null,
             user_type user_type not null,
             Password VARCHAR(50) NOT NULL,
             Balance DECIMAL(18, 2) NOT NULL
+        );
+        
+        CREATE TABLE TransactionHistory
+        (
+            TransactionID bigint PRIMARY KEY generated always as identity,
+            Username VARCHAR(50) not null,
+            transaction_type transaction_type not null,
+            Amount DECIMAL(18, 2) not null
         );
         """;
 
@@ -36,7 +50,9 @@ public class Initial : SqlMigration
         """
         drop table if exists Admins cascade;
         drop table if exists Users cascade;
-
-        drop type if exists user_role;
+        drop table if exists TransactionHistory cascade;
+        
+        drop type if exists user_type cascade;
+        drop type if exists transaction_type cascade;
         """;
 }

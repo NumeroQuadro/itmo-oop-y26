@@ -5,7 +5,6 @@ using Lab5.Application.Extensions;
 using Lab5.Presentation.Console;
 using Lab5.Presentation.Console.ServiceCollectionExtensions;
 using Microsoft.Extensions.DependencyInjection;
-using Spectre.Console;
 
 var collection = new ServiceCollection();
 
@@ -33,5 +32,4 @@ ScenarioRunner scenarioRunner = scope.ServiceProvider
 while (true)
 {
     scenarioRunner.Run();
-    AnsiConsole.Clear();
 }

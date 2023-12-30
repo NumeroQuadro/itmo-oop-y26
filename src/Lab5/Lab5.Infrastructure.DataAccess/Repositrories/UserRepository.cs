@@ -18,10 +18,10 @@ public class UserRepository : IUserRepository
     public async Task<User?> FindUserByUsername(string username)
     {
         const string findUserByUsernameRequest = """
-           select UserID, Username, Password, Balance
-           from Users
-           where Username = :username;
-        """;
+                                                    select Username, Password, Balance
+                                                    from Users
+                                                    where Username = :username;
+                                                 """;
 
         NpgsqlConnection connection = await _connectionProvider
             .GetConnectionAsync(default);
@@ -35,9 +35,33 @@ public class UserRepository : IUserRepository
             return null;
 
         return new User(
-            Username: reader.GetString(1),
-            Password: reader.GetString(2),
-            Balance: await reader.GetFieldValueAsync<decimal>(3));
+            Username: reader.GetString(0),
+            Password: reader.GetString(1),
+            Balance: await reader.GetFieldValueAsync<decimal>(2));
+    }
+
+    public async Task<Admin?> FindAdminByUsername(string username)
+    {
+        const string findAdminByUsernameRequest = """
+            select Username, Password
+            from Admins
+            where Username = :username;
+            """;
+
+        NpgsqlConnection connection = await _connectionProvider
+            .GetConnectionAsync(default);
+
+        await using var command = new NpgsqlCommand(findAdminByUsernameRequest, connection);
+        command.AddParameter("username", username);
+
+        await using NpgsqlDataReader reader = await command.ExecuteReaderAsync();
+
+        if (await reader.ReadAsync() is false)
+            return null;
+
+        return new Admin(
+            Username: reader.GetString(0),
+            Password: reader.GetString(1));
     }
 
     public async Task UpdateBalance(string username, decimal amount)
@@ -58,8 +82,8 @@ public class UserRepository : IUserRepository
     public async Task<decimal?> GetBalance(string username)
     {
         const string checkBalanceRequest = """
-            SELECT Balance FROM Users WHERE Username = :username;
-        """;
+                                               SELECT Balance FROM Users WHERE Username = :username;
+                                           """;
 
         NpgsqlConnection connection = await _connectionProvider
             .GetConnectionAsync(default);

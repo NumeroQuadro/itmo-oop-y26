@@ -16,6 +16,8 @@ public static class ServiceCollectionExtensions
         collection.AddPlatformMigrations(typeof(ServiceCollectionExtensions).Assembly);
 
         collection.AddScoped<IUserRepository, UserRepository>();
+        collection.AddScoped<ITransactionRepository, TransactionRepository>();
+        collection.AddScoped<IAccountRepository, AccountRepository>();
         return collection;
     }
 }
